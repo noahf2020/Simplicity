@@ -6,9 +6,9 @@ import {
     Text,
     StatusBar,
   } from 'react-native';
-import PageHeader  from '../components/PageHeader'
+import PageHeader  from '../components/utils/PageHeader'
 import PersonalTask from '../components/PersonalTask';
-import ImageButton from '../components/ImageButton'
+import ImageButton from '../components/utils/ImageButton'
 import { useState } from 'react';
 import { BlurView } from 'expo-blur';
 import AddTaskPopup from '../components/AddTaskPopup';
@@ -22,7 +22,7 @@ export default function Personal() {
     const DATA = [
         {
           id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-          title: "Go to Jeds House",
+          title: 'First Item',
         },
         {
           id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -63,10 +63,18 @@ export default function Personal() {
        
       <SafeAreaView  style={styles.container}>
              <View  style={styles.HeaderBar}>
-                  <PageHeader title="Top Gay stuff to do"/>
+                  <PageHeader title="Personal Tasks"/>
              </View  >
 
-       
+       { isPlusBtnShown == false && isBlurred &&
+       <>
+       <Text>ddjdjdjdj</Text>
+       </>
+
+       }
+
+
+
                     <FlatList
                             data={DATA}
                             showsVerticalScrollIndicator={false}
