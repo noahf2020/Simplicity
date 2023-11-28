@@ -8,20 +8,26 @@ import {
     Pressable
   } from 'react-native';
 
-export default function AddTaskPopup({setPlusBtn, setBlurr}) {
+export default function ChoiceSelector({setPlusBtn, setBlurr, setCreateTaskPopup}) {
 
-const onpress = () => {
-    setPlusBtn(false)
+const onpressTask = () => {
     setBlurr(false)
+    setPlusBtn(false)
+    setCreateTaskPopup(true)
 }
+
+const onpressCaT = () => {
+  
+}
+
 
   return (
         <>
         <View style={Styles.PopupContainer}>
-            <Pressable    onPress={onpress} style={({pressed}) =>{return [Styles.AddTaskBTN, pressed ? Styles.pressed :Styles.notPressed ]}}>
+            <Pressable    onPress={onpressTask} style={({pressed}) =>{return [Styles.AddTaskBTN, pressed ? Styles.pressed :Styles.notPressed ]}}>
                     <Text style={Styles.TXTContainer}>Add Task</Text>
             </Pressable>
-            <Pressable onPress={onpress} style={({pressed}) =>{return [Styles.AddCategory, pressed ? Styles.pressed :Styles.notPressed ]}}>
+            <Pressable onPress={onpressCaT} style={({pressed}) =>{return [Styles.AddCategory, pressed ? Styles.pressed :Styles.notPressed ]}}>
                     <Text style={Styles.TXTContainer}>Add Category</Text>
             </Pressable>
         </View>
