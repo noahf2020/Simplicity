@@ -147,15 +147,14 @@ const saveTempData = async (date) => {
                   <View style={Styles.Notes} >
                               <TextInput style={Styles.NotesInput}
                                               containerStyle={{ marginTop: 15 }}
-                                              placeholder="Task Title"
+                                              placeholder="Notes"
                                               value={NotesValue}
                                               autoCapitalize="none"
                                               autoCompleteType="on"
                                               autoCorrect={true}
                                               keyboardType="default"
-                                            
                                               returnKeyType='done'
-                                       
+                                          
                                               onChangeText={(text) => setNotesValue(text)}
                                />  
                                 
@@ -178,7 +177,7 @@ const saveTempData = async (date) => {
     PopupContainer:{
         height:630,
         width:360,
-        backgroundColor:'green',
+        backgroundColor:'#F6F6F6',
         borderRadius:10,
      
     },
@@ -255,6 +254,8 @@ const saveTempData = async (date) => {
       width:340,
       marginLeft:10,
       borderRadius:10,
+      height:310,
+      marginBottom:50
 
     },
     Timecontainer:{
@@ -276,7 +277,7 @@ const saveTempData = async (date) => {
     Notes:{
       height:200,
       alignItems:'center',
-       backgroundColor:'yellow',
+  
        justifyContent:'center'
     },
     NotesInput:{
@@ -287,7 +288,8 @@ const saveTempData = async (date) => {
       borderWidth:1,
       borderRadius:6,
       paddingLeft:18,
-      fontSize: 16
+      fontSize: 16,
+      textAlignVertical:'top'
     }
 
 })
