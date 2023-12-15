@@ -24,7 +24,7 @@ const onpressCaT = () => {
   return (
         <>
         <View style={Styles.PopupContainer}>
-            <Pressable    onPress={onpressTask} style={({pressed}) =>{return [Styles.AddTaskBTN, pressed ? Styles.pressed :Styles.notPressed ]}}>
+            <Pressable    onPress={onpressTask} c>
                     <Text style={Styles.TXTContainer}>Add Task</Text>
             </Pressable>
             <Pressable onPress={onpressCaT} style={({pressed}) =>{return [Styles.AddCategory, pressed ? Styles.pressed :Styles.notPressed ]}}>

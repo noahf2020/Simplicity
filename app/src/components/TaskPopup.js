@@ -21,6 +21,18 @@ import { Feather } from '@expo/vector-icons';
 
 import ImageButton from './utils/ImageButton'
 
+const categories = [
+  {
+    "color":"#FEF5D3",
+    "image":"calendar"
+  },
+  {
+    "color":"#DBECF6",
+    "image":"calendar"
+  }
+]
+
+
 
 export default function TaskPopup({backToNormal}) {
       const [value, setValue] = useState();
@@ -93,10 +105,23 @@ const saveTempData = async (date) => {
                                />      
                          </View>
 
-                         <View style={Styles.Categories}>
-                              <Text>ddd</Text>
-
-                         </View>
+                         <KeyboardAvoidingView style={Styles.Categories} keyboardVerticalOffset={100} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
+                            <View style={{width:100, alignItems:'center' }}> 
+                              <Text style={{fontWeight:700,}}>Categories: </Text> 
+                            </View>
+                              
+                            {categories.map(category =>{
+                                return (
+                                 ///style={({pressed}) =>{return [Styles.AddTaskBTN, pressed ? Styles.pressed :Styles.notPressed ]}}
+                                  <Pressable onPress={categorySelector} style={{height:45,width:45,backgroundColor:category.color,borderRadius:10, justifyContent:'center',alignItems:'center',borderWidth:2,borderColor:'white'}}>
+                                       <Feather name={category.image} size={20} color="#4A3780" />
+                                  </Pressable>
+                                  
+                                )
+                            })}
+                                
+                          
+                         </KeyboardAvoidingView>
                             
                           <View style={Styles.Txt}>
                               <Text style={{fontWeight: 700, fontSize: 14, color:'#1B1B1D'  }}>Date</Text>
@@ -210,8 +235,11 @@ const saveTempData = async (date) => {
       height:50,
       marginTop:24,
       marginBottom:24,
-      flex:.1
-
+      flex:.2,
+      
+      alignItems:'center',
+      flexDirection: "row",
+      justifyContent:'space-around',
     },
     Selections:{
       height:85,
