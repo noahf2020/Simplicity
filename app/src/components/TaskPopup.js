@@ -20,17 +20,8 @@ import { Feather } from '@expo/vector-icons';
 
 
 import ImageButton from './utils/ImageButton'
+import { getAllCategories } from '../helper/Categories';
 
-const categories = [
-  {
-    "color":"#FEF5D3",
-    "image":"calendar"
-  },
-  {
-    "color":"#DBECF6",
-    "image":"calendar"
-  }
-]
 
 
 
@@ -43,6 +34,16 @@ export default function TaskPopup({backToNormal}) {
 
       const [showCalendar, setCalendar] = useState(false)
       const [showTime, setTime] = useState(false)
+      const [categories, setCategories] = useState([])
+
+
+      useEffect(async () => {
+       let data = await getAllCategories()
+       console.log(data)
+       setCategories(data)
+      }, [categories]);
+      // ...
+    
 
 
 let tempDate;
