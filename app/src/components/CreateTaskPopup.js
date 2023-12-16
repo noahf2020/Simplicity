@@ -7,11 +7,11 @@ import { Feather } from '@expo/vector-icons';
 
 import { getAllCategories } from '../helper/Categories';
 
-import EnableNoti from './utils/EnableNoti';
+import EnableNoti from './utils/Buttons/EnableNoti';
 import Category from './utils/Category';
-import ImageButton from './utils/ImageButton'
-import SaveBtn from './utils/SaveBtn';
-
+import ImageButton from './utils/Buttons/ImageButton'
+import SaveBtn from './utils/Buttons/SaveBtn';
+import { StringCheck } from './utils/Validators/InputValidators';
 
 export default function TaskPopup({backToNormal}) {
       const [value, setValue] = useState();
@@ -64,6 +64,23 @@ const saveTempData = async (date) => {
       console.log(date)
       tempDate = date
 }
+
+
+
+const checkForValidFields = async () =>{
+    console.log(TaskTitleValue)
+    if(StringCheck(TaskTitleValue, 3)){
+      console.log("good String Check")
+    }else{
+      console.log("bad String Check")
+    }
+
+
+
+}
+
+
+
 
   return (
         <>
@@ -168,7 +185,7 @@ const saveTempData = async (date) => {
                               <EnableNoti />
                   </View>
                   <View style={Styles.save}>
-                        <SaveBtn />
+                        <SaveBtn checkForValidFields={checkForValidFields}/>
                   </View>
                   </KeyboardAvoidingView>                   
                               
@@ -315,7 +332,6 @@ const saveTempData = async (date) => {
       height:80,
       alignItems:'center',
       justifyContent:'center',
-
       marginTop:10
     }
 

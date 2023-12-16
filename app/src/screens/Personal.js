@@ -8,11 +8,11 @@ import {
   } from 'react-native';
 import PageHeader  from '../components/utils/PageHeader'
 import PersonalTask from '../components/PersonalTask';
-import ImageButton from '../components/utils/ImageButton'
+import ImageButton from '../components/utils/Buttons/ImageButton'
 import { useState } from 'react';
 import { BlurView } from 'expo-blur';
 import ChoiceSelector from '../components/ChoiceSelector';
-import TaskPopup from '../components/TaskPopup';
+import TaskPopup from '../components/CreateTaskPopup';
   
 export default function Personal() {
 
