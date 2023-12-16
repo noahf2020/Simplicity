@@ -1,59 +1,46 @@
-import {
-    SafeAreaView,
-    View,
-    FlatList,
-    StyleSheet,
-    Text,
-    StatusBar,
-    Pressable,
-    TextInput,
-    KeyboardAvoidingView,
-    TouchableWithoutFeedback,
-    Keyboard,
-    Platform
-  } from 'react-native';
-import React,{useState} from 'react';
+import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import React,{useState, useEffect} from 'react';
 import DateTimePicker from 'react-native-ui-datepicker';
 import delay from 'delay';
 import dayjs from 'dayjs';
 import { Feather } from '@expo/vector-icons'; 
 
-
-import ImageButton from './utils/ImageButton'
 import { getAllCategories } from '../helper/Categories';
 
-
+import EnableNoti from './utils/EnableNoti';
+import Category from './utils/Category';
+import ImageButton from './utils/ImageButton'
+import SaveBtn from './utils/SaveBtn';
 
 
 export default function TaskPopup({backToNormal}) {
       const [value, setValue] = useState();
       const [cvalue, csetValue] = useState();
-
       const [TaskTitleValue, setTaskTitleValue] = useState("");
       const [NotesValue, setNotesValue] = useState("");
-
       const [showCalendar, setCalendar] = useState(false)
       const [showTime, setTime] = useState(false)
       const [categories, setCategories] = useState([])
 
 
-      useEffect(async () => {
-       let data = await getAllCategories()
-       console.log(data)
-       setCategories(data)
-      }, [categories]);
+ useEffect( () => {
+      async function fetchData() {
+            let data = await getAllCategories()
+            console.log(data)
+           setCategories(data.slice())
+      }
+      fetchData()
+      }, []);
       // ...
     
-
 
 let tempDate;
 
 const onpressDate = () =>{
       if(showTime == false){
-            console.log("false")
-            setCalendar(!showCalendar)
+       console.log("false")
+       setCalendar(!showCalendar)
       }
-      
 }
 
 const onpressTime = () =>{
@@ -77,7 +64,6 @@ const saveTempData = async (date) => {
       console.log(date)
       tempDate = date
 }
-
 
   return (
         <>
@@ -106,22 +92,15 @@ const saveTempData = async (date) => {
                                />      
                          </View>
 
-                         <KeyboardAvoidingView style={Styles.Categories} keyboardVerticalOffset={100} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
+                         <KeyboardAvoidingView style={Styles.Categories} keyboardVerticalOffset={200} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
                             <View style={{width:100, alignItems:'center' }}> 
                               <Text style={{fontWeight:700,}}>Categories: </Text> 
                             </View>
-                              
-                            {categories.map(category =>{
-                                return (
-                                 ///style={({pressed}) =>{return [Styles.AddTaskBTN, pressed ? Styles.pressed :Styles.notPressed ]}}
-                                  <Pressable onPress={categorySelector} style={{height:45,width:45,backgroundColor:category.color,borderRadius:10, justifyContent:'center',alignItems:'center',borderWidth:2,borderColor:'white'}}>
-                                       <Feather name={category.image} size={20} color="#4A3780" />
-                                  </Pressable>
-                                  
-                                )
-                            })}
-                                
+
+                       
+                             {categories.map(category =>{  return (<Category category={category}/> ) })}
                           
+
                          </KeyboardAvoidingView>
                             
                           <View style={Styles.Txt}>
@@ -185,6 +164,12 @@ const saveTempData = async (date) => {
                                />  
                                 
                               </View>
+                  <View style={Styles.noti}>
+                              <EnableNoti />
+                  </View>
+                  <View style={Styles.save}>
+                        <SaveBtn />
+                  </View>
                   </KeyboardAvoidingView>                   
                               
                                            
@@ -236,7 +221,7 @@ const saveTempData = async (date) => {
       height:50,
       marginTop:24,
       marginBottom:24,
-      flex:.2,
+      flex:.1,
       
       alignItems:'center',
       flexDirection: "row",
@@ -304,13 +289,12 @@ const saveTempData = async (date) => {
       borderRadius:10,
     },
     Notes:{
-      height:200,
+      height:150,
       alignItems:'center',
-  
        justifyContent:'center'
     },
     NotesInput:{
-      height: 170,
+      height: 130,
       width:330,
       backgroundColor:'#fff',
       borderColor: '#E0E0E0',
@@ -319,6 +303,20 @@ const saveTempData = async (date) => {
       paddingLeft:18,
       fontSize: 16,
       textAlignVertical:'top'
+    },
+    noti:{
+
+      height:50,
+
+      alignItems:'center',
+      justifyContent:'center'
+    },
+    save:{
+      height:80,
+      alignItems:'center',
+      justifyContent:'center',
+
+      marginTop:10
     }
 
 })
