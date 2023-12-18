@@ -1,24 +1,17 @@
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import React, {useState} from 'react';
-export default function ErrorModal() {
+export default function ErrorModal({setModalVisable, errorModal}) {
   return (
     <Modal
     animationType="slide"
     transparent={true}
-    visible={modalVisible}
+    visible={errorModal}
     onRequestClose={() => {
       Alert.alert('Modal has been closed.');
-      setModalVisible(!modalVisible);
+      setModalVisable(!errorModal);
     }}>
-    <View style={styles.centeredView}>
-      <View style={styles.modalView}>
-        <Text style={styles.modalText}>Hello World!</Text>
-        <Pressable
-          style={[styles.button, styles.buttonClose]}
-          onPress={() => setModalVisible(!modalVisible)}>
-          <Text style={styles.textStyle}>Hide Modal</Text>
-        </Pressable>
-      </View>
+    <View >
+        <Text>Hello World!</Text>
     </View>
   </Modal>
   )
