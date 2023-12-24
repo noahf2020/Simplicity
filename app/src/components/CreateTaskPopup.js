@@ -12,22 +12,31 @@ import Category from './utils/Category';
 import ImageButton from './utils/Buttons/ImageButton'
 import SaveBtn from './utils/Buttons/SaveBtn';
 import { StringCheck } from './utils/Validators/InputValidators';
+import ErrorModal from './utils/ErrorModal';
+
 
 export default function TaskPopup({backToNormal}) {
       const [value, setValue] = useState();
       const [cvalue, csetValue] = useState();
       const [TaskTitleValue, setTaskTitleValue] = useState("");
       const [NotesValue, setNotesValue] = useState("");
+      const [selectedCategory, setCategory] = useState("");
+
+
+
       const [showCalendar, setCalendar] = useState(false)
       const [showTime, setTime] = useState(false)
       const [categories, setCategories] = useState([])
-
+      const [errorModal, setModalVisable] = useState(false)
+      const [errorMessage, setErrorMessage] = useState("")
+      const [isAlreadySelected, setIsAlraedySelected] = useState(false)
+      const [isEnabled, setIsEnabled] = useState(false);
 
  useEffect( () => {
+  
       async function fetchData() {
             let data = await getAllCategories()
-            console.log(data)
-           setCategories(data.slice())
+            setCategories(data.slice())
       }
       fetchData()
       }, []);
@@ -68,14 +77,34 @@ const saveTempData = async (date) => {
 
 
 const checkForValidFields = async () =>{
-    console.log(TaskTitleValue)
     if(StringCheck(TaskTitleValue, 3)){
       console.log("good String Check")
     }else{
-      console.log("bad String Check")
+      await setErrorMessage("Invalid [title] Input(s)")
+      await setModalVisable(true)
+      await delay(2250)
+      await setModalVisable(false)
+     
     }
 
+    if(selectedCategory){
+      console.log(selectedCategory)
+    }else{
+      await setErrorMessage("Please Select Category")
+      await setModalVisable(true)
+      await delay(2250)
+      await setModalVisable(false)
+    }
+  
+    if(value && cvalue){
+      console.log("good date + Time")
 
+    }else{
+      await setErrorMessage("Invalid [date/time] Input(s)")
+      await setModalVisable(true)
+      await delay(2250)
+      await setModalVisable(false)
+    }
 
 }
 
@@ -113,9 +142,13 @@ const checkForValidFields = async () =>{
                             <View style={{width:100, alignItems:'center' }}> 
                               <Text style={{fontWeight:700,}}>Categories: </Text> 
                             </View>
+                            {errorModal && 
+                            <>
+                            <ErrorModal setModalVisable={setModalVisable} errorModal={errorModal} message={errorMessage}/>
+                            </>
+                          } 
 
-                       
-                             {categories.map(category =>{  return (<Category category={category}/> ) })}
+                             {categories.map(category =>{  return (<Category category={category} setIsAlraedySelected={setIsAlraedySelected} isAlreadySelected={isAlreadySelected} setCategory={setCategory}/> ) })}
                           
 
                          </KeyboardAvoidingView>
@@ -182,7 +215,7 @@ const checkForValidFields = async () =>{
                                 
                               </View>
                   <View style={Styles.noti}>
-                              <EnableNoti />
+                              <EnableNoti isEnabled={isEnabled} setIsEnabled={setIsEnabled}/>
                   </View>
                   <View style={Styles.save}>
                         <SaveBtn checkForValidFields={checkForValidFields}/>

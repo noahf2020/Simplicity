@@ -19,10 +19,9 @@ import {useState, useEffect} from 'react';
 
 
 
-export default function EnableNoti() {
+export default function EnableNoti({isEnabled,setIsEnabled}) {
 
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const toggleSwitch = () => setIsEnabled(!isEnabled);
   
   return (
   <View style={{backgroundColor: '#EEEEEE', height:43, width:297, borderRadius:15, justifyContent:'space-between', flexDirection: 'row', paddingHorizontal: 15, alignItems: 'center'}}>

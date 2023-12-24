@@ -17,7 +17,7 @@ import Login from "../screens/Login";
 import { AuthContext } from "../provider/AuthProvider";
 import Personal from "../screens/Personal";
 import { Ionicons } from '@expo/vector-icons'; 
-import ImageButton from "../components/utils/ImageButton";
+import ImageButton from "../components/utils/Buttons/ImageButton";
 // Better put your these secret keys in .env file
 
 

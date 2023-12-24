@@ -1,72 +1,48 @@
-import {
-    SafeAreaView,
-    View,
-    FlatList,
-    StyleSheet,
-    Text,
-    StatusBar,
-  } from 'react-native';
+import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import React,{useState, useEffect} from 'react';
+import { BlurView } from 'expo-blur';
+
 import PageHeader  from '../components/utils/PageHeader'
 import PersonalTask from '../components/PersonalTask';
 import ImageButton from '../components/utils/Buttons/ImageButton'
-import { useState } from 'react';
-import { BlurView } from 'expo-blur';
 import ChoiceSelector from '../components/ChoiceSelector';
 import TaskPopup from '../components/CreateTaskPopup';
-  
+
+import { getAllTasks } from '../helper/Tasks';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+
+
 export default function Personal() {
 
   const [isBlurred, setBlurr] = useState(false);
   const [isPlusBtnShown, setPlusBtn] = useState(true)
   const [isCreateTaskPopup, setCreateTaskPopup] = useState(false)
-
-  const backToNormal = () => {
-    setCreateTaskPopup(false)
-    setPlusBtn(true)
-    setBlurr(false)
-  }
+  const [tasks, setTasks] = useState([])
 
 
-    const DATA = [
-        {
-          id: 'bd7acbea-c1b1-46c2-kaed5-3ad53abb28ba',
-          title: 'First Item',
-        },
-        {
-          id: '3ac68afc-c605-48d3-a4f8-fkbd91aa97f63',
-          title: 'Second Item',
-        },
-        {
-          id: '58694a0f-3da1-471f-bd96-1455k71e29d72',
-          title: 'Third Item',
-        },
-        {
-            id: '586fa0f-3da1-471f-bd96-1k5571e29d72',
-            title: 'Third Item',
-          },
-          {
-            id: '58694ak-3da1-471f-bd96-145571e29d72',
-            title: 'Third Item',
-          },
-          {
-            id: '58694sf-3da1-471f-bd96-145dse29d72',
-            title: 'Third Item',
-          },
-          {
-            id: '58694a0f-3da1-471f-bd96-1455mn1e29d72',
-            title: 'Third Item',
-          },
-         
-          {
-            id: '58694a0f-3da1-471f-bd96-145571e2w2',
-            title: 'Third Item',
-          },
-         
-      ];
 
+
+  useEffect( () => {
+    async function fetchData() {
+          let data = await getAllTasks()
+          setTasks(data.slice())
+    }
+    fetchData()
+    }, []);
+    // ...
+
+
+  
+    const backToNormal = () => {
+      setCreateTaskPopup(false)
+      setPlusBtn(true)
+      setBlurr(false)
+    }
 
     return (
-        <>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+
       <SafeAreaView  style={styles.container}>
 
       <View   style={ [isCreateTaskPopup ? styles.HeaderBarSmall :styles.HeaderBar ]}>
@@ -80,8 +56,8 @@ export default function Personal() {
                 </>
                 }
 
-                 <FlatList data={DATA} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) => <PersonalTask title={item.title} />}
+                 <FlatList data={tasks} showsVerticalScrollIndicator={false}
+                            renderItem={({item}) => <PersonalTask task={item} />}
                             keyExtractor={item => item.id}
                             style ={styles.NewJAwn}
                         />
@@ -101,7 +77,8 @@ export default function Personal() {
                     </View>
                   </SafeAreaView>
                }
-        </>
+               
+      </GestureHandlerRootView>
        
     );
   }
