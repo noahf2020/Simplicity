@@ -106,6 +106,7 @@ const checkForValidFields = async () =>{
       await setModalVisable(false)
     }
 
+    console.log(value && cvalue)
 }
 
 

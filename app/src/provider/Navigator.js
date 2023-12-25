@@ -4,6 +4,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+
 import { Image, Button,Text } from "react-native";
 import TabBarIcon from '../components/utils/TabBarIcon'
 //Screens
@@ -16,25 +20,31 @@ import Login from "../screens/Login";
 
 import { AuthContext } from "../provider/AuthProvider";
 import Personal from "../screens/Personal";
-import { Ionicons } from '@expo/vector-icons'; 
 import ImageButton from "../components/utils/Buttons/ImageButton";
 // Better put your these secret keys in .env file
 
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDacwAZiVyqYQXELSLg1JSXwZ59JTmJ8bk",
-    authDomain: "test-f5b33.firebaseapp.com",
-    projectId: "test-f5b33",
-    storageBucket: "test-f5b33.appspot.com",
-    messagingSenderId: "1046513344002",
-    appId: "1:1046513344002:web:8800e5ac3b972acf32911b",
-    measurementId: "G-JPLT50LW01"
+  apiKey: "AIzaSyDacwAZiVyqYQXELSLg1JSXwZ59JTmJ8bk",
+  authDomain: "test-f5b33.firebaseapp.com",
+  databaseURL: "https://test-f5b33-default-rtdb.firebaseio.com",
+  projectId: "test-f5b33",
+  storageBucket: "test-f5b33.appspot.com",
+  messagingSenderId: "1046513344002",
+  appId: "1:1046513344002:web:8800e5ac3b972acf32911b",
+  measurementId: "G-JPLT50LW01"
 };
 
+
 if (getApps().length === 0) {
-  initializeApp(firebaseConfig);
+ const app = initializeApp(firebaseConfig);
+
+ const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
 }
+
 
 const AuthStack = createNativeStackNavigator();
 const Auth = () => {
@@ -172,7 +182,7 @@ export default () => {
   const user = auth.user;
   return (
     <NavigationContainer>
-      {user == false && <Main />}
+      {user == false && <Auth />}
       {user == true && <Main />}
     </NavigationContainer>
   );

@@ -5,10 +5,11 @@ import {
     StyleSheet,
     Text,
     StatusBar,
-    Pressable
+    Pressable,
+    Modal
   } from 'react-native';
 
-export default function ChoiceSelector({setPlusBtn, setBlurr, setCreateTaskPopup}) {
+export default function ChoiceSelector({setPlusBtn, setBlurr, setCreateTaskPopup,setCreateCategory}) {
 
 const onpressTask = () => {
     setBlurr(false)
@@ -17,12 +18,15 @@ const onpressTask = () => {
 }
 
 const onpressCaT = () => {
-  
+    setBlurr(false)
+    setPlusBtn(false)
+    setCreateCategory(true)
 }
 
 
   return (
         <>
+    
         <View style={Styles.PopupContainer}>
             <Pressable    onPress={onpressTask} style={Styles.AddTaskBTN}>
                     <Text style={Styles.TXTContainer}>Add Task</Text>
@@ -31,7 +35,9 @@ const onpressCaT = () => {
                     <Text style={Styles.TXTContainer}>Add Category</Text>
             </Pressable>
         </View>
+       
         </>
+
   )
 }
 

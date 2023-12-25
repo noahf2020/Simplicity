@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const AuthContext = createContext();
 const AuthProvider = (props) => {
   const auth = getAuth();
+
   // user null = loading
   const [user, setUser] = useState(null);
 
