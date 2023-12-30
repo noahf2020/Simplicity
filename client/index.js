@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
-const bcrypt = require('bcrypt');
+
 
 database.on('error', (error) => {
     console.log(error)
@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
   // Sample route for user login and generating JWT
   app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-  
+  console.log(req.body)
     const user = await User.findOne({ username, password });
   
     if (user) {
@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
   // Middleware to check JWT and authorize requests
   function authorize(req, res, next) {
     const token = req.headers.authorization;
-  
+
     if (!token) {
       return res.status(401).json({ message: 'Unauthorized: No token provided' });
     }
@@ -74,7 +74,7 @@ const userSchema = new mongoose.Schema({
       if (err) {
         return res.status(401).json({ message: 'Unauthorized: Invalid token' });
       }
-  
+      console.log(decoded)
       req.user = decoded;
       next();
     });

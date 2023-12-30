@@ -45,7 +45,7 @@ const Styles = StyleSheet.create({
     PopupContainer:{
         height:150,
         width:250,
-        backgroundColor:'#F6F6F6',
+        backgroundColor:'',
         borderRadius:10,
     },
     AddTaskBTN:{

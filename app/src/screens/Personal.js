@@ -11,7 +11,7 @@ import CreateCategoryPopup from '../components/CreateCategoryPopup';
 
 
 import { getAllTasks, markAsFavorite } from '../helper/Tasks';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, GestureDetector, Gesture, Directions} from 'react-native-gesture-handler';
 
 
 
@@ -24,7 +24,16 @@ export default function Personal() {
   const [tasks, setTasks] = useState([])
   const [BTnClick, setBtnClick] = useState(1)
   const slideUpAnim = new Animated.Value(0);
+  const slidedownAnim = new Animated.Value(0);
 
+
+
+
+  const flingGesture = Gesture.Fling()
+    .direction(Directions.DOWN)
+    .onStart((e) => {
+      animateSlideDown()
+    });
 
   const click = (id) =>{
     markAsFavorite(id)
@@ -48,14 +57,33 @@ export default function Personal() {
       setCreateTaskPopup(false)
       setPlusBtn(true)
       setBlurr(false)
+      setCreateCategory(false)
     }
 
     const animateSlideUp = () => {
       Animated.timing(slideUpAnim, {
         toValue: 1,
-        duration: 600,
+        duration: 200,
         useNativeDriver: false, // Add this line for non-native driver
       }).start();
+    };
+
+    const animateSlideDown = async () => {
+
+         Animated.timing(slidedownAnim, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: false, // Add this line for non-native driver
+      }).start(() => {
+        // Function to run after the animation is finished
+  
+         backToNormal()
+        // You can call your custom function here
+        // For example, you can reset the animation or trigger another action
+      });
+        
+      backToNormal()
+    
     };
 
 
@@ -75,13 +103,45 @@ export default function Personal() {
        
                 {isCreateTaskPopup && 
                 <>
-                        <TaskPopup backToNormal={backToNormal}/>
+                <GestureDetector gesture={flingGesture}>
+                <Animated.View
+              style={{
+                transform: [
+                  {
+                    translateY: slidedownAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [5, 700],
+                    }),
+                  },
+                ],
+              }}
+            >
+                   <TaskPopup backToNormal={backToNormal}/>
+                   </Animated.View>
+                </GestureDetector>
+           
                 </>
                 }
 
                 {isCreateCategory && 
                 <>
+                <GestureDetector gesture={flingGesture}>
+                    <Animated.View
+                  style={{
+                    transform: [
+                      {
+                        translateY: slidedownAnim.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [5, 700],
+                        }),
+                      },
+                    ],
+                  }}
+                >
                   <CreateCategoryPopup backToNormal={backToNormal}/>
+                </Animated.View>
+                </GestureDetector>
+                  
                 </>
                 
                 }
@@ -94,14 +154,14 @@ export default function Personal() {
                       
                {isBlurred &&
                         <>
-                                <BlurView intensity={5} tint="light" style={styles.absolute} />
+                                <BlurView intensity={4} tint="light" style={styles.absolute} />
                                 <Animated.View
               style={{
                 transform: [
                   {
                     translateY: slideUpAnim.interpolate({
                       inputRange: [0, 1],
-                      outputRange: [300, 0],
+                      outputRange: [5, 0],
                     }),
                   },
                 ],

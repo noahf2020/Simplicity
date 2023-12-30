@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 
@@ -181,9 +182,13 @@ export default () => {
   const auth = useContext(AuthContext);
   const user = auth.user;
   return (
-    <NavigationContainer>
+    <NavigationContainer
+    onReady={() => {
+    
+    }}>
       {user == false && <Auth />}
       {user == true && <Main />}
+  
     </NavigationContainer>
   );
 };
