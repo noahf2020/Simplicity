@@ -1,6 +1,11 @@
-import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform , Animated,} from 'react-native';
-import React,{useState, useEffect} from 'react';
+import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform , Animated, Button} from 'react-native';
+import React,{useState, useEffect, useRef, useMemo, useCallback} from 'react';
 import { BlurView } from 'expo-blur';
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
+
 
 import PageHeader  from '../components/utils/PageHeader'
 import PersonalTask from '../components/PersonalTask';
@@ -26,8 +31,15 @@ export default function Personal() {
   const slideUpAnim = new Animated.Value(0);
   const slidedownAnim = new Animated.Value(0);
 
+  const bottomSheetModalRef = useRef(null);
 
+  // variables
+  const snapPoints = useMemo(() => ['25%', '50%'], []);
 
+  // callbacks
+  const handleSheetChanges = useCallback((index) => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
   const flingGesture = Gesture.Fling()
     .direction(Directions.DOWN)
@@ -40,18 +52,43 @@ export default function Personal() {
     setBtnClick(BTnClick+1)
   }
   
+  const handleModalDismiss = useCallback(() => {
+    setBlurr(false)
+    console.log(isCreateTaskPopup)
+    if(isCreateTaskPopup || isCreateCategory){
+      setPlusBtn(false)
+    }else{
+      setPlusBtn(true)
+    }
+  }, []);
+
+  const handleCloseModalPress = useCallback(() => {
+    // Check if `dismiss` method is available before calling it
+    if (bottomSheetModalRef.current) {
+      bottomSheetModalRef.current.close();
+      setBlurr(false)
+      setPlusBtn(false)
+      handleModalDismiss()
+    }
+  }, []);
+
 
   useEffect( () => {
     async function fetchData() {
-
           let data = await getAllTasks()
           setTasks(data.slice())
           console.log("daa")
+          handleModalDismiss()
     }
     
     fetchData()
-    }, [BTnClick]);
+    }, [BTnClick, isCreateTaskPopup]);
  
+    const test = () =>{
+      console.log("Test")
+      bottomSheetModalRef.current?.present();
+      console.log(bottomSheetModalRef.current)
+    }
   
     const backToNormal = () => {
       setCreateTaskPopup(false)
@@ -60,13 +97,7 @@ export default function Personal() {
       setCreateCategory(false)
     }
 
-    const animateSlideUp = () => {
-      Animated.timing(slideUpAnim, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: false, // Add this line for non-native driver
-      }).start();
-    };
+
 
     const animateSlideDown = async () => {
 
@@ -76,7 +107,6 @@ export default function Personal() {
         useNativeDriver: false, // Add this line for non-native driver
       }).start(() => {
         // Function to run after the animation is finished
-  
          backToNormal()
         // You can call your custom function here
         // For example, you can reset the animation or trigger another action
@@ -86,10 +116,10 @@ export default function Personal() {
     
     };
 
-
-    animateSlideUp()
     return (
       <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+
       <SafeAreaView  style={styles.container}>
       <View   style={ [isCreateTaskPopup ? styles.HeaderBarSmall :styles.HeaderBar ]}>
                     <PageHeader title={ 
@@ -103,22 +133,11 @@ export default function Personal() {
        
                 {isCreateTaskPopup && 
                 <>
-                <GestureDetector gesture={flingGesture}>
-                <Animated.View
-              style={{
-                transform: [
-                  {
-                    translateY: slidedownAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [5, 700],
-                    }),
-                  },
-                ],
-              }}
-            >
+              <GestureDetector gesture={flingGesture}>
+                <Animated.View style={{transform: [{translateY: slidedownAnim.interpolate({ inputRange: [0, 1],outputRange: [5, 700],}),},],}} >
                    <TaskPopup backToNormal={backToNormal}/>
-                   </Animated.View>
-                </GestureDetector>
+                </Animated.View>
+               </GestureDetector>
            
                 </>
                 }
@@ -126,20 +145,9 @@ export default function Personal() {
                 {isCreateCategory && 
                 <>
                 <GestureDetector gesture={flingGesture}>
-                    <Animated.View
-                  style={{
-                    transform: [
-                      {
-                        translateY: slidedownAnim.interpolate({
-                          inputRange: [0, 1],
-                          outputRange: [5, 700],
-                        }),
-                      },
-                    ],
-                  }}
-                >
-                  <CreateCategoryPopup backToNormal={backToNormal}/>
-                </Animated.View>
+                    <Animated.View style={{ transform: [ { translateY: slidedownAnim.interpolate({inputRange: [0, 1], outputRange: [5, 700],}),}, ],}}>
+                       <CreateCategoryPopup backToNormal={backToNormal}/>
+                    </Animated.View>
                 </GestureDetector>
                   
                 </>
@@ -152,41 +160,51 @@ export default function Personal() {
                             style ={styles.NewJAwn}
                         />
                       
+                      <View style={styles.container}>
+                                     <BottomSheetModal
+                                           ref={bottomSheetModalRef}
+                                           index={1}
+                                           snapPoints={snapPoints}
+                                           onChange={handleSheetChanges}
+                                           onDismiss={handleModalDismiss}
+                                         >
+                                         <View style={styles.contentContainer}>
+                                          <ChoiceSelector handleModalDismiss={handleCloseModalPress} setCreateTaskPopup={setCreateTaskPopup} setCreateCategory={setCreateCategory}/>
+                                         </View>
+                                       </BottomSheetModal>
+                                     </View>
+
                {isBlurred &&
                         <>
                                 <BlurView intensity={4} tint="light" style={styles.absolute} />
-                                <Animated.View
-              style={{
-                transform: [
-                  {
-                    translateY: slideUpAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [5, 0],
-                    }),
-                  },
-                ],
-              }}
-            >
-                                <ChoiceSelector setPlusBtn={setPlusBtn}setBlurr={setBlurr} setCreateTaskPopup={setCreateTaskPopup} setCreateCategory={setCreateCategory}/>
-                                </Animated.View>
                        </>
                         }
      </SafeAreaView>
-
               {isPlusBtnShown &&
                   <SafeAreaView  style={styles.containerg}>
                       <View style={styles.ImageButton2}>
-                          <ImageButton onPress={() => {setBlurr(!isBlurred), animateSlideUp()}}  source="pluscircle"  size={45} color={"#4A4A4B"}/> 
+                          <ImageButton onPress={ async () => {await test(), await setPlusBtn(false), await setBlurr(!isBlurred) }}  source="pluscircle"  size={45} color={"#4A4A4B"}/> 
                     </View>
                   </SafeAreaView>
                }
-               
+            </BottomSheetModalProvider>
       </GestureHandlerRootView>
        
     );
   }
 
   const styles = StyleSheet.create({
+    containeer: {
+      flex: 1,
+      padding: 24,
+      backgroundColor: 'grey',
+    },
+    contentContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent:'center'
+    },
+
     container: {
       flex: 1,
       backgroundColor: '#ffff',
@@ -215,7 +233,7 @@ export default function Personal() {
         height:70,
         justifyContent:'center',
         alignItems:'flex-end',
-        backgroundColor:'#ffff'
+        backgroundColor:'white'
     },ImageButton2:{marginRight:20}
   
   });

@@ -9,17 +9,15 @@ import {
     Modal
   } from 'react-native';
 
-export default function ChoiceSelector({setPlusBtn, setBlurr, setCreateTaskPopup,setCreateCategory}) {
+export default function ChoiceSelector({handleModalDismiss, setCreateTaskPopup,setCreateCategory}) {
 
 const onpressTask = () => {
-    setBlurr(false)
-    setPlusBtn(false)
+    handleModalDismiss()
     setCreateTaskPopup(true)
 }
 
 const onpressCaT = () => {
-    setBlurr(false)
-    setPlusBtn(false)
+    handleModalDismiss()
     setCreateCategory(true)
 }
 
