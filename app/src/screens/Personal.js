@@ -28,7 +28,7 @@ export default function Personal() {
   const [isCreateCategory, setCreateCategory] = useState(false)
   const [tasks, setTasks] = useState([])
   const [BTnClick, setBtnClick] = useState(1)
-  const slideUpAnim = new Animated.Value(0);
+
   const slidedownAnim = new Animated.Value(0);
 
   const bottomSheetModalRef = useRef(null);
@@ -38,12 +38,13 @@ export default function Personal() {
 
   // callbacks
   const handleSheetChanges = useCallback((index) => {
-    console.log('handleSheetChanges', index);
+    
   }, []);
 
   const flingGesture = Gesture.Fling()
     .direction(Directions.DOWN)
     .onStart((e) => {
+      console.log("HERE")
       animateSlideDown()
     });
 
@@ -52,56 +53,56 @@ export default function Personal() {
     setBtnClick(BTnClick+1)
   }
   
-  const handleModalDismiss = useCallback(() => {
+  const handleModalDismiss = () => {
     setBlurr(false)
-    console.log(isCreateTaskPopup)
     if(isCreateTaskPopup || isCreateCategory){
-      setPlusBtn(false)
-    }else{
-      setPlusBtn(true)
-    }
-  }, []);
+       setPlusBtn(false)
+     }else{
+       setPlusBtn(true)
+     }
+  }
 
-  const handleCloseModalPress = useCallback(() => {
-    // Check if `dismiss` method is available before calling it
+  const handleCloseModalPress = ()  =>{
     if (bottomSheetModalRef.current) {
+      console.log("Force Close")
       bottomSheetModalRef.current.close();
       setBlurr(false)
-      setPlusBtn(false)
-      handleModalDismiss()
+   
     }
-  }, []);
+  }
+   
+  
+
 
 
   useEffect( () => {
     async function fetchData() {
           let data = await getAllTasks()
           setTasks(data.slice())
-          console.log("daa")
-          handleModalDismiss()
+       
     }
     
     fetchData()
-    }, [BTnClick, isCreateTaskPopup]);
+    }, [BTnClick]);
  
     const test = () =>{
-      console.log("Test")
       bottomSheetModalRef.current?.present();
-      console.log(bottomSheetModalRef.current)
+
+
     }
   
     const backToNormal = () => {
-      setCreateTaskPopup(false)
-      setPlusBtn(true)
-      setBlurr(false)
-      setCreateCategory(false)
+       setCreateTaskPopup(false)
+       setPlusBtn(true)
+       setBlurr(false)
+       setCreateCategory(false)
     }
 
 
 
     const animateSlideDown = async () => {
-
-         Animated.timing(slidedownAnim, {
+console.log("HERe")
+    Animated.timing(slidedownAnim, {
         toValue: 1,
         duration: 100,
         useNativeDriver: false, // Add this line for non-native driver
@@ -112,7 +113,7 @@ export default function Personal() {
         // For example, you can reset the animation or trigger another action
       });
         
-      backToNormal()
+    //  backToNormal()
     
     };
 
@@ -134,9 +135,8 @@ export default function Personal() {
                 {isCreateTaskPopup && 
                 <>
               <GestureDetector gesture={flingGesture}>
-                <Animated.View style={{transform: [{translateY: slidedownAnim.interpolate({ inputRange: [0, 1],outputRange: [5, 700],}),},],}} >
-                   <TaskPopup backToNormal={backToNormal}/>
-                </Animated.View>
+                          <TaskPopup key="ddsd" backToNormal={backToNormal}/>
+           
                </GestureDetector>
            
                 </>
@@ -183,7 +183,7 @@ export default function Personal() {
               {isPlusBtnShown &&
                   <SafeAreaView  style={styles.containerg}>
                       <View style={styles.ImageButton2}>
-                          <ImageButton onPress={ async () => {await test(), await setPlusBtn(false), await setBlurr(!isBlurred) }}  source="pluscircle"  size={45} color={"#4A4A4B"}/> 
+                          <ImageButton onPress={ async () => {await setPlusBtn(false), await test(), await setBlurr(!isBlurred) }}  source="pluscircle"  size={45} color={"#4A4A4B"}/> 
                     </View>
                   </SafeAreaView>
                }

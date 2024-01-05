@@ -11,14 +11,16 @@ import {
 
 export default function ChoiceSelector({handleModalDismiss, setCreateTaskPopup,setCreateCategory}) {
 
-const onpressTask = () => {
-    handleModalDismiss()
-    setCreateTaskPopup(true)
+const onpressTask = async () => {
+    await setCreateTaskPopup(true)
+    await handleModalDismiss()
+   
 }
 
 const onpressCaT = () => {
-    handleModalDismiss()
     setCreateCategory(true)
+    handleModalDismiss()
+   
 }
 
 

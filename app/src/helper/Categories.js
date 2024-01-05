@@ -5,12 +5,14 @@ export function getAllCategories(){
         {
           "name": "Calndar",
           "color":"#FEF5D3",
-          "image":"calendar"
+          "image":"calendar",
+           "key":"1s"
         },
         {
           "name": "Calnda2",
           "color":"#DBECF6",
-          "image":"calendar"
+          "image":"calendar",
+          "key":"1ws"
         }
       ]
 }
