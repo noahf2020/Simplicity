@@ -1,7 +1,7 @@
 import React from "react";
 import AppNavigator from "./src/provider/Navigator";
 import { AuthProvider } from "./src/provider/AuthProvider";
-
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { LogBox } from "react-native";
 
 export default function App() {
@@ -15,6 +15,7 @@ export default function App() {
   }, []);
 
   return (
+    
       <AuthProvider>
         <AppNavigator />
       </AuthProvider>

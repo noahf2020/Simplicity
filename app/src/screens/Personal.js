@@ -1,4 +1,4 @@
-import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform , Animated, Button} from 'react-native';
+import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform , Button} from 'react-native';
 import React,{useState, useEffect, useRef, useMemo, useCallback} from 'react';
 import { BlurView } from 'expo-blur';
 import {
@@ -18,7 +18,13 @@ import CreateCategoryPopup from '../components/CreateCategoryPopup';
 import { deleteTasks, getAllTasks, markAsFavorite } from '../helper/Tasks';
 import { GestureHandlerRootView, GestureDetector, Gesture, Directions} from 'react-native-gesture-handler';
 
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withCallback,
 
+} from 'react-native-reanimated';
 
 export default function Personal() {
 
@@ -29,24 +35,35 @@ export default function Personal() {
   const [tasks, setTasks] = useState([])
   const [BTnClick, setBtnClick] = useState(1)
 
-  const slidedownAnim = new Animated.Value(0);
+  
 
   const bottomSheetModalRef = useRef(null);
-
-  // variables
   const snapPoints = useMemo(() => ['25%', '50%'], []);
-
-  // callbacks
   const handleSheetChanges = useCallback((index) => {
-    
   }, []);
+
+
+
+  const position = useSharedValue(0);
 
   const flingGesture = Gesture.Fling()
     .direction(Directions.DOWN)
-    .onStart((e) => {
-      console.log("HERE")
-      animateSlideDown()
-    });
+    .onStart(async (e) => {
+      position.value = withCallback(withTiming(700, { duration: 200 }),()=> {
+        console.log("isCreateTaskPopup 2: " + isCreateTaskPopup)
+      });
+    }).onEnd(()=>{
+     // backToNormal()
+     console.log("isCreateTaskPopup : " + isCreateTaskPopup)
+     console.log(position)
+   
+    })
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: position.value}],
+  }));
+
+
 
   const click = async (id) =>{
    await  markAsFavorite(id)
@@ -106,21 +123,7 @@ export default function Personal() {
 
 
 
-    const animateSlideDown = async () => {
-      try {
-        Animated.timing(slidedownAnim, {
-          toValue: 1,
-          duration: 100,
-          useNativeDriver: false,
-        }).start(() => {
-          // Animation completion callback
-          backToNormal();
-        });
-      } catch (error) {
-        console.error('Animation error:', error);
-      }
-    
-    };
+
 
     return (
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -142,8 +145,12 @@ export default function Personal() {
        
                 {isCreateTaskPopup && 
                 <>
-          
-                          <TaskPopup key="ddsd" backToNormal={backToNormal}/>
+             <GestureDetector gesture={flingGesture}>
+             <Animated.View style={animatedStyle} >
+               <TaskPopup key="ddsd" backToNormal={backToNormal}/>
+              </Animated.View>
+             </GestureDetector>
+                   
            
   
            
@@ -153,10 +160,10 @@ export default function Personal() {
                 {isCreateCategory && 
                 <>
         
-                    <Animated.View style={{ transform: [ { translateY: slidedownAnim.interpolate({inputRange: [0, 1], outputRange: [5, 700],}),}, ],}}>
+                    {/* <Animated.View style={{ transform: [ { translateY: slidedownAnim.interpolate({inputRange: [0, 1], outputRange: [5, 700],}),}, ],}}>
                        <CreateCategoryPopup backToNormal={backToNormal}/>
                     </Animated.View>
-            
+             */}
                   
                 </>
                 
