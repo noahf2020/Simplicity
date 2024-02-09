@@ -6,19 +6,20 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { getAllCategories } from '../helper/Categories';
 import ImageButton from '../components/utils/Buttons/ImageButton'
+import { Badge } from '@rneui/themed';
 
 
 
-export default function PersonalTask({task,markAsFavorite }) {
 
+export default function PersonalTask({task,markAsFavorite, deleteB}) {
   const rightSwipeActions = () => {
     return (
       <View style={{ backgroundColor:"green", alignItems:'center',  flexDirection:'row', height:75, marginTop:20, width:135, borderRadius: 15, marginLeft:10  }}>
           <View style={{width:45, backgroundColor:"#FF7F7F", height:75, justifyContent:'center', borderTopLeftRadius:15, borderBottomLeftRadius:15}}>
-          <ImageButton onPress={() => console.log("Delete")}  source="delete"  size={20} color={"#403572"}/> 
+          <ImageButton onPress={() => deleteB(task.id)}  source="delete"  size={20} color={"#403572"}/> 
           </View>
           <View style={{width:45, backgroundColor:"#B0E3FF", justifyContent:'center', height:75}}>
-          <ImageButton onPress={() => markAsFavorite(task.id)}  source="hearto"  size={20} color={"#403572"}/> 
+          <ImageButton onPress={() => markAsFavorite(task.id)}  source={task.favorite? "heart" :"hearto"}  size={20} color={"#403572"}/> 
           </View>
           <View style={{width:45, backgroundColor:"#86FFA1", height:75, justifyContent:'center', borderTopRightRadius:15, borderBottomRightRadius:15}}>
           <ImageButton onPress={() => console.log(getAuth())}  source="checkcircleo"  size={20} color={"#403572"}/> 
@@ -75,13 +76,24 @@ const onSwipeClose = () =>{
     <Swipeable renderRightActions ={rightSwipeActions} onSwipeableWillOpen={onSwipeOpen} onSwipeableWillClose={onSwipeClose}>
 
   {!swipeOpen &&
-      <View style={[styles.taskDiv,{backgroundColor:Category.color}]}>
+      <View style={[styles.taskDiv,{backgroundColor:Category.color, borderColor:styleImage[Category.color], borderWidth:'1'}]}>
         <View style={styles.Image}><Feather name={Category.image} size={20} color={styleImage[Category.color]} /></View>
         <View style={styles.Info}>
           <Text style={{fontSize:16, marginTop:10, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
           <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
           <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + " @ " + new Date(`2000-01-01T${task.time}:00Z`).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Text>
         </View>
+
+        {task.favorite && 
+        <>
+        <Badge
+            status="primary"
+            containerStyle={{ position: 'absolute', top: 10, left: 320 }}
+          /> 
+        
+        </>
+       }
+       
       </View>
    }
    {swipeOpen && 

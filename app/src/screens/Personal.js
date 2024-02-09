@@ -15,7 +15,7 @@ import TaskPopup from '../components/CreateTaskPopup';
 import CreateCategoryPopup from '../components/CreateCategoryPopup';
 
 
-import { getAllTasks, markAsFavorite } from '../helper/Tasks';
+import { deleteTasks, getAllTasks, markAsFavorite } from '../helper/Tasks';
 import { GestureHandlerRootView, GestureDetector, Gesture, Directions} from 'react-native-gesture-handler';
 
 
@@ -48,9 +48,15 @@ export default function Personal() {
       animateSlideDown()
     });
 
-  const click = (id) =>{
-    markAsFavorite(id)
-    setBtnClick(BTnClick+1)
+  const click = async (id) =>{
+   await  markAsFavorite(id)
+    await setBtnClick(BTnClick+1)
+  }
+
+  const deleteAction = async (id) => {
+    await deleteTasks(id)
+    await setBtnClick(BTnClick+1)
+
   }
   
   const handleModalDismiss = () => {
@@ -83,7 +89,7 @@ export default function Personal() {
     }
     
     fetchData()
-    }, [BTnClick]);
+    }, [BTnClick, isCreateTaskPopup]);
  
     const test = () =>{
       bottomSheetModalRef.current?.present();
@@ -101,27 +107,29 @@ export default function Personal() {
 
 
     const animateSlideDown = async () => {
-console.log("HERe")
-    Animated.timing(slidedownAnim, {
-        toValue: 1,
-        duration: 100,
-        useNativeDriver: false, // Add this line for non-native driver
-      }).start(() => {
-        // Function to run after the animation is finished
-         backToNormal()
-        // You can call your custom function here
-        // For example, you can reset the animation or trigger another action
-      });
-        
-    //  backToNormal()
+      try {
+        Animated.timing(slidedownAnim, {
+          toValue: 1,
+          duration: 100,
+          useNativeDriver: false,
+        }).start(() => {
+          // Animation completion callback
+          backToNormal();
+        });
+      } catch (error) {
+        console.error('Animation error:', error);
+      }
     
     };
 
     return (
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <BottomSheetModalProvider>
+          <>
+   
 
+         
       <SafeAreaView  style={styles.container}>
+ 
       <View   style={ [isCreateTaskPopup ? styles.HeaderBarSmall :styles.HeaderBar ]}>
                     <PageHeader title={ 
       isCreateTaskPopup
@@ -134,32 +142,32 @@ console.log("HERe")
        
                 {isCreateTaskPopup && 
                 <>
-              <GestureDetector gesture={flingGesture}>
+          
                           <TaskPopup key="ddsd" backToNormal={backToNormal}/>
            
-               </GestureDetector>
+  
            
                 </>
                 }
 
                 {isCreateCategory && 
                 <>
-                <GestureDetector gesture={flingGesture}>
+        
                     <Animated.View style={{ transform: [ { translateY: slidedownAnim.interpolate({inputRange: [0, 1], outputRange: [5, 700],}),}, ],}}>
                        <CreateCategoryPopup backToNormal={backToNormal}/>
                     </Animated.View>
-                </GestureDetector>
+            
                   
                 </>
                 
                 }
 
                  <FlatList data={tasks} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) => <PersonalTask task={item} markAsFavorite={click}/>}
+                            renderItem={({item}) => <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction}/>}
                             keyExtractor={item => item.id}
                             style ={styles.NewJAwn}
                         />
-                      
+                             <BottomSheetModalProvider>
                       <View style={styles.container}>
                                      <BottomSheetModal
                                            ref={bottomSheetModalRef}
@@ -173,12 +181,12 @@ console.log("HERe")
                                          </View>
                                        </BottomSheetModal>
                                      </View>
-
-               {isBlurred &&
+                                     </BottomSheetModalProvider>
+               {/* {isBlurred &&
                         <>
                                 <BlurView intensity={4} tint="light" style={styles.absolute} />
                        </>
-                        }
+                        } */}
      </SafeAreaView>
               {isPlusBtnShown &&
                   <SafeAreaView  style={styles.containerg}>
@@ -187,7 +195,9 @@ console.log("HERe")
                     </View>
                   </SafeAreaView>
                }
-            </BottomSheetModalProvider>
+       
+          </>
+
       </GestureHandlerRootView>
        
     );

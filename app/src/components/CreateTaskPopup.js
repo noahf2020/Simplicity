@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { Feather } from '@expo/vector-icons'; 
 
 import { getAllCategories } from '../helper/Categories';
+import { addTask } from '../helper/Tasks';
 
 import EnableNoti from './utils/Buttons/EnableNoti';
 import Category from './utils/Category';
@@ -88,17 +89,13 @@ const checkForValidFields = async () =>{
     }
 
     if(selectedCategory){
-      console.log(selectedCategory)
     }else{
       await setErrorMessage("Please Select Category")
       await setModalVisable(true)
       await delay(2250)
       await setModalVisable(false)
     }
-  
     if(value && cvalue){
-      console.log("good date + Time")
-
     }else{
       await setErrorMessage("Invalid [date/time] Input(s)")
       await setModalVisable(true)
@@ -106,7 +103,8 @@ const checkForValidFields = async () =>{
       await setModalVisable(false)
     }
 
-    console.log(value && cvalue)
+    await addTask(TaskTitleValue, selectedCategory, value, cvalue, NotesValue, isEnabled);
+    await backToNormal()
 }
 
 

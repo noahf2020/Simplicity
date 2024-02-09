@@ -1,7 +1,13 @@
 import { doc, setDoc } from "firebase/firestore"; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-let tasks = [
+import 'react-native-get-random-values';
+
+import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useEffect } from 'react';
+
+let tasksNotUsedAnymore = [
     {
         "id":"40fbdb8c-8d41-4f87-8xc6a-f37760353b2c",
         "title":"Email Mr. Clapper",
@@ -84,27 +90,50 @@ let tasks = [
                                 },
 ]
 
-export function getAllTasks(){
-    return tasks;
+
+
+
+export async function getAllTasks(){
+    try {
+        const storedTasks = await AsyncStorage.getItem('tasks');
+        if (storedTasks !== null) {
+      
+          return JSON.parse(storedTasks);
+        }
+      } catch (error) {
+        console.error('Error loading tasks:', error);
+      }
 }
 
+export async function addTask(TaskTitleValue, selectedCategory, value, cvalue, NotesValue, isEnabled){
+      const storedTasks = await AsyncStorage.getItem('tasks');
+      let tasks = JSON.parse(storedTasks)
+      const newTasks = [...tasks, { id: uuidv4(),  "title":TaskTitleValue, "category":selectedCategory,  "date":value, "time":cvalue,"notes":NotesValue,"notifications":isEnabled,"favorite":false }];
+      await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
 
-export function markAsFavorite(taskId){
 
-        const updatedTasks = tasks.map((task) =>
+}
+
+export async function markAsFavorite(taskId){
+    const storedTasks = await AsyncStorage.getItem('tasks');
+    let tasks = JSON.parse(storedTasks)
+        const updatedTasks = tasks.map((task) => 
            task.id == taskId ? { ...task, favorite: true } : task
         );
-      
         const favoritedTask = updatedTasks.find((task) => task.id === taskId && task.favorite);
         if (favoritedTask) {
           updatedTasks.splice(updatedTasks.indexOf(favoritedTask), 1);
           updatedTasks.unshift(favoritedTask);
         }
-        console.log(updatedTasks)
-        //Once Db is set make sure this actually updates data
-        tasks = updatedTasks;
-  
-      
+        await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
+
+
+  export async function deleteTasks(taskId){
+    const storedTasks = await AsyncStorage.getItem('tasks');
+    let tasks = JSON.parse(storedTasks)
+    const newTasks = tasks.filter(task => task.id !== taskId);
+    await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+  }
 
  
