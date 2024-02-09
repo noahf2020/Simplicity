@@ -78,8 +78,9 @@ const saveTempData = async (date) => {
 
 
 const checkForValidFields = async () =>{
-    if(StringCheck(TaskTitleValue, 3)){
-      console.log("good String Check")
+    if(StringCheck(TaskTitleValue, 3) && selectedCategory && value && cvalue){
+      await addTask(TaskTitleValue, selectedCategory, value, cvalue, NotesValue, isEnabled);
+      await backToNormal()
     }else{
       await setErrorMessage("Invalid [title] Input(s)")
       await setModalVisable(true)
@@ -103,8 +104,7 @@ const checkForValidFields = async () =>{
       await setModalVisable(false)
     }
 
-    await addTask(TaskTitleValue, selectedCategory, value, cvalue, NotesValue, isEnabled);
-    await backToNormal()
+   
 }
 
 
@@ -112,7 +112,7 @@ const checkForValidFields = async () =>{
 
   return (
         <>
-              <KeyboardAvoidingView style={Styles.PopupContainer}  keyboardVerticalOffset={200} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+              <KeyboardAvoidingView style={Styles.PopupContainer}  keyboardVerticalOffset={0} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
               <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <View style={Styles.Nav}>
                         <ImageButton onPress={() =>backToNormal()}  source="arrowdown"  size={20} color={"#403572"}/> 
@@ -122,7 +122,7 @@ const checkForValidFields = async () =>{
                    <View style={Styles.dataFields}>
                         
                               <View style={Styles.TaskTitle}>
-                                            <Text style={{ fontWeight: 700,  fontSize: 14, color:'#1B1B1D'  }}>Task Title</Text>
+                                      
 
                                              <TextInput style={Styles.Input}
                                               containerStyle={{ marginTop: 15 }}
@@ -138,7 +138,7 @@ const checkForValidFields = async () =>{
                          </View>
 
                          <KeyboardAvoidingView style={Styles.Categories} keyboardVerticalOffset={200} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
-                            <View style={{width:100, alignItems:'center' }}> 
+                            <View style={{width:100, height:19, alignItems:'center' }}> 
                               <Text style={{fontWeight:700,}}>Categories: </Text> 
                             </View>
                             {errorModal && 
@@ -153,8 +153,7 @@ const checkForValidFields = async () =>{
                          </KeyboardAvoidingView>
                             
                           <View style={Styles.Txt}>
-                              <Text style={{fontWeight: 700, fontSize: 14, color:'#1B1B1D'  }}>Date</Text>
-                              <Text style={{fontWeight: 700, fontSize: 14, color:'#1B1B1D' }}>Time</Text>
+                           
                           </View>
 
           <KeyboardAvoidingView   style={{ flex: 1}} keyboardVerticalOffset={200} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -166,7 +165,7 @@ const checkForValidFields = async () =>{
 
                               </Pressable>
 
-                              <Pressable style={Styles.Press}  onPress={onpressTime}>
+                              <Pressable style={Styles.Press}  onPress={ onpressTime}>
                                             <Text style={{color:'#1B1B1D'}}>{cvalue ? cvalue.split(' ')[1] :'Select Time'}</Text>
                                             <Feather name="clock" size={20} color="#4A3780" />
                               </Pressable>
@@ -268,9 +267,11 @@ const checkForValidFields = async () =>{
     },
     Categories:{
       height:50,
-      marginTop:24,
-      marginBottom:24,
+      marginTop:4,
+      marginBottom:4,
       flex:.1,
+      paddingTop:5,
+      
       
       alignItems:'center',
       flexDirection: "row",
@@ -279,12 +280,13 @@ const checkForValidFields = async () =>{
     Selections:{
       height:85,
      // flex: .1,
+      paddingTop:20,
       flexDirection: "row",
       justifyContent:'space-around',
     
     },
     InputDate:{
-      width:160,
+      width:150,
       backgroundColor:'#fff',
       borderColor: '#E0E0E0',
       borderWidth:1,
@@ -297,11 +299,11 @@ const checkForValidFields = async () =>{
       flex: .05,
       flexDirection: "row",
       justifyContent: "center",
-      height:12,
+      height:1,
       justifyContent:'space-around'
     },
     Press:{
-      width:170,
+      width:150,
       backgroundColor:'#fff',
       borderColor: '#E0E0E0',
       borderWidth:1,
