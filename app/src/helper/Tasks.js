@@ -107,11 +107,14 @@ export async function getAllTasks(){
 
 export async function addTask(TaskTitleValue, selectedCategory, value, cvalue, NotesValue, isEnabled){
       const storedTasks = await AsyncStorage.getItem('tasks');
-      let tasks = JSON.parse(storedTasks)
-      const newTasks = [...tasks, { id: uuidv4(),  "title":TaskTitleValue, "category":selectedCategory,  "date":value, "time":cvalue,"notes":NotesValue,"notifications":isEnabled,"favorite":false }];
-      await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
-
-
+      if(storedTasks){
+        let tasks = JSON.parse(storedTasks)
+        const newTasks = [...tasks, { id: uuidv4(),  "title":TaskTitleValue, "category":selectedCategory,  "date":value, "time":cvalue,"notes":NotesValue,"notifications":isEnabled,"favorite":false }];
+        await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+      }else{
+        const newTasks = [{ id: uuidv4(),  "title":TaskTitleValue, "category":selectedCategory,  "date":value, "time":cvalue,"notes":NotesValue,"notifications":isEnabled,"favorite":false }];
+        await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+      }
 }
 
 export async function markAsFavorite(taskId){

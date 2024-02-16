@@ -5,7 +5,7 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
 import ImageButton from './utils/Buttons/ImageButton'
 import DropDownPicker from 'react-native-dropdown-picker';
-import { getCreateCategories } from '../helper/Categories';
+import { getCreateCategories, addCategory} from '../helper/Categories';
 import SaveBtn from './utils/Buttons/SaveBtn';
 
 export default function CreateCategoryPopup({backToNormal}) {
@@ -23,12 +23,11 @@ export default function CreateCategoryPopup({backToNormal}) {
     const [itemsColor, setItemsColor] = useState([   
         {label: 'Light Yellow', value: '#FEF5D3', labelStyle: { color: "#FEF5D3",fontWeight:'bold'} },
         {label: 'Light Blue', value: '#DBECF6', labelStyle: { color: "#DBECF6",fontWeight:'bold'} },
-        {label: 'Light Purple', value: '#F6F5FB', labelStyle: { color: "#F6F5FB",fontWeight:'bold'} }
+        {label: 'Light Purple', value: '#cac0fa', labelStyle: { color: "#cac0fa",fontWeight:'bold'} }
 
     ]);
 
     useEffect( () => {
-  
         async function fetchData() {
               let data = await getCreateCategories()
               setItems(data.slice())
@@ -36,14 +35,13 @@ export default function CreateCategoryPopup({backToNormal}) {
               setVisInput2(!isInput2Vis)
         }
         fetchData()
-        console.log(value)
-        console.log(valueColor)
 
-    
         }, [open]);
 
-const datasave = async () => {
-
+const checkForValidFields = async () => {
+  console.log(CategoryTitleValue, value, valueColor)
+  await addCategory(CategoryTitleValue, value, valueColor)
+  await backToNormal()
 }
 
 
@@ -120,7 +118,7 @@ const datasave = async () => {
                          </>}
                          </View>
                         <View style={Styles.save}>
-                          <SaveBtn checkForValidFields={datasave}/>
+                          <SaveBtn checkForValidFields={checkForValidFields}/>
                         </View>
 
 
@@ -148,6 +146,7 @@ const Styles = StyleSheet.create({
         alignItems:'center',
         justifyContent: 'center',
         borderRadius:10,
+        paddingTop:20
 
     },
     PopupContainer:{

@@ -145,25 +145,23 @@ export default function Personal() {
        
                 {isCreateTaskPopup && 
                 <>
-             <GestureDetector gesture={flingGesture}>
+             {/* <GestureDetector gesture={flingGesture}> */}
              <Animated.View style={animatedStyle} >
-               <TaskPopup key="ddsd" backToNormal={backToNormal}/>
+               <TaskPopup  backToNormal={backToNormal}/>
               </Animated.View>
-             </GestureDetector>
-                   
-           
-  
-           
+             {/* </GestureDetector> */}
+
                 </>
                 }
 
                 {isCreateCategory && 
                 <>
         
-                    {/* <Animated.View style={{ transform: [ { translateY: slidedownAnim.interpolate({inputRange: [0, 1], outputRange: [5, 700],}),}, ],}}>
-                       <CreateCategoryPopup backToNormal={backToNormal}/>
-                    </Animated.View>
-             */}
+                          {/* <GestureDetector gesture={flingGesture}> */}
+                              <Animated.View style={animatedStyle} >
+                                        <CreateCategoryPopup backToNormal={backToNormal}/>
+                              </Animated.View>
+                         {/* </GestureDetector> */}
                   
                 </>
                 

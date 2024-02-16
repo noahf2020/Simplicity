@@ -1,7 +1,7 @@
 import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import deleReact,{useState, useEffect} from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { Feather } from '@expo/vector-icons'; 
+import { AntDesign, FontAwesome5, Ionicons,Feather   } from '@expo/vector-icons'; 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { getAllCategories } from '../helper/Categories';
@@ -63,21 +63,29 @@ const onSwipeClose = () =>{
 }
   StylebigText = {
     "#FEF5D3": "#e8cb5f",//yellow
-    "#DBECF6":"#58b6ed"//blue
+    "#DBECF6":"#58b6ed",//blue
+    "#cac0fa":"#7569b8"
   }
 
   styleImage = {
     "#FEF5D3": "#ebcc59", //yellow
     "#DBECF6": "#3d98cc", //blue
+    "#cac0fa":"#7569b8"
   }
 
-  
+  IconManager = {
+    "calendar": <AntDesign name={'calendar'} size={20} color={styleImage[Category.color]}  />,//yellow
+    "clipboard-list":<FontAwesome5 name={'clipboard-list'} size={20}  color={styleImage[Category.color]} />,//blue
+    "school-outline":<Ionicons name={'school-outline'} size={20}  color={styleImage[Category.color]}  />,//blue
+    "home-outline":<Ionicons name={'home-outline'} size={20}  color={styleImage[Category.color]}  />//blue
+
+  }
   return (
     <Swipeable renderRightActions ={rightSwipeActions} onSwipeableWillOpen={onSwipeOpen} onSwipeableWillClose={onSwipeClose}>
 
   {!swipeOpen &&
       <View style={[styles.taskDiv,{backgroundColor:Category.color, borderColor:styleImage[Category.color], borderWidth:'1'}]}>
-        <View style={styles.Image}><Feather name={Category.image} size={20} color={styleImage[Category.color]} /></View>
+        <View style={styles.Image}>{IconManager[Category.image]}</View>
         <View style={styles.Info}>
           <Text style={{fontSize:16, marginTop:10, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
           <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>

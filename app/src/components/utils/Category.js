@@ -15,11 +15,19 @@ import {
   } from 'react-native';
 
 import {useState, useEffect} from 'react';
-import { Feather } from '@expo/vector-icons'; 
+import { AntDesign, FontAwesome5, Ionicons,Feather   } from '@expo/vector-icons'; 
+
 
 export default function Category({category, setIsAlraedySelected, isAlreadySelected, setCategory}) {
     const [isPressed, setPressed] = useState(false)
+    IconManager = {
+      "calendar": <AntDesign name={'calendar'} size={24} color="#4A3780"  />,//yellow
+      "clipboard-list":<FontAwesome5 name={'clipboard-list'} size={24} color="#4A3780"  />,//blue
+      "school-outline":<Ionicons name={'school-outline'} size={24} color="#4A3780"  />,//blue
+      "home-outline":<Ionicons name={'home-outline'} size={24} color="#4A3780"  />//blue
 
+    }
+  
   return (
              <Pressable  onPress={()=>
        
@@ -45,7 +53,7 @@ export default function Category({category, setIsAlraedySelected, isAlreadySelec
              
              
                style={[{height:35,width:35,backgroundColor:category.color,borderRadius:10, justifyContent:'center',alignItems:'center',borderWidth:2 }, isPressed ? {borderColor:'grey'} : {borderColor:'white'} ]}>
-                <Feather name={category.image} size={20} color="#4A3780" />
+                {IconManager[category.image]}
             </Pressable>
   )
 }
