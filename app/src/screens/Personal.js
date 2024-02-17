@@ -13,6 +13,7 @@ import ImageButton from '../components/utils/Buttons/ImageButton'
 import ChoiceSelector from '../components/ChoiceSelector';
 import TaskPopup from '../components/CreateTaskPopup';
 import CreateCategoryPopup from '../components/CreateCategoryPopup';
+import MenuBTN from '../components/MenuBTN';
 
 
 import { deleteTasks, getAllTasks, markAsFavorite } from '../helper/Tasks';
@@ -42,6 +43,14 @@ export default function Personal() {
   const handleSheetChanges = useCallback((index) => {
   }, []);
 
+    const bottomSheetModalRef2 = useRef(null);
+    const snapPoints2 = useMemo(() => ['25%', '50%'], []);
+    const handlePresentModalPress = useCallback(() => {
+      bottomSheetModalRef2.current?.present();
+    }, []);
+    const handleSheetChanges2 = useCallback((index) => {
+      console.log('handleSheetChanges', index);
+    }, []);
 
 
   const position = useSharedValue(0);
@@ -185,7 +194,11 @@ export default function Personal() {
                                           <ChoiceSelector handleModalDismiss={handleCloseModalPress} setCreateTaskPopup={setCreateTaskPopup} setCreateCategory={setCreateCategory}/>
                                          </View>
                                        </BottomSheetModal>
-                                     </View>
+                        </View>
+
+                       
+                             <MenuBTN bottomSheetModalRef2={bottomSheetModalRef2} snapPoints2={snapPoints2} handlePresentModalPress={handlePresentModalPress} handleSheetChanges2={handleSheetChanges2}/>
+                      
                                      </BottomSheetModalProvider>
                {/* {isBlurred &&
                         <>

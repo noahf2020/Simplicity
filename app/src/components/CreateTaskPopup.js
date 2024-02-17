@@ -11,7 +11,7 @@ import { addTask } from '../helper/Tasks';
 import EnableNoti from './utils/Buttons/EnableNoti';
 import Category from './utils/Category';
 import ImageButton from './utils/Buttons/ImageButton'
-import SaveBtn from './utils/Buttons/SaveBtn';
+import SaveBtn from './SaveBtn';
 import { StringCheck } from './utils/Validators/InputValidators';
 import ErrorModal from './utils/ErrorModal';
 

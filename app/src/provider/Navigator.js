@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, { useCallback, useMemo, useRef, useContext } from 'react';
+
 import { initializeApp, getApps } from "firebase/app";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-
-
+import {MenuBTN} from '../components/MenuBTN'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 
@@ -63,6 +63,8 @@ const Auth = () => {
 const MainStack = createNativeStackNavigator();
 
 const Main = () => {
+
+
   return (
     <MainStack.Navigator
     options={{title: 'My home'}}
@@ -91,7 +93,7 @@ const Main = () => {
 
         
         headerRight: () => (
-            <ImageButton onPress={()=>{console.log("menutBTNPressed")}}  source="menufold"  size={24} color={"#4A4A4B"}/> 
+            <ImageButton onPress={()=>{}}  source="menufold"  size={24} color={"#4A4A4B"}/> 
 
         
           ),

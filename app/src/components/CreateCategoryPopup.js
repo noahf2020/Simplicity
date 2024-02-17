@@ -6,7 +6,7 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import ImageButton from './utils/Buttons/ImageButton'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { getCreateCategories, addCategory} from '../helper/Categories';
-import SaveBtn from './utils/Buttons/SaveBtn';
+import SaveBtn from './SaveBtn';
 
 export default function CreateCategoryPopup({backToNormal}) {
     const fling = Gesture.Fling();
