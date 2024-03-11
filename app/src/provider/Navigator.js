@@ -12,9 +12,10 @@ import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import { Image, Button,Text } from "react-native";
 import TabBarIcon from '../components/utils/TabBarIcon'
 //Screens
+
 import Home from "../screens/Home";
 import Profile from '../screens/Profile'
-import Calendar from "../screens/Calendar";
+import Calendar from "../screens/Canvas";
 import Settings from "../screens/Settings";
 // Auth screens
 import Login from "../screens/Login";
@@ -92,11 +93,10 @@ const Main = () => {
         ),
 
         
-        headerRight: () => (
-            <ImageButton onPress={()=>{}}  source="menufold"  size={24} color={"#4A4A4B"}/> 
-
+        // headerRight: () => (
+        //   <Customheader />
         
-          ),
+        //   ),
       }}
       
       />
@@ -132,7 +132,6 @@ const MainTabs = () => {
         name="Home"
         component={Home}
         options={{   
-           
             tabBarIcon: ({ focused }) => (
                <TabBarIcon icon="md-home-outline" focused={focused}/>
           ),}}
@@ -151,18 +150,19 @@ const MainTabs = () => {
         component={Personal}
         //list-alt
         options={{   
+          headerRight: () => <Customheader />,
             tabBarIcon: ({ focused }) => (
                <TabBarIcon icon="list" focused={focused}/>
           ),}}
       />
 
 <Tabs.Screen
-        name="Calendar"
+        name="Canvas"
         component={Calendar}
         //list-alt
         options={{   
             tabBarIcon: ({ focused }) => (
-               <TabBarIcon icon="ios-calendar-sharp" focused={focused}/>
+               <TabBarIcon icon="school-outline" focused={focused}/>
           ),}}
       />
        <Tabs.Screen

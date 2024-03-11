@@ -6,8 +6,17 @@ import {
 } from '@gorhom/bottom-sheet';
 
 
-export default function MenuBTN({bottomSheetModalRef2, snapPoints2, handlePresentModalPress, handleSheetChanges2 }) {
+export default function MenuBTN() {
 
+
+    const bottomSheetModalRef2 = useRef(null);
+    const snapPoints2 = useMemo(() => ['25%', '50%'], []);
+    const handlePresentModalPress = useCallback(() => {
+      bottomSheetModalRef2.current?.present();
+    }, []);
+    const handleSheetChanges2 = useCallback((index) => {
+      console.log('handleSheetChanges', index);
+    }, []);
 
 
   return (

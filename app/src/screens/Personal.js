@@ -1,9 +1,9 @@
 import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform , Button} from 'react-native';
 import React,{useState, useEffect, useRef, useMemo, useCallback} from 'react';
-import { BlurView } from 'expo-blur';
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
+  createBottomSheet 
 } from '@gorhom/bottom-sheet';
 
 
@@ -13,10 +13,10 @@ import ImageButton from '../components/utils/Buttons/ImageButton'
 import ChoiceSelector from '../components/ChoiceSelector';
 import TaskPopup from '../components/CreateTaskPopup';
 import CreateCategoryPopup from '../components/CreateCategoryPopup';
-import MenuBTN from '../components/MenuBTN';
 
 
-import { deleteTasks, getAllTasks, markAsFavorite } from '../helper/Tasks';
+
+import { deleteTasks, getAllTasks, markAsFavorite, completeTask } from '../helper/Tasks';
 import { GestureHandlerRootView, GestureDetector, Gesture, Directions} from 'react-native-gesture-handler';
 
 import Animated, {
@@ -26,6 +26,7 @@ import Animated, {
   withCallback,
 
 } from 'react-native-reanimated';
+
 
 export default function Personal() {
 
@@ -42,15 +43,6 @@ export default function Personal() {
   const snapPoints = useMemo(() => ['25%', '50%'], []);
   const handleSheetChanges = useCallback((index) => {
   }, []);
-
-    const bottomSheetModalRef2 = useRef(null);
-    const snapPoints2 = useMemo(() => ['25%', '50%'], []);
-    const handlePresentModalPress = useCallback(() => {
-      bottomSheetModalRef2.current?.present();
-    }, []);
-    const handleSheetChanges2 = useCallback((index) => {
-      console.log('handleSheetChanges', index);
-    }, []);
 
 
   const position = useSharedValue(0);
@@ -83,6 +75,11 @@ export default function Personal() {
     await deleteTasks(id)
     await setBtnClick(BTnClick+1)
 
+  }
+
+  const completeAction = async (task) => {
+    await completeTask(task)
+    await setBtnClick(BTnClick+1)
   }
   
   const handleModalDismiss = () => {
@@ -131,11 +128,16 @@ export default function Personal() {
     }
 
 
+   
+    
+  
 
 
 
     return (
+      
       <GestureHandlerRootView style={{ flex: 1 }}>
+     
           <>
    
 
@@ -177,12 +179,12 @@ export default function Personal() {
                 }
 
                  <FlatList data={tasks} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) => <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction}/>}
+                            renderItem={({item}) => <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>}
                             keyExtractor={item => item.id}
                             style ={styles.NewJAwn}
                         />
                              <BottomSheetModalProvider>
-                      <View style={styles.container}>
+                      <View style={styles.contentContainer}>
                                      <BottomSheetModal
                                            ref={bottomSheetModalRef}
                                            index={1}
@@ -196,10 +198,8 @@ export default function Personal() {
                                        </BottomSheetModal>
                         </View>
 
-                       
-                             <MenuBTN bottomSheetModalRef2={bottomSheetModalRef2} snapPoints2={snapPoints2} handlePresentModalPress={handlePresentModalPress} handleSheetChanges2={handleSheetChanges2}/>
-                      
-                                     </BottomSheetModalProvider>
+                                           </BottomSheetModalProvider>
+
                {/* {isBlurred &&
                         <>
                                 <BlurView intensity={4} tint="light" style={styles.absolute} />
@@ -225,12 +225,14 @@ export default function Personal() {
     containeer: {
       flex: 1,
       padding: 24,
-      backgroundColor: 'grey',
+      backgroundColor: 'F6F6F6',
     },
     contentContainer: {
       flex: 1,
       alignItems: 'center',
+      backgroundColor:'F6F6F6',
       justifyContent:'center'
+
     },
 
     container: {
@@ -239,16 +241,17 @@ export default function Personal() {
       alignItems: 'center',
     },
     HeaderBar:{
-       height:65
+       height:'5%',
+       backgroundColor: 'white',
     },
     HeaderBarSmall:{
       height:35
     },
     NewJAwn:{
-        backgroundColor:'#ffff',
-        width:340,
+        backgroundColor:'white',
+        width:'90%',
         borderRadius: 15,
-        maxHeight:530
+        maxHeight:'90%'
     },
     absolute: {
         position: "absolute",
@@ -258,10 +261,10 @@ export default function Personal() {
         right: 0
       },
     containerg:{
-        height:70,
+        height:'10%',
         justifyContent:'center',
         alignItems:'flex-end',
         backgroundColor:'white'
-    },ImageButton2:{marginRight:20}
+    },ImageButton2:{marginRight:'5%'}
   
   });

@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import { StyleSheet, Text, View } from 'react-native';
 
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export default (props) => {
    
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     text: {
       flex: 1,
       color: '#4A4A4B',
-      fontSize: 24,
+      fontSize: RFValue(20),
       fontWeight: '700',
 
     },

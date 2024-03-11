@@ -234,7 +234,7 @@ const checkForValidFields = async () =>{
 
   const Styles = StyleSheet.create({ 
     PopupContainer:{
-        height:630,
+        height:'100%',
         width:360,
         backgroundColor:'#F6F6F6',
         borderRadius:10,

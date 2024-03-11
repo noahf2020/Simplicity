@@ -139,4 +139,25 @@ export async function markAsFavorite(taskId){
     await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
   }
 
- 
+  export async function completeTask(task){
+    const storedCompletedTasks = await AsyncStorage.getItem('completedtasks');
+    if(storedCompletedTasks){
+      let compTasks = JSON.parse(storedCompletedTasks)
+      const newcompTasks = [...compTasks, { id: task.id,  "title":task.TaskTitleValue, "category":task.selectedCategory,  "date":task.value, "time":task.cvalue,"notes":task.NotesValue,"notifications":task.isEnabled,"favorite":task.isfav }];
+      await AsyncStorage.setItem('completedtasks', JSON.stringify(newcompTasks));
+
+    const storedTasks = await AsyncStorage.getItem('tasks');
+    let tasks = JSON.parse(storedTasks)
+    const newTasks = tasks.filter(stask => stask.id !== task.id);
+    await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+
+    }else{
+      const newcompTasks = [{ id: task.id,  "title":task.TaskTitleValue, "category":task.selectedCategory,  "date":task.value, "time":task.cvalue,"notes":task.NotesValue,"notifications":task.isEnabled,"favorite":task.isfav }];
+      await AsyncStorage.setItem('completedtasks', JSON.stringify(newcompTasks));
+
+      const storedTasks = await AsyncStorage.getItem('tasks');
+      let tasks = JSON.parse(storedTasks)
+      const newTasks = tasks.filter(stask => stask.id !== task.id);
+      await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+    }
+}

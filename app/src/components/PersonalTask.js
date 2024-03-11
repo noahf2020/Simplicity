@@ -11,10 +11,10 @@ import { Badge } from '@rneui/themed';
 
 
 
-export default function PersonalTask({task,markAsFavorite, deleteB}) {
+export default function PersonalTask({task,markAsFavorite, deleteB, completeTask}) {
   const rightSwipeActions = () => {
     return (
-      <View style={{ backgroundColor:"green", alignItems:'center',  flexDirection:'row', height:75, marginTop:20, width:135, borderRadius: 15, marginLeft:10  }}>
+      <View style={{ backgroundColor:"green", alignItems:'center',  flexDirection:'row', height:75, marginTop:8, width:135, borderRadius: 15, marginLeft:10  }}>
           <View style={{width:45, backgroundColor:"#FF7F7F", height:75, justifyContent:'center', borderTopLeftRadius:15, borderBottomLeftRadius:15}}>
           <ImageButton onPress={() => deleteB(task.id)}  source="delete"  size={20} color={"#403572"}/> 
           </View>
@@ -22,7 +22,7 @@ export default function PersonalTask({task,markAsFavorite, deleteB}) {
           <ImageButton onPress={() => markAsFavorite(task.id)}  source={task.favorite? "heart" :"hearto"}  size={20} color={"#403572"}/> 
           </View>
           <View style={{width:45, backgroundColor:"#86FFA1", height:75, justifyContent:'center', borderTopRightRadius:15, borderBottomRightRadius:15}}>
-          <ImageButton onPress={() => console.log(getAuth())}  source="checkcircleo"  size={20} color={"#403572"}/> 
+          <ImageButton onPress={() => completeTask(task)}  source="checkcircleo"  size={20} color={"#403572"}/> 
 
           </View>
       </View>
@@ -87,7 +87,7 @@ const onSwipeClose = () =>{
       <View style={[styles.taskDiv,{backgroundColor:Category.color, borderColor:styleImage[Category.color], borderWidth:'1'}]}>
         <View style={styles.Image}>{IconManager[Category.image]}</View>
         <View style={styles.Info}>
-          <Text style={{fontSize:16, marginTop:10, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
+          <Text style={{fontSize:16, marginTop:5, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
           <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
           <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + " @ " + new Date(`2000-01-01T${task.time}:00Z`).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Text>
         </View>
@@ -106,7 +106,7 @@ const onSwipeClose = () =>{
    }
    {swipeOpen && 
     <View style={[styles.taskDiv,{backgroundColor:Category.color, width:187, marginLeft:150}]}>
-          <View style={[styles.Image,{paddingTop:5}]}><Feather name={Category.image} size={20} color={styleImage[Category.color]} /></View>
+          <View style={[styles.Image,{paddingTop:5}]}>{IconManager[Category.image]}</View>
           <Text style={{fontSize:14, marginTop:5, fontWeight:'bold', marginLeft:5, color:StylebigText[Category.color]}}>{task.title}</Text>
 
 
@@ -128,10 +128,10 @@ const onSwipeClose = () =>{
 const styles = StyleSheet.create({
 
     taskDiv:{
-        width:340,
+        width:'100%',
         height:75,
-        marginBottom:10,
-        marginTop:20,
+        marginBottom:8,
+        marginTop:8,
         borderRadius: 15,
         alignItems:'center',
         flexDirection: "row",
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
       marginRight:10,
     },
     Info:{
-
       flexDirection: 'column',
       width:150,
       height:60

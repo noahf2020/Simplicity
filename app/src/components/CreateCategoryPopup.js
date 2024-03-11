@@ -150,8 +150,8 @@ const Styles = StyleSheet.create({
 
     },
     PopupContainer:{
-        height:630,
-        width:360,
+        height:'100%',
+        width:'90%',
         backgroundColor:'#F6F6F6',
         borderRadius:10,
      

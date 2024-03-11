@@ -10,7 +10,7 @@ export default function Calendar() {
       
       <SafeAreaView  style={styles.container}>
    
-         <PageHeader title="Calendar"/>
+         <PageHeader title="Canvas"/>
        
       </SafeAreaView>
         </>
