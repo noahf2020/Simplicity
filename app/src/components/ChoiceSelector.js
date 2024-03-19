@@ -43,27 +43,29 @@ const onpressCaT = () => {
 
 const Styles = StyleSheet.create({ 
     PopupContainer:{
-        height:150,
-        width:250,
-        backgroundColor:'',
+        height:"100%",
+        width:350,
         borderRadius:10,
     },
     AddTaskBTN:{
-        height:75,
+        height:"20%",
+        width:"100%",
         backgroundColor:'#A0BBFF',
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderRadius:10,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        marginTop:"3%"
         
     },
     AddCategory:{
-        height:75,
+        height:"20%",
+        width:"100%",
         backgroundColor:'#FFDAA3',
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
+        borderRadius:10,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        marginTop:"3%"
+
     },
     TXTContainer:{
         color:'white',

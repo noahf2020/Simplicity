@@ -41,7 +41,9 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
   const [swipeOpen, setSwipe] = useState(false)
 
 useEffect( () => {
-  console.log(task.time)
+  console.log(" task.time" + task.time)
+  console.log(" task.date" + task.date)
+
   async function fetchData() {
         let data = await getAllCategories()
         data.forEach(category => {

@@ -79,7 +79,7 @@ const saveTempData = async (date) => {
 
 const checkForValidFields = async () =>{
     if(StringCheck(TaskTitleValue, 3) && selectedCategory && value && cvalue){
-      await addTask(TaskTitleValue, selectedCategory, value, cvalue, NotesValue, isEnabled);
+      await addTask(TaskTitleValue, selectedCategory, value, cvalue.split(' ')[1], NotesValue, isEnabled);
       await backToNormal()
     }else{
       await setErrorMessage("Invalid [title] Input(s)")

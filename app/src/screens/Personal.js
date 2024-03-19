@@ -14,6 +14,7 @@ import ChoiceSelector from '../components/ChoiceSelector';
 import TaskPopup from '../components/CreateTaskPopup';
 import CreateCategoryPopup from '../components/CreateCategoryPopup';
 
+import { NativeViewGestureHandler } from 'react-native-gesture-handler';
 
 
 import { deleteTasks, getAllTasks, markAsFavorite, completeTask } from '../helper/Tasks';
@@ -40,7 +41,7 @@ export default function Personal() {
   
 
   const bottomSheetModalRef = useRef(null);
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+  const snapPoints = useMemo(() => ['25%','50%'], []);
   const handleSheetChanges = useCallback((index) => {
   }, []);
 
@@ -49,20 +50,13 @@ export default function Personal() {
 
   const flingGesture = Gesture.Fling()
     .direction(Directions.DOWN)
-    .onStart(async (e) => {
-      position.value = withCallback(withTiming(700, { duration: 200 }),()=> {
-        console.log("isCreateTaskPopup 2: " + isCreateTaskPopup)
-      });
-    }).onEnd(()=>{
-     // backToNormal()
-     console.log("isCreateTaskPopup : " + isCreateTaskPopup)
-     console.log(position)
-   
+    .onStart((e) => {
+      position.value =  withTiming(position.value + 400, { duration: 0 });
     })
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: position.value}],
-  }));
+    const animatedStyle = useAnimatedStyle(() => ({
+      transform: [{ translateY: position.value }],
+    }));
 
 
 
@@ -137,8 +131,10 @@ export default function Personal() {
 
 
     return (
-      
+
+ 
       <GestureHandlerRootView style={{ flex: 1 }}>
+      <NativeViewGestureHandler disallowInterruption={true}>
      
           <>
          
@@ -156,11 +152,11 @@ export default function Personal() {
        
                 {isCreateTaskPopup && 
                 <>
-             {/* <GestureDetector gesture={flingGesture}> */}
+             <GestureDetector gesture={flingGesture}>
              <Animated.View style={animatedStyle} >
                <TaskPopup  backToNormal={backToNormal}/>
-              </Animated.View>
-             {/* </GestureDetector> */}
+               </Animated.View>
+             </GestureDetector>
 
                 </>
                 }
@@ -191,12 +187,13 @@ export default function Personal() {
                       <View style={styles.contentContainer}>
                                      <BottomSheetModal
                                            ref={bottomSheetModalRef}
-                                           index={1}
+                                           index={0}
                                            snapPoints={snapPoints}
                                            onChange={handleSheetChanges}
                                            onDismiss={handleModalDismiss}
+                                           style={styles.contentContainer}
                                          >
-                                         <View style={styles.contentContainer}>
+                                         <View >
                                           <ChoiceSelector handleModalDismiss={handleCloseModalPress} setCreateTaskPopup={setCreateTaskPopup} setCreateCategory={setCreateCategory}/>
                                          </View>
                                        </BottomSheetModal>
@@ -219,8 +216,9 @@ export default function Personal() {
                }
        
           </>
-
+          </NativeViewGestureHandler>
       </GestureHandlerRootView>
+
        
     );
   }
@@ -229,13 +227,23 @@ export default function Personal() {
     containeer: {
       flex: 1,
       padding: 24,
-      backgroundColor: 'F6F6F6',
+      backgroundColor: '#F6F6F6',
     },
     contentContainer: {
       flex: 1,
       alignItems: 'center',
-      backgroundColor:'F6F6F6',
-      justifyContent:'center'
+      borderRadius:20,
+      backgroundColor:'#F6F6F6',
+      justifyContent:'center',
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 12,
+      },
+      shadowOpacity: 0.58,
+      shadowRadius: 16.00,
+      
+      elevation: 24,
 
     },
 
