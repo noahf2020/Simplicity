@@ -1,7 +1,4 @@
 {
-  "cli": {
-    "version": ">= 5.9.3"
-  },
   "build": {
     "development-simulator": {
       "developmentClient": true,
@@ -9,9 +6,22 @@
       "ios": {
         "simulator": true
       }
+    },
+    "production": {
+      "node": "21.1.0"
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "enterpriseProvisioning": "universal"
+      }
+    },
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
     }
-  },
-  "submit": {
-    "production": {}
   }
 }

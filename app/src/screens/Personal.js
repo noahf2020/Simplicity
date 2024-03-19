@@ -128,9 +128,11 @@ export default function Personal() {
     }
 
 
-   
-    
-  
+    const longPressGesture = Gesture.LongPress().onEnd((e, success) => {
+      if (success) {
+        console.log(`Long pressed for ${e.duration} ms!`);
+      }
+    });
 
 
 
@@ -139,8 +141,6 @@ export default function Personal() {
       <GestureHandlerRootView style={{ flex: 1 }}>
      
           <>
-   
-
          
       <SafeAreaView  style={styles.container}>
  
@@ -179,7 +179,11 @@ export default function Personal() {
                 }
 
                  <FlatList data={tasks} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) => <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>}
+                            renderItem={({item}) => 
+                            <GestureDetector gesture={longPressGesture}>
+                                  <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>
+                            </GestureDetector>
+                                                              }
                             keyExtractor={item => item.id}
                             style ={styles.NewJAwn}
                         />

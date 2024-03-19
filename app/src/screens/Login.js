@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   View,
   KeyboardAvoidingView,
+  Image
  
 } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -51,30 +52,24 @@ export default function ({ navigation }) {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
+              backgroundColor: "#F6F6F6",
             }}
           >
-         
+          <Image
+        style={{height:100,width:'50%', paddingTop:"10%"}}
+        source={require('../../assets/Simplicity.jpg')}
+      />
           </View>
           <View
             style={{
               flex: 3,
               paddingHorizontal: 20,
               paddingBottom: 20,
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.white,
+              backgroundColor:"#F6F6F6",
             }}
           >
-            <Text
-              fontWeight="bold"
-              style={{
-                alignSelf: "center",
-                padding: 30,
-              }}
-              size="h3"
-            >
-              Login
-            </Text>
-            <Text>Email</Text>
+         
+           
             <TextInput
               containerStyle={{ marginTop: 15 }}
               placeholder="Enter your email"
@@ -86,7 +81,7 @@ export default function ({ navigation }) {
               onChangeText={(text) => setEmail(text)}
             />
 
-            <Text style={{ marginTop: 15 }}>Password</Text>
+      
             <TextInput
               containerStyle={{ marginTop: 15 }}
               placeholder="Enter your password"
@@ -108,73 +103,9 @@ export default function ({ navigation }) {
               disabled={loading}
             />
 
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 15,
-                justifyContent: "center",
-              }}
-            >
-              <Text size="md">Don't have an account?</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Register");
-                }}
-              >
-                <Text
-                  size="md"
-                  fontWeight="bold"
-                  style={{
-                    marginLeft: 5,
-                  }}
-                >
-                  Register here
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 10,
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("ForgetPassword");
-                }}
-              >
-                <Text size="md" fontWeight="bold">
-                  Forget password
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 30,
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  isDarkmode ? setTheme("light") : setTheme("dark");
-                }}
-              >
-                <Text
-                  size="md"
-                  fontWeight="bold"
-                  style={{
-                    marginLeft: 5,
-                  }}
-                >
-                  {isDarkmode ? "☀️ light theme" : "🌑 dark theme"}
-                </Text>
-              </TouchableOpacity>
-            </View>
+       
+    
+       
           </View>
         </ScrollView>
       </Layout>

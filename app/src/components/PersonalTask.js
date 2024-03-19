@@ -41,6 +41,7 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
   const [swipeOpen, setSwipe] = useState(false)
 
 useEffect( () => {
+  console.log(task.time)
   async function fetchData() {
         let data = await getAllCategories()
         data.forEach(category => {
@@ -96,7 +97,7 @@ const onSwipeClose = () =>{
         <>
         <Badge
             status="primary"
-            containerStyle={{ position: 'absolute', top: 10, left: 320 }}
+            containerStyle={{ position: 'absolute', top: '10%', left: "95%" }}
           /> 
         
         </>
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         alignItems:'center',
         flexDirection: "row",
+        overflow:"hidden"
 
     },
     Image:{
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
     },
     Info:{
       flexDirection: 'column',
-      width:150,
+      width:"90%",
       height:60
     }
 })

@@ -4,18 +4,15 @@ let myToken = '2073~cE5mcOGbroEkXzvt7Q55rVQL117g5WhoqITdT0JRNMFWritmRdideBDSIndN
 async function getCards(){
     let school = "scienceleadership.instructure.com"
     let request =  await axios({ method: 'get', url: `https://${school}/api/v1/dashboard/dashboard_cards`, headers:{'Authorization': `Bearer ${myToken}`} })
-   console.log(request.data)
+     let data = request.data
+     data.forEach((subject) => {
+      console.log(subject.shortName)
+      });
     
 
 }
 
-async function getCards(){
-    let school = "scienceleadership.instructure.com"
-    let request =  await axios({ method: 'get', url: `https://${school}/api/v1/dashboard/dashboard_cards`, headers:{'Authorization': `Bearer ${myToken}`} })
-   console.log(request.data)
-    
 
-}
 
 async function getUpcoming(){
     let todaysDate = "2024-03-10"
