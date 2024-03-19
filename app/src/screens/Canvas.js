@@ -1,10 +1,37 @@
 
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform , Button} from 'react-native';
+import React,{useState, useEffect, useRef, useMemo, useCallback} from 'react';
+
+
 import PageHeader  from '../components/utils/PageHeader'
+import ImageButton from '../components/utils/Buttons/ImageButton'
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+  createBottomSheet 
+} from '@gorhom/bottom-sheet';
 
 
-export default function Calendar() {
+export default function Canvas() {
+  const [isPlusBtnShown, setPlusBtn] = useState(true)
 
+
+  const bottomSheetModalRef = useRef(null);
+  const snapPoints = useMemo(() => ['25%','50%'], []);
+  const handleSheetChanges = useCallback((index) => {
+  }, []);
+
+
+
+  const handleModalDismiss = () => {
+    setBlurr(false)
+    if(isCreateTaskPopup || isCreateCategory){
+       setPlusBtn(false)
+     }else{
+       setPlusBtn(true)
+     }
+  }
+  
     return (
         <>
       
@@ -12,6 +39,36 @@ export default function Calendar() {
    
          <PageHeader title="Canvas"/>
        
+
+         <FlatList data={tasks} showsVerticalScrollIndicator={false}
+                            renderItem={({item}) => 
+                            <GestureDetector gesture={longPressGesture}>
+                                  <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>
+                            </GestureDetector>
+                               }
+                            keyExtractor={item => item.id}
+                            style ={styles.NewJAwn}
+                        />
+
+         <BottomSheetModalProvider>
+                      <View style={styles.contentContainer}>
+                                <BottomSheetModal ref={bottomSheetModalRef} index={0} snapPoints={snapPoints} onChange={handleSheetChanges} onDismiss={handleModalDismiss} style={styles.contentContainer}>
+                                         <View >
+                                         
+                                         </View>
+                                </BottomSheetModal>
+                        </View>
+         </BottomSheetModalProvider>
+
+
+         {isPlusBtnShown &&
+                  <SafeAreaView  style={styles.containerg}>
+                      <View style={styles.ImageButton2}>
+                          <ImageButton onPress={ async () => {await setPlusBtn(false), await test(), await setBlurr(!isBlurred) }}  source="pluscircle"  size={45} color={"#4A4A4B"}/> 
+                    </View>
+                  </SafeAreaView>
+               }
+
       </SafeAreaView>
         </>
        
@@ -25,4 +82,11 @@ export default function Calendar() {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    containerg:{
+      height:'10%',
+      justifyContent:'center',
+      alignItems:'flex-end',
+      backgroundColor:'white'
+  },
+  ImageButton2: {marginRight:'5%'}
   });

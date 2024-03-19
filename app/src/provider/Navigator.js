@@ -15,7 +15,7 @@ import TabBarIcon from '../components/utils/TabBarIcon'
 
 import Home from "../screens/Home";
 import Profile from '../screens/Profile'
-import Calendar from "../screens/Canvas";
+import Canvas from "../screens/Canvas";
 import Settings from "../screens/Settings";
 // Auth screens
 import Login from "../screens/Login";
@@ -23,6 +23,7 @@ import Login from "../screens/Login";
 import { AuthContext } from "../provider/AuthProvider";
 import Personal from "../screens/Personal";
 import ImageButton from "../components/utils/Buttons/ImageButton";
+
 // Better put your these secret keys in .env file
 
 
@@ -158,7 +159,7 @@ const MainTabs = () => {
 
 <Tabs.Screen
         name="Canvas"
-        component={Calendar}
+        component={Canvas}
         //list-alt
         options={{   
             tabBarIcon: ({ focused }) => (
