@@ -83,11 +83,11 @@ const checkForValidFields = async () => {
                             setValue={setValue}
                             setItems={setItems}
                             bottomOffset={300}
-                            style={{  width:330, paddingLeft:18,}}
+                            style={{  width:330, paddingLeft:18, paddingBottom:25}}
                             /> 
                          </View>
-                         <View style={{marginTop:30, width:330, }}>
-                            {isInput2Vis&&<>
+                         <View style={{marginTop:40, width:330, }}>
+                            {value&&<>
                             
                                 <DropDownPicker
                             open={openColor}
@@ -150,8 +150,9 @@ const Styles = StyleSheet.create({
 
     },
     PopupContainer:{
-        height:'100%',
-        width:'90%',
+        height:'90%',
+        width:'100%',
+        marginBottom:"10%",
         backgroundColor:'#F6F6F6',
         borderRadius:10,
      
@@ -165,16 +166,18 @@ const Styles = StyleSheet.create({
     },
     dataFields:{
         height:600,
+        width:400,
         flex:1,
         alignItems:'center'
       },
       TaskTitle:{
         height:60,
+        width:"90%",
         alignItems: 'center',
       },
       Input:{
         height:50,
-        width:330,
+        width:300,
         backgroundColor:'#fff',
         borderColor: '#E0E0E0',
         borderWidth:1,

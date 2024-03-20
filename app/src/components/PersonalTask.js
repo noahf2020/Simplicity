@@ -14,7 +14,7 @@ import { Badge } from '@rneui/themed';
 export default function PersonalTask({task,markAsFavorite, deleteB, completeTask}) {
   const rightSwipeActions = () => {
     return (
-      <View style={{ backgroundColor:"green", alignItems:'center',  flexDirection:'row', height:75, marginTop:8, width:135, borderRadius: 15, marginLeft:10  }}>
+      <View style={{ backgroundColor:"white", alignItems:'center',  flexDirection:'row', height:75, marginTop:8, width:"35%", borderRadius: 15, marginLeft:10  }}>
           <View style={{width:45, backgroundColor:"#FF7F7F", height:75, justifyContent:'center', borderTopLeftRadius:15, borderBottomLeftRadius:15}}>
           <ImageButton onPress={() => deleteB(task.id)}  source="delete"  size={20} color={"#403572"}/> 
           </View>
@@ -90,8 +90,8 @@ const onSwipeClose = () =>{
       <View style={[styles.taskDiv,{backgroundColor:Category.color, borderColor:styleImage[Category.color], borderWidth:'1'}]}>
         <View style={styles.Image}>{IconManager[Category.image]}</View>
         <View style={styles.Info}>
-          <Text style={{fontSize:16, marginTop:5, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
-          <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
+          <Text numberOfLines={1} style={{fontSize:16, marginTop:5, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
+          <Text numberOfLines={1} style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
           <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + " @ " + new Date(`2000-01-01T${task.time}:00Z`).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Text>
         </View>
 
@@ -108,11 +108,19 @@ const onSwipeClose = () =>{
       </View>
    }
    {swipeOpen && 
-    <View style={[styles.taskDiv,{backgroundColor:Category.color, width:187, marginLeft:150}]}>
+    <View style={[styles.taskDiv,{ backgroundColor:Category.color, width:"60%", marginLeft:150}]}>
           <View style={[styles.Image,{paddingTop:5}]}>{IconManager[Category.image]}</View>
-          <Text style={{fontSize:14, marginTop:5, fontWeight:'bold', marginLeft:5, color:StylebigText[Category.color]}}>{task.title}</Text>
-
-
+          <Text  ellipsizeMode='tail' numberOfLines={1} style={{fontSize:14,   width:"85%", marginTop:5, fontWeight:'bold', marginLeft:5, color:StylebigText[Category.color]}}>{task.title}</Text>
+        
+          {task.favorite && 
+        <>
+        <Badge
+            status="primary"
+            containerStyle={{ position: 'absolute', top: '10%', left: "90%" }}
+          /> 
+        
+        </>
+       }
     </View>
    }
 
@@ -138,7 +146,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         alignItems:'center',
         flexDirection: "row",
-        overflow:"hidden"
+        overflow:"hidden",
+     
 
     },
     Image:{
@@ -147,8 +156,10 @@ const styles = StyleSheet.create({
     },
     Info:{
       flexDirection: 'column',
-      width:"90%",
-      height:60
+      width:"85%",
+      height:60,
+   
+
     }
 })
 
