@@ -14,7 +14,7 @@ import { Badge } from '@rneui/themed';
 export default function PersonalTask({task,markAsFavorite, deleteB, completeTask}) {
   const rightSwipeActions = () => {
     return (
-      <View style={{ backgroundColor:"white", alignItems:'center',  flexDirection:'row', height:75, marginTop:8, width:"35%", borderRadius: 15, marginLeft:10  }}>
+      <View style={{ backgroundColor:"white", alignItems:'center', justifyContent:'center', flexDirection:'row', height:75, marginTop:8, width:"40%", borderRadius: 15, marginLeft:10  }}>
           <View style={{width:45, backgroundColor:"#FF7F7F", height:75, justifyContent:'center', borderTopLeftRadius:15, borderBottomLeftRadius:15}}>
           <ImageButton onPress={() => deleteB(task.id)}  source="delete"  size={20} color={"#403572"}/> 
           </View>

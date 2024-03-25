@@ -9,8 +9,8 @@ export async function getClasses(){
     let myToken = '2073~cE5mcOGbroEkXzvt7Q55rVQL117g5WhoqITdT0JRNMFWritmRdideBDSIndNRtBw'
     let school = "scienceleadership.instructure.com"
 
-    let request =  await axios({ method: 'get', url: `https://${school}/api/v1/dashboard/dashboard_cards`, headers:{'Authorization': `Bearer ${myToken}`} })
-    let data = request.data
+    let request =  await axios({ method: 'get', url: `https://${school}/api/v1/dashboard/dashboard_cards`, headers:{'Authorization': `Bearer ${myToken}`} })      
+    let data = request.data   
      data.forEach((subject) => {
       console.log(subject.shortName)
       });
