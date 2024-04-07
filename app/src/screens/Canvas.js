@@ -40,15 +40,7 @@ export default function Canvas() {
          <PageHeader title="Canvas"/>
        
 
-         <FlatList data={tasks} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) => 
-                            <GestureDetector gesture={longPressGesture}>
-                                  <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>
-                            </GestureDetector>
-                               }
-                            keyExtractor={item => item.id}
-                            style ={styles.NewJAwn}
-                        />
+       
 
          <BottomSheetModalProvider>
                       <View style={styles.contentContainer}>
@@ -64,7 +56,7 @@ export default function Canvas() {
          {isPlusBtnShown &&
                   <SafeAreaView  style={styles.containerg}>
                       <View style={styles.ImageButton2}>
-                          <ImageButton onPress={ async () => {await setPlusBtn(false), await test(), await setBlurr(!isBlurred) }}  source="pluscircle"  size={45} color={"#4A4A4B"}/> 
+                          <ImageButton onPress={ async () => {await setPlusBtn(false), await test(), await setBlurr(!isBlurred) }}  source="upcircle"  size={45} color={"#4A4A4B"}/> 
                     </View>
                   </SafeAreaView>
                }
@@ -88,5 +80,11 @@ export default function Canvas() {
       alignItems:'flex-end',
       backgroundColor:'white'
   },
+  NewJAwn:{
+    backgroundColor:'white',
+    width:'90%',
+    borderRadius: 15,
+    maxHeight:'90%'
+},
   ImageButton2: {marginRight:'5%'}
   });

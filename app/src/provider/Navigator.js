@@ -138,14 +138,14 @@ const MainTabs = () => {
           ),}}
           />
 
-<Tabs.Screen
+{/* <Tabs.Screen
         name="Profile"
         component={Profile}
         options={{   
             tabBarIcon: ({ focused }) => (
                <TabBarIcon icon="person-outline" focused={focused}/>
           ),}}
-          />
+          /> */}
      <Tabs.Screen
         name="Todo"
         component={Personal}
