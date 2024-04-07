@@ -110,8 +110,6 @@ export default function Personal() {
  
     const test = () =>{
       bottomSheetModalRef.current?.present();
-
-
     }
   
     const backToNormal = () => {

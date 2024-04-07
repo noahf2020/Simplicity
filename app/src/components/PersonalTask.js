@@ -29,14 +29,7 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
     );
   };
 
-  
-  
-  
-  
-  
-  
-  
-  
+
   const [Category, setCategory] = useState([])
   const [swipeOpen, setSwipe] = useState(false)
 
