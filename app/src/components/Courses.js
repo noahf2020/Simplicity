@@ -1,4 +1,4 @@
-import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar,ActivityIndicator, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import React,{useState, useEffect} from 'react';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Course from './Course';
@@ -7,13 +7,15 @@ import { getClasses } from '../helper/Canvas/Classes';
 
 export default function Courses({backToNormal}) {
   const [courses, setcourses ] = useState([])
-
+  const [isLoading, setLoading] = useState(false)
   useEffect( () => {
+    setLoading(true)
     async function fetchData() {
+        
           let data = await getClasses()
           console.log("Data Frin Coursews: " + data)
           setcourses(data.slice())
-       
+          setLoading(false)
     }
     
     fetchData()
@@ -27,11 +29,8 @@ export default function Courses({backToNormal}) {
                         <ImageButton onPress={() =>backToNormal()}  source="arrowdown"  size={20} color={"#403572"}/> 
                         </View>            
                         </TouchableWithoutFeedback>
-                        <FlatList data={courses} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) =>   <Course course={item}/> }
-                            keyExtractor={item => item.id}
-                            style ={Styles.flatList}
-                        />
+             
+                        {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={courses} showsVerticalScrollIndicator={false}  renderItem={({item}) =>   <Course course={item}/> }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
 
            </KeyboardAvoidingView>
     </>
