@@ -16,7 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.noahc0001.test"
+      "bundleIdentifier": "com.noahc0001.test",
+      "buildNumber":"1"
     },
     "android": {
       "adaptiveIcon": {

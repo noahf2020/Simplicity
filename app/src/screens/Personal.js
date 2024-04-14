@@ -31,6 +31,7 @@ import Animated, {
 
 export default function Personal() {
 
+  const [isLoading, setLoading] = useState(false)
   const [isBlurred, setBlurr] = useState(false);
   const [isPlusBtnShown, setPlusBtn] = useState(true)
   const [isCreateTaskPopup, setCreateTaskPopup] = useState(false)
@@ -52,6 +53,8 @@ export default function Personal() {
     .direction(Directions.DOWN)
     .onStart((e) => {
       position.value =  withTiming(position.value + 400, { duration: 0 });
+    }).onEnd(()=>{
+      backToNormal()
     })
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -132,7 +135,6 @@ export default function Personal() {
 
  
       <GestureHandlerRootView style={{ flex: 1 }}>
-      <NativeViewGestureHandler disallowInterruption={true}>
      
           <>
          
@@ -172,15 +174,15 @@ export default function Personal() {
                 
                 }
 
-                 <FlatList data={tasks} showsVerticalScrollIndicator={false}
+<FlatList data={tasks} showsVerticalScrollIndicator={false}
                             renderItem={({item}) => 
-                            <GestureDetector gesture={longPressGesture}>
+                         
                                   <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>
-                            </GestureDetector>
+
                                                               }
                             keyExtractor={item => item.id}
                             style ={styles.NewJAwn}
-                        />
+                        /> 
                              <BottomSheetModalProvider>
                       <View style={styles.contentContainer}>
                                      <BottomSheetModal
@@ -214,7 +216,7 @@ export default function Personal() {
                }
        
           </>
-          </NativeViewGestureHandler>
+    
       </GestureHandlerRootView>
 
        
