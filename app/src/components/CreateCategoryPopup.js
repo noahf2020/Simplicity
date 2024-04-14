@@ -83,7 +83,7 @@ const checkForValidFields = async () => {
                             setValue={setValue}
                             setItems={setItems}
                             bottomOffset={300}
-                            style={{  width:330, paddingLeft:18, paddingBottom:25}}
+                            style={{  width:330, paddingLeft:18,}}
                             /> 
                          </View>
                          <View style={{marginTop:40, width:330, }}>
@@ -139,9 +139,9 @@ const Styles = StyleSheet.create({
         marginTop:10
       },
     Rendering:{
-        height:150,
+        height:140,
         width:200,
-        marginTop:110,
+        marginTop:"40%",
         backgroundColor:"white",
         alignItems:'center',
         justifyContent: 'center',
@@ -150,7 +150,7 @@ const Styles = StyleSheet.create({
 
     },
     PopupContainer:{
-        height:'90%',
+        height:'100%',
         width:'100%',
         marginBottom:"10%",
         backgroundColor:'#F6F6F6',

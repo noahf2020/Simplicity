@@ -175,9 +175,8 @@ export default function Personal() {
                 
                 }
 
-<FlatList data={tasks} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) => 
-                         
+                  <FlatList data={tasks} showsVerticalScrollIndicator={false}
+                            renderItem={({item}) =>  
                                   <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>
 
                                                               }

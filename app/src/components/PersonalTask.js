@@ -102,7 +102,7 @@ const onSwipeClose = () =>{
    }
    {/* This margin below could be causing bugs on other devices make sure to fix this noah */}
    {swipeOpen && 
-      <View style={[styles.taskDiv,{ backgroundColor:Category.color, width:"55%", marginLeft:'45%'}]}>
+      <View style={[styles.taskDiv,{borderWidth:'1',borderColor:styleImage[Category.color], backgroundColor:Category.color, width:"55%", marginLeft:'45%'}]}>
           <View style={[styles.Image,{paddingTop:5}]}>{IconManager[Category.image]}</View>
           <Text  ellipsizeMode='tail' numberOfLines={1} style={{fontSize:14,   width:"85%", marginTop:5, fontWeight:'bold', marginLeft:5, color:StylebigText[Category.color]}}>{task.title}</Text>
         
