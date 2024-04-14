@@ -48,7 +48,7 @@ const Styles = StyleSheet.create({
         borderRadius:10,
     },
     AddTaskBTN:{
-        height:"20%",
+        height:"18%",
         width:"100%",
         backgroundColor:'#A0BBFF',
         borderRadius:10,
@@ -58,13 +58,14 @@ const Styles = StyleSheet.create({
         
     },
     AddCategory:{
-        height:"20%",
+        height:"18%",
         width:"100%",
         backgroundColor:'#FFDAA3',
         borderRadius:10,
         justifyContent:'center',
         alignItems:'center',
-        marginTop:"3%"
+        marginTop:"2%",
+
 
     },
     TXTContainer:{

@@ -1,9 +1,10 @@
 import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import React,{useState, useEffect} from 'react';
-import DateTimePicker from 'react-native-ui-datepicker';
+
 import delay from 'delay';
 import dayjs from 'dayjs';
 import { Feather } from '@expo/vector-icons'; 
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { getAllCategories } from '../helper/Categories';
 import { addTask } from '../helper/Tasks';
@@ -17,16 +18,15 @@ import ErrorModal from './utils/ErrorModal';
 
 
 export default function TaskPopup({backToNormal}) {
-      const [value, setValue] = useState();
-      const [cvalue, csetValue] = useState();
+      const [date, setDate] = useState(new Date());
+      const [time, setTime] = useState(new Date());
       const [TaskTitleValue, setTaskTitleValue] = useState("");
       const [NotesValue, setNotesValue] = useState("");
       const [selectedCategory, setCategory] = useState("");
 
 
 
-      const [showCalendar, setCalendar] = useState(false)
-      const [showTime, setTime] = useState(false)
+
       const [categories, setCategories] = useState([])
       const [errorModal, setModalVisable] = useState(false)
       const [errorMessage, setErrorMessage] = useState("")
@@ -44,42 +44,21 @@ export default function TaskPopup({backToNormal}) {
       // ...
     
 
-let tempDate;
 
-const onpressDate = () =>{
-      if(showTime == false){
-       console.log("false")
-       setCalendar(!showCalendar)
-      }
-}
+const onChangeDate = (event, selectedDate) => {
+  const currentDate = selectedDate || date;
+  setDate(currentDate);
+};
 
-const onpressTime = () =>{
-      setTime(!showTime)
-}
-
-const saveDate = async (date) => {
-      let realDate = date.split(' ')[0]
-      setValue(realDate)
-      await delay(250);
-      setCalendar(!showCalendar)
-}
-
-const saveTime = async () => {
-      csetValue(tempDate)
-      await delay(250);
-      setTime(!showTime)
-}
-
-const saveTempData = async (date) => {
-      console.log(date)
-      tempDate = date
-}
-
+const onChangeTime = (event, selectedTime) => {
+  const currentTime = selectedTime || time;
+  setTime(currentTime);
+};
 
 
 const checkForValidFields = async () =>{
-    if(StringCheck(TaskTitleValue, 3) && selectedCategory && value && cvalue){
-      await addTask(TaskTitleValue, selectedCategory, value, cvalue.split(' ')[1], NotesValue, isEnabled);
+    if(StringCheck(TaskTitleValue, 3) && selectedCategory && date && time){
+      await addTask(TaskTitleValue, selectedCategory,new Date(date).toISOString().slice(0, 10), new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), NotesValue, isEnabled);
       await backToNormal()
     }else{
       await setErrorMessage("Invalid [title] Input(s)")
@@ -95,16 +74,7 @@ const checkForValidFields = async () =>{
       await setModalVisable(true)
       await delay(2250)
       await setModalVisable(false)
-    }
-    if(value && cvalue){
-    }else{
-      await setErrorMessage("Invalid [date/time] Input(s)")
-      await setModalVisable(true)
-      await delay(2250)
-      await setModalVisable(false)
-    }
-
-   
+    }   
 }
 
 
@@ -159,42 +129,19 @@ const checkForValidFields = async () =>{
           <KeyboardAvoidingView   style={{ flex: 1}} keyboardVerticalOffset={200} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                          <View style={Styles.Selections}>
           
-                              <Pressable style={Styles.Press}  onPress={onpressDate}>
-                                            <Text>{ value ? dayjs(value).format('LL')  :'Select Date'}</Text>
-                                            <Feather name="calendar" size={20} color="#4A3780" />
+                              <Pressable style={Styles.Press} >
+                                            <Feather name="calendar" size={20} color="#4A3780"style={{marginLeft:"5%"}} />
+                                            <DateTimePicker mode="date" style={{width:"70%"}}   onChange={onChangeDate} value={date} />
 
                               </Pressable>
 
-                              <Pressable style={Styles.Press}  onPress={ onpressTime}>
-                                            <Text style={{color:'#1B1B1D'}}>{cvalue ? cvalue.split(' ')[1] :'Select Time'}</Text>
-                                            <Feather name="clock" size={20} color="#4A3780" />
+                              <Pressable style={Styles.Press}>
+                                            <Feather name="clock" size={20} color="#4A3780" style={{marginLeft:"5%"}}/>
+                                            <DateTimePicker mode="time" style={{width:"70%"}}    onChange={onChangeTime} value={time} />
                               </Pressable>
   
                          </View>
 
-                                          { showCalendar &&
-                                                <View style={Styles.Datecontainer}>
-                                                <DateTimePicker
-                                                value={value}
-                                                mode="date"
-                                                onValueChange={(date) => saveDate(date) }
-                                                />
-                                                </View>
-                                           }
-                                           { showTime &&
-                                             <View style={Styles.Timecontainer}>
-                                                <DateTimePicker
-                                                value={cvalue}
-                                                mode="time"
-                                                local="en"
-                                                timePickerTextStyle={{fontSize:15}}
-                                                onValueChange={(date) => saveTempData(date) }
-                                                />
-                                              <Pressable style={Styles.SaveBTN}  onPress={()=>saveTime()}>
-                                               <Text style={{color:'#00A525'}}>Save</Text>
-                                                </Pressable>
-                                             </View>
-                                           }
 
 
                   <View style={Styles.Notes} >
@@ -207,7 +154,6 @@ const checkForValidFields = async () =>{
                                               autoCorrect={true}
                                               keyboardType="default"
                                               returnKeyType='done'
-                                          
                                               onChangeText={(text) => setNotesValue(text)}
                                />  
                                 
@@ -311,7 +257,7 @@ const checkForValidFields = async () =>{
       fontSize: 16,
       height:50,
       flexDirection: "row",
-      justifyContent:'space-around',
+     
       alignItems: "center",
     },
     Datecontainer: {

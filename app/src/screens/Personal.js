@@ -49,13 +49,13 @@ export default function Personal() {
 
   const position = useSharedValue(0);
 
-  const flingGesture = Gesture.Fling()
-    .direction(Directions.DOWN)
-    .onStart((e) => {
-      position.value =  withTiming(position.value + 400, { duration: 0 });
-    }).onEnd(()=>{
-      backToNormal()
-    })
+  // const flingGesture = Gesture.Fling()
+  //   .direction(Directions.DOWN)
+  //   .onStart((e) => {
+  //     position.value =  withTiming(position.value + 400, { duration: 0 });
+  //     setCreateTaskPopup(false)
+
+  //   })
 
     const animatedStyle = useAnimatedStyle(() => ({
       transform: [{ translateY: position.value }],
@@ -135,6 +135,7 @@ export default function Personal() {
 
  
       <GestureHandlerRootView style={{ flex: 1 }}>
+
      
           <>
          
@@ -152,11 +153,11 @@ export default function Personal() {
        
                 {isCreateTaskPopup && 
                 <>
-             <GestureDetector gesture={flingGesture}>
-             <Animated.View style={animatedStyle} >
+             {/* <GestureDetector gesture={flingGesture}>
+             <Animated.View style={animatedStyle} > */}
                <TaskPopup  backToNormal={backToNormal}/>
-               </Animated.View>
-             </GestureDetector>
+               {/* </Animated.View>
+             </GestureDetector> */}
 
                 </>
                 }
@@ -216,7 +217,7 @@ export default function Personal() {
                }
        
           </>
-    
+
       </GestureHandlerRootView>
 
        

@@ -85,7 +85,7 @@ const onSwipeClose = () =>{
         <View style={styles.Info}>
           <Text numberOfLines={1} style={{fontSize:16, marginTop:5, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
           <Text numberOfLines={1} style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
-          <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + " @ " + new Date(`2000-01-01T${task.time}:00Z`).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Text>
+          <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + " @ " + task.time}</Text>
         </View>
 
         {task.favorite && 
@@ -102,7 +102,7 @@ const onSwipeClose = () =>{
    }
    {/* This margin below could be causing bugs on other devices make sure to fix this noah */}
    {swipeOpen && 
-    <View style={[styles.taskDiv,{ backgroundColor:Category.color, width:"55%", marginLeft:'45%'}]}>
+      <View style={[styles.taskDiv,{ backgroundColor:Category.color, width:"55%", marginLeft:'45%'}]}>
           <View style={[styles.Image,{paddingTop:5}]}>{IconManager[Category.image]}</View>
           <Text  ellipsizeMode='tail' numberOfLines={1} style={{fontSize:14,   width:"85%", marginTop:5, fontWeight:'bold', marginLeft:5, color:StylebigText[Category.color]}}>{task.title}</Text>
         

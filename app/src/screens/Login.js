@@ -4,7 +4,8 @@ import {
   TouchableOpacity,
   View,
   KeyboardAvoidingView,
-  Image
+  Image,
+  StatusBar
  
 } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -41,6 +42,7 @@ export default function ({ navigation }) {
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
+          <StatusBar barStyle="dark-content" />
       <Layout>
         <ScrollView
           contentContainerStyle={{
