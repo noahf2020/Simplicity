@@ -5,6 +5,7 @@ import delay from 'delay';
 import dayjs from 'dayjs';
 import { Feather } from '@expo/vector-icons'; 
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { SelectList } from 'react-native-dropdown-select-list'
 
 import { getAllCategories } from '../helper/Categories';
 import { addTask } from '../helper/Tasks';
@@ -54,6 +55,19 @@ const onChangeTime = (event, selectedTime) => {
   const currentTime = selectedTime || time;
   setTime(currentTime);
 };
+
+
+const [selected, setSelected] = React.useState("");
+  
+  const data = [
+      {key:'1', value:'Mobiles', disabled:true},
+      {key:'2', value:'Appliances'},
+      {key:'3', value:'Cameras'},
+      {key:'4', value:'Computers', disabled:true},
+      {key:'5', value:'Vegetables'},
+      {key:'6', value:'Diary Products'},
+      {key:'7', value:'Drinks'},
+  ]
 
 
 const checkForValidFields = async () =>{
@@ -107,20 +121,20 @@ const checkForValidFields = async () =>{
                                />      
                          </View>
 
-                         <KeyboardAvoidingView style={Styles.Categories} keyboardVerticalOffset={200} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
-                            <View style={{width:100, height:19, alignItems:'center' }}> 
-                              <Text style={{fontWeight:700,}}>Categories: </Text> 
-                            </View>
-                            {errorModal && 
-                            <>
-                            <ErrorModal setModalVisable={setModalVisable} errorModal={errorModal} message={errorMessage}/>
-                            </>
-                          } 
+                    <View style={{width:"70%", alignSelf:'center', height:'15%',backgroundColor:"grey",overflow:'scroll'}}>
+                    <SelectList 
+                                  setSelected={(val) => setSelected(val)} 
+                                  data={data} 
+                                  save="value"
+                                  search={false}
+                                  maxHeight="50"
+                              />
+                    </View>
+                         
+                             {/* {categories.map(category =>{  return (<Category category={category} setIsAlraedySelected={setIsAlraedySelected} isAlreadySelected={isAlreadySelected} setCategory={setCategory}/> ) })}
+                           */}
 
-                             {categories.map(category =>{  return (<Category category={category} setIsAlraedySelected={setIsAlraedySelected} isAlreadySelected={isAlreadySelected} setCategory={setCategory}/> ) })}
-                          
-
-                         </KeyboardAvoidingView>
+                        
                             
                           <View style={Styles.Txt}>
                            

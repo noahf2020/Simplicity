@@ -2,12 +2,14 @@ import {SafeAreaView,View,ActivityIndicator,FlatList,StyleSheet, Text,StatusBar,
 import deleReact,{useState, useEffect} from 'react';
 
 
-export default function Course({course}) {
+export default function Course({course, color}) {
+ 
+
   return (
-    <View style={[styles.taskDiv,{backgroundColor:"grey", borderColor:"grey", borderWidth:'1'}]}>
+    <View style={[styles.taskDiv,{backgroundColor:'#EDEDED', borderWidth:'thick',borderColor: "#"+ color, borderWidth:'1'}]}>
     <View style={styles.Info}>
-      <Text numberOfLines={1} style={{fontSize:16, marginTop:5, fontWeight:'bold', }}>{course.name}</Text>
-      <Text numberOfLines={1} style={{fontSize:16, marginTop:5, }}>{course.grade}</Text>
+      <Text numberOfLines={1} style={{fontSize:16, marginTop:5,  alignSelf:'center', fontWeight:'bold', }}>{course.name}</Text>
+      <Text numberOfLines={1} style={{fontSize:16, marginTop:5, alignSelf:'center'}}>{course.grade + "%"}</Text>
 
       </View>
    
@@ -17,7 +19,13 @@ export default function Course({course}) {
 
 
 const styles = StyleSheet.create({
+  Info:{
+    flexDirection: 'column',
+    width:"100%",
+    height:60,
+ 
 
+  },
     taskDiv:{
         width:'100%',
         height:75,

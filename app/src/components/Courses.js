@@ -30,7 +30,7 @@ export default function Courses({backToNormal}) {
                         </View>            
                         </TouchableWithoutFeedback>
              
-                        {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={courses} showsVerticalScrollIndicator={false}  renderItem={({item}) =>   <Course course={item}/> }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
+                        {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={courses} showsVerticalScrollIndicator={false}  renderItem={({item}) =>   <Course course={item} color={Math.floor(Math.random()*16777215).toString(16)}/> }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
 
            </KeyboardAvoidingView>
     </>
@@ -41,9 +41,8 @@ export default function Courses({backToNormal}) {
 const Styles = StyleSheet.create({ 
 
     PopupContainer:{
-        height:'100%',
+        height:'95%',
         width:'100%',
-        backgroundColor:'#F6F6F6',
         borderRadius:10,
         justifyContent: 'center',
   
@@ -60,7 +59,7 @@ const Styles = StyleSheet.create({
         backgroundColor:'white',
         width:'90%',
         borderRadius: 15,
-        maxHeight:'90%',
+      
         alignSelf:'center'
     },
 })

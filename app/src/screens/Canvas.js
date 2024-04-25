@@ -8,6 +8,7 @@ import ChoiceSelectorCanvas from '../components/ChoiceSelectorCanvas';
 import PageHeader  from '../components/utils/PageHeader'
 import ImageButton from '../components/utils/Buttons/ImageButton'
 import Courses from '../components/Courses';
+import Assignments from '../components/Assignments';
 
 import { GestureHandlerRootView, GestureDetector, Gesture, Directions} from 'react-native-gesture-handler';
 import {
@@ -20,6 +21,8 @@ import {
 export default function Canvas() {
   const [isPlusBtnShown, setPlusBtn] = useState(true)
   const [isViewCourses, setViewCourses] = useState(false);
+  const [assignments, setAssignments] = useState([1,2,35,4,4,4,4,3]);
+
 
   const bottomSheetModalRef = useRef(null);
   const snapPoints = useMemo(() => ['25%','50%'], []);
@@ -63,7 +66,11 @@ export default function Canvas() {
       
       <SafeAreaView  style={styles.container}>
    
-         <PageHeader title="Canvas"/>
+      <View   style={ [isViewCourses ? styles.HeaderBarSmall :styles.HeaderBar ]}>
+      <PageHeader title="Canvas"/>
+</View>
+
+       
        
          {isViewCourses && 
                 <>
@@ -77,7 +84,11 @@ export default function Canvas() {
                 </>
                 
                 }
-       
+          <FlatList data={assignments} showsVerticalScrollIndicator={false}
+                            renderItem={({item}) =>  <Assignments /> }
+                            keyExtractor={item => item.id}
+                            style ={styles.NewJAwn}
+                        /> 
 
          <BottomSheetModalProvider>
                       <View style={styles.contentContainer}>
@@ -89,6 +100,7 @@ export default function Canvas() {
                         </View>
          </BottomSheetModalProvider>
 
+      
 
          {isPlusBtnShown &&
                   <SafeAreaView  style={styles.containerg}>
@@ -131,10 +143,18 @@ export default function Canvas() {
       elevation: 24,
 
     },
+    HeaderBar:{
+      height:'5%',
+      backgroundColor: 'white',
+   },
+   HeaderBarSmall:{
+    height:'5%',
+
+   },
     containerg:{
       height:'10%',
       justifyContent:'center',
-      alignItems:'flex-end',
+      alignSelf:'flex-end',
       backgroundColor:'white'
   },
   NewJAwn:{

@@ -20,7 +20,7 @@ export async function getClasses(){
    let data = request.data   
    data.forEach(async subject2=>{
        console.log(subject2.name +": " + subject2.enrollments[0].current_period_computed_current_score)
-
+    console.log(subject2)
          await classes.push({"name":subject2.name,"grade":subject2.enrollments[0].current_period_computed_current_score,})
    })
 
