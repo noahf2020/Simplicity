@@ -1,11 +1,13 @@
 import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar,ActivityIndicator, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import React,{useState, useEffect} from 'react';
-export default function Assignments() {
+export default function Assignments({assignment}) {
+   
   return (
         <View style={[styles.taskDiv,{backgroundColor:'#EDEDED', borderWidth:'thick', borderWidth:'1'}]}>
         <View style={styles.Info}>
-          <Text numberOfLines={1} style={{fontSize:16, marginTop:5,  alignSelf:'center', fontWeight:'bold', }}>Hello</Text>
-          <Text numberOfLines={1} style={{fontSize:16, marginTop:5, alignSelf:'center'}}>Hello</Text>
+          <Text numberOfLines={1} adjustsFontSizeToFit style={{ marginTop:5,  alignSelf:'center', fontWeight:'bold', }}>{assignment.course}</Text>
+          <Text numberOfLines={1} style={{fontSize:16, marginTop:5, alignSelf:'center'}}>{assignment.title}</Text>
+          <Text numberOfLines={1} style={{fontSize:16, marginTop:5, alignSelf:'center'}}>{assignment.points}</Text>
     
           </View>
        

@@ -16,18 +16,30 @@ import {
   BottomSheetModalProvider,
   createBottomSheet 
 } from '@gorhom/bottom-sheet';
+import { getAssignments } from '../helper/Canvas/Classes';
 
 
 export default function Canvas() {
   const [isPlusBtnShown, setPlusBtn] = useState(true)
   const [isViewCourses, setViewCourses] = useState(false);
-  const [assignments, setAssignments] = useState([1,2,35,4,4,4,4,3]);
+  const [assignments, setAssignments] = useState([]);
 
 
   const bottomSheetModalRef = useRef(null);
   const snapPoints = useMemo(() => ['25%','50%'], []);
   const handleSheetChanges = useCallback((index) => {
   }, []);
+
+
+  useEffect(()=>{
+    async function fetchData() {
+      let data = await getAssignments()
+      setAssignments(data.slice())
+   
+}
+
+fetchData()
+  },[])
 
   const handleCloseModalPress = ()  =>{
     if (bottomSheetModalRef.current) {
@@ -85,7 +97,7 @@ export default function Canvas() {
                 
                 }
           <FlatList data={assignments} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) =>  <Assignments /> }
+                            renderItem={({item}) =>  <Assignments assignment={item} /> }
                             keyExtractor={item => item.id}
                             style ={styles.NewJAwn}
                         /> 

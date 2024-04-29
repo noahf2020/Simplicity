@@ -105,7 +105,7 @@ const onSwipeClose = () =>{
    {swipeOpen && 
       <View style={[styles.taskDiv,{borderWidth:'1',borderColor:styleImage[Category.color], backgroundColor:Category.color, width:"60%", marginLeft:'43%'}]}>
           <View style={[styles.Image,{paddingTop:5}]}>{IconManager[Category.image]}</View>
-          <Text  ellipsizeMode='tail' numberOfLines={1} style={{fontSize:14,   width:"85%", marginTop:5, fontWeight:'bold', marginLeft:5, color:StylebigText[Category.color]}}>{task.title}</Text>
+          <Text  ellipsizeMode='tail'adjustsFontSizeToFit numberOfLines={1} style={{fontSize:14,   width:"85%", marginTop:5, fontWeight:'bold', marginLeft:5, color:StylebigText[Category.color]}}>{task.title}</Text>
           <Text ellipsizeMode='tail' numberOfLines={1} style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
           <Text ellipsizeMode='tail' style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + " @ " + task.time}</Text>
 

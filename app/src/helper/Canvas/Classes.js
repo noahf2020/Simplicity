@@ -20,10 +20,24 @@ export async function getClasses(){
    let data = request.data   
    data.forEach(async subject2=>{
        console.log(subject2.name +": " + subject2.enrollments[0].current_period_computed_current_score)
-    console.log(subject2)
+ 
          await classes.push({"name":subject2.name,"grade":subject2.enrollments[0].current_period_computed_current_score,})
    })
 
   
      return classes;
+}
+
+export async function getAssignments(){
+  let myToken = '2073~cE5mcOGbroEkXzvt7Q55rVQL117g5WhoqITdT0JRNMFWritmRdideBDSIndNRtBw'
+  let school = "scienceleadership.instructure.com"
+
+  let assignments = []
+  let request =  await axios({ method: 'get', url: `https://${school}/api/v1/planner/items?start_date=2024-04-28&end_date=2024-05-07&per_page=1000`, headers:{'Authorization': `Bearer ${myToken}`} })      
+  let data = request.data 
+  data.forEach(async assignment =>{
+    console.log(assignment.plannable)
+    await assignments.push({"course":assignment.context_name, "title":assignment.plannable.title, "points":assignment.plannable.points_possible})
+  })
+  return assignments
 }
