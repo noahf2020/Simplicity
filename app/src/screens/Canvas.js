@@ -17,14 +17,15 @@ import {
   createBottomSheet 
 } from '@gorhom/bottom-sheet';
 import { getAssignments } from '../helper/Canvas/Classes';
+import { checkApiKey } from '../helper/Settings';
 
 
 export default function Canvas() {
   const [isPlusBtnShown, setPlusBtn] = useState(true)
   const [isViewCourses, setViewCourses] = useState(false);
   const [assignments, setAssignments] = useState([]);
-
-
+  const [refresh, setRefresh] = useState(false)
+  const [isAPI, setisAPI] = useState(false)
   const bottomSheetModalRef = useRef(null);
   const snapPoints = useMemo(() => ['25%','50%'], []);
   const handleSheetChanges = useCallback((index) => {
@@ -35,11 +36,18 @@ export default function Canvas() {
     async function fetchData() {
       let data = await getAssignments()
       setAssignments(data.slice())
-   
+      setRefresh(false)
+      if(checkApiKey() == true){
+        setisAPI(true)
+      }else{
+        setisAPI(true)
+
+      }
+    
 }
 
 fetchData()
-  },[])
+  },[refresh])
 
   const handleCloseModalPress = ()  =>{
     if (bottomSheetModalRef.current) {
@@ -82,7 +90,13 @@ fetchData()
       <PageHeader title="Canvas"/>
 </View>
 
+       {!isAPI&&<><Text>Please Enter A Canvas API Key In Settings</Text></>}
+
+       {isAPI &&
+       <>
        
+       
+      
        
          {isViewCourses && 
                 <>
@@ -98,6 +112,8 @@ fetchData()
                 }
           <FlatList data={assignments} showsVerticalScrollIndicator={false}
                             renderItem={({item}) =>  <Assignments assignment={item} /> }
+                            onRefresh={()=>{setRefresh(true)}}
+                            refreshing={refresh}
                             keyExtractor={item => item.id}
                             style ={styles.NewJAwn}
                         /> 
@@ -121,7 +137,9 @@ fetchData()
                     </View>
                   </SafeAreaView>
                }
+ </>
 
+}
       </SafeAreaView>
     </GestureHandlerRootView>
 

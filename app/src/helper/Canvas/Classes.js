@@ -33,11 +33,15 @@ export async function getAssignments(){
   let school = "scienceleadership.instructure.com"
 
   let assignments = []
-  let request =  await axios({ method: 'get', url: `https://${school}/api/v1/planner/items?start_date=2024-04-28&end_date=2024-05-07&per_page=1000`, headers:{'Authorization': `Bearer ${myToken}`} })      
+  let request =  await axios({ method: 'get', url: `https://${school}/api/v1/planner/items?start_date=${new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&end_date=${new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&per_page=1000`, headers:{'Authorization': `Bearer ${myToken}`} })      
   let data = request.data 
   data.forEach(async assignment =>{
-    console.log(assignment.plannable)
-    await assignments.push({"course":assignment.context_name, "title":assignment.plannable.title, "points":assignment.plannable.points_possible})
-  })
+    console.log(assignment.submissions.missing)
+    console.log(assignment.submissions)
+if(assignment.submissions.missing ||assignment.submissions.missing && assignment.submissions.late || assignment.submissions.missing && assignment.submissions.late && assignment.submissions.needs_grading || assignment.submissions.submitted){
+  await assignments.push({"course":assignment.context_name, "title":assignment.plannable.title, "points":assignment.plannable.points_possible})
+
+}
+   })
   return assignments
 }
