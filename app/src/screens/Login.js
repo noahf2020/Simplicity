@@ -73,7 +73,7 @@ export default function ({ navigation }) {
          
            
             <TextInput
-              containerStyle={{ marginTop: 15 }}
+              containerStyle={{ marginTop: 15, height:50 }}
               placeholder="Enter your email"
               value={email}
               autoCapitalize="none"
@@ -85,7 +85,7 @@ export default function ({ navigation }) {
 
       
             <TextInput
-              containerStyle={{ marginTop: 15 }}
+              containerStyle={{ marginTop: 15, height:50 }}
               placeholder="Enter your password"
               value={password}
               autoCapitalize="none"
@@ -101,6 +101,7 @@ export default function ({ navigation }) {
               }}
               style={{
                 marginTop: 20,
+                height:50,
               }}
               disabled={loading}
             />
