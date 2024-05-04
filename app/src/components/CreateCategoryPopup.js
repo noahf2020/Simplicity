@@ -39,7 +39,7 @@ export default function CreateCategoryPopup({backToNormal}) {
         }, [open]);
 
 const checkForValidFields = async () => {
-  console.log(CategoryTitleValue, value, valueColor)
+ // console.log(CategoryTitleValue, value, valueColor)
   await addCategory(CategoryTitleValue, value, valueColor)
   await backToNormal()
 }

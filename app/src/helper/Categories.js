@@ -23,7 +23,7 @@ export async function getAllCategories(){
   try {
     const storedCats = await AsyncStorage.getItem('categories');
     if (storedCats !== null) {
-      console.log(storedCats)
+    //  console.log(storedCats)
       return JSON.parse(storedCats);
     }
   } catch (error) {

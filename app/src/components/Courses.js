@@ -13,7 +13,7 @@ export default function Courses({backToNormal}) {
     async function fetchData() {
         
           let data = await getClasses()
-          console.log("Data Frin Coursews: " + data)
+       //   console.log("Data Frin Coursews: " + data)
           setcourses(data.slice())
           setLoading(false)
     }

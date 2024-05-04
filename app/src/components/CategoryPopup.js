@@ -15,7 +15,7 @@ export default function CategoryPopup({backToNormal}) {
         async function fetchData() {
             
               let data = await getAllCategories()
-              console.log("Data Frin Coursews: " + data)
+           //   console.log("Data Frin Coursews: " + data)
               setcategories(data.slice())
               setLoading(false)
         }

@@ -6,7 +6,7 @@ export default function SaveBtn({checkForValidFields}) {
   return (
     <>
         <Pressable  onPress={() => {
-          console.log("saved BTN Pressed")
+       //   console.log("saved BTN Pressed")
           checkForValidFields()
         }} style={styles.btn}><Text style={styles.txt}>Save</Text></Pressable>
   </>

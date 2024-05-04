@@ -21,7 +21,7 @@ export async function getClasses(){
    let request =  await axios({ method: 'get', url: `https://${school}/api/v1/users/self/courses?include[]=total_scores&include[]=current_grading_period_scores&include[]=restrict_quantitative_data&enrollment_type=student&enrollment_state=active`, headers:{'Authorization': `Bearer ${myToken}`} })      
    let data = request.data   
    data.forEach(async subject2=>{
-       console.log(subject2.name +": " + subject2.enrollments[0].current_period_computed_current_score)
+    //   console.log(subject2.name +": " + subject2.enrollments[0].current_period_computed_current_score)
  
          await classes.push({"name":subject2.name,"grade":subject2.enrollments[0].current_period_computed_current_score,})
    })
@@ -38,8 +38,8 @@ export async function getAssignments(){
   let request =  await axios({ method: 'get', url: `https://${school}/api/v1/planner/items?start_date=${new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&end_date=${new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&per_page=1000`, headers:{'Authorization': `Bearer ${myToken}`} })      
   let data = request.data 
   data.forEach(async assignment =>{
-    console.log(assignment.submissions.missing)
-    console.log(assignment.submissions)
+    //console.log(assignment.submissions.missing)
+  //  console.log(assignment.submissions)
 if(assignment.submissions.missing ||assignment.submissions.missing && assignment.submissions.late || assignment.submissions.missing && assignment.submissions.late && assignment.submissions.needs_grading || assignment.submissions.submitted){
   await assignments.push({"course":assignment.context_name, "title":assignment.plannable.title, "points":assignment.plannable.points_possible})
 

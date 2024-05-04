@@ -38,6 +38,7 @@ export default function TaskPopup({backToNormal}) {
   
       async function fetchData() {
             let data = await getAllCategories()
+            console.log(data)
             setCategories(data.slice())
       }
       fetchData()
@@ -56,19 +57,29 @@ const onChangeTime = (event, selectedTime) => {
   setTime(currentTime);
 };
 
+function addKeyAndValue( array) {
+  return array.map(item => {
+ 
+      return { key: item.id, value: item.name};
+  
+    
+  });
+}
+
 
 const [selected, setSelected] = React.useState("");
   
   const data = [
-      {key:'1', value:'Mobiles', disabled:true},
+      {key:'1', value:'Mobiles'},
       {key:'2', value:'Appliances'},
       {key:'3', value:'Cameras'},
-      {key:'4', value:'Computers', disabled:true},
+      {key:'4', value:'Computers'},
       {key:'5', value:'Vegetables'},
       {key:'6', value:'Diary Products'},
       {key:'7', value:'Drinks'},
   ]
-
+  const modifiedArray = addKeyAndValue(categories);
+  console.log(modifiedArray);
 
 const checkForValidFields = async () =>{
     if(StringCheck(TaskTitleValue, 3) && selectedCategory && date && time){
@@ -121,13 +132,17 @@ const checkForValidFields = async () =>{
                                />      
                          </View>
 
-                    <View style={{width:"70%", alignSelf:'center', height:'15%',backgroundColor:"grey",overflow:'scroll'}}>
+                    <View style={{width:"70%", alignSelf:'center', maxHeight:'23%',overflow:'scroll'}}>
                     <SelectList 
                                   setSelected={(val) => setSelected(val)} 
-                                  data={data} 
+                                  data={modifiedArray} 
                                   save="value"
                                   search={false}
-                                  maxHeight="50"
+                                  placeholder="Select Category"
+                                  maxHeight="75"
+                                  boxStyles={{backgroundColor:'#EEEEEE',borderColor:'#EEEEEE'}}
+                                  dropdownStyles={{backgroundColor:'#EEEEEE',borderColor:'#EEEEEE'}}
+                                  dropdownTextStyles={{alignSelf:'center',fontWeight:'bold',fontSize:'14'}}
                               />
                     </View>
                          
