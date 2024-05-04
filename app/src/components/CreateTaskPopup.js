@@ -27,7 +27,6 @@ export default function TaskPopup({backToNormal}) {
 
 
 
-
       const [categories, setCategories] = useState([])
       const [errorModal, setModalVisable] = useState(false)
       const [errorMessage, setErrorMessage] = useState("")
@@ -35,7 +34,6 @@ export default function TaskPopup({backToNormal}) {
       const [isEnabled, setIsEnabled] = useState(false);
 
  useEffect( () => {
-  
       async function fetchData() {
             let data = await getAllCategories()
             console.log(data)
@@ -59,31 +57,20 @@ const onChangeTime = (event, selectedTime) => {
 
 function addKeyAndValue( array) {
   return array.map(item => {
- 
       return { key: item.id, value: item.name};
-  
-    
   });
 }
 
 
-const [selected, setSelected] = React.useState("");
   
-  const data = [
-      {key:'1', value:'Mobiles'},
-      {key:'2', value:'Appliances'},
-      {key:'3', value:'Cameras'},
-      {key:'4', value:'Computers'},
-      {key:'5', value:'Vegetables'},
-      {key:'6', value:'Diary Products'},
-      {key:'7', value:'Drinks'},
-  ]
+
   const modifiedArray = addKeyAndValue(categories);
-  console.log(modifiedArray);
+ 
 
 const checkForValidFields = async () =>{
+  
     if(StringCheck(TaskTitleValue, 3) && selectedCategory && date && time){
-      await addTask(TaskTitleValue, selectedCategory,new Date(date).toISOString().slice(0, 10), new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), NotesValue, isEnabled);
+      await addTask(TaskTitleValue, selectedCategory,date, new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), NotesValue, isEnabled);
       await backToNormal()
     }else{
       await setErrorMessage("Invalid [title] Input(s)")
@@ -134,7 +121,7 @@ const checkForValidFields = async () =>{
 
                     <View style={{width:"70%", alignSelf:'center', maxHeight:'23%',overflow:'scroll'}}>
                     <SelectList 
-                                  setSelected={(val) => setSelected(val)} 
+                                  setSelected={(val) => setCategory(val)} 
                                   data={modifiedArray} 
                                   save="value"
                                   search={false}

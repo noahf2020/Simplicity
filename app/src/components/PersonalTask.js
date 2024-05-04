@@ -76,6 +76,7 @@ const onSwipeClose = () =>{
     "home-outline":<Ionicons name={'home-outline'} size={20}  color={styleImage[Category.color]}  />//blue
 
   }
+  
   return (
     <Swipeable renderRightActions ={rightSwipeActions} onSwipeableWillOpen={onSwipeOpen} onSwipeableWillClose={onSwipeClose}>
 
@@ -85,7 +86,7 @@ const onSwipeClose = () =>{
         <View style={styles.Info}>
           <Text numberOfLines={1} adjustsFontSizeToFit style={{fontSize:16, marginTop:5, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
           <Text numberOfLines={1} style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
-          <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + " @ " + task.time}</Text>
+          <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit' }) + " @ " + task.time}</Text>
         </View>
 
         {task.favorite && 
