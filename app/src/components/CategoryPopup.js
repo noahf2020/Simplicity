@@ -32,7 +32,12 @@ export default function CategoryPopup({backToNormal}) {
                  </View>            
                  </TouchableWithoutFeedback>
       
-                 {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={categories} showsVerticalScrollIndicator={false}  renderItem={({item}) =>   <Text>{item.name}</Text> }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
+                 {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={categories} showsVerticalScrollIndicator={false}  renderItem={({item}) =>  
+                 
+                    <Text>{item.name}</Text> 
+                  
+                  
+                  }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
 
     </KeyboardAvoidingView>
   )

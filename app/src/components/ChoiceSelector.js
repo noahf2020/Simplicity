@@ -81,8 +81,8 @@ const Styles = StyleSheet.create({
         borderRadius:10,
         justifyContent:'center',
         alignItems:'center',
-        marginTop:"2%",
-        marginBottom:"3%"
+        marginTop:"10%",
+     
     },
     TXTContainer:{
         color:'white',

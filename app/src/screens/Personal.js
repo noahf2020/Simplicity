@@ -82,7 +82,7 @@ export default function Personal() {
   
   const handleModalDismiss = () => {
     setBlurr(false)
-    if(isCreateTaskPopup || isCreateCategory){
+    if(isCreateTaskPopup || isCreateCategory || isViewCats){
        setPlusBtn(false)
      }else{
        setPlusBtn(true)
