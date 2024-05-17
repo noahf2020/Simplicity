@@ -27,6 +27,7 @@ import Animated, {
   withCallback,
 
 } from 'react-native-reanimated';
+import CategoryPopup from '../components/CategoryPopup';
 
 
 export default function Personal() {
@@ -38,7 +39,7 @@ export default function Personal() {
   const [isCreateCategory, setCreateCategory] = useState(false)
   const [tasks, setTasks] = useState([])
   const [BTnClick, setBtnClick] = useState(1)
-
+  const [isViewCats,setViewCats] = useState(false);
   
 
   const bottomSheetModalRef = useRef(null);
@@ -120,6 +121,7 @@ export default function Personal() {
        setPlusBtn(true)
        setBlurr(false)
        setCreateCategory(false)
+       setViewCats(false)
     }
 
 
@@ -174,7 +176,11 @@ export default function Personal() {
                 </>
                 
                 }
-
+                {isViewCats && 
+                <>
+                <CategoryPopup backToNormal={backToNormal} />
+                </>
+                }
                   <FlatList data={tasks} showsVerticalScrollIndicator={false}
                             renderItem={({item}) =>  
                                   <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>
@@ -194,7 +200,7 @@ export default function Personal() {
                                            style={styles.contentContainer}
                                          >
                                          <View >
-                                          <ChoiceSelector handleModalDismiss={handleCloseModalPress} setCreateTaskPopup={setCreateTaskPopup} setCreateCategory={setCreateCategory}/>
+                                          <ChoiceSelector handleModalDismiss={handleCloseModalPress} setViewCats={setViewCats} setCreateTaskPopup={setCreateTaskPopup} setCreateCategory={setCreateCategory}/>
                                          </View>
                                        </BottomSheetModal>
                         </View>

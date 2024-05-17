@@ -17,6 +17,8 @@ export default function CategoryPopup({backToNormal}) {
               let data = await getAllCategories()
            //   console.log("Data Frin Coursews: " + data)
               setcategories(data.slice())
+              console.log(data)
+
               setLoading(false)
         }
         
@@ -30,8 +32,38 @@ export default function CategoryPopup({backToNormal}) {
                  </View>            
                  </TouchableWithoutFeedback>
       
-                 {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={categories} showsVerticalScrollIndicator={false}  renderItem={({item}) =>   <Text>Hello</Text> }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
+                 {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={categories} showsVerticalScrollIndicator={false}  renderItem={({item}) =>   <Text>{item.name}</Text> }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
 
     </KeyboardAvoidingView>
   )
 }
+
+const Styles = StyleSheet.create({
+  containeer: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: '#F6F6F6',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    borderRadius:20,
+    backgroundColor:'#F6F6F6',
+    justifyContent:'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+    
+    elevation: 24,
+
+  },
+
+  container: {
+    flex: 1,
+    backgroundColor: '#ffff',
+    alignItems: 'center',
+  }})
