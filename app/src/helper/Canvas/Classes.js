@@ -40,6 +40,7 @@ export async function getAssignments(){
   data.forEach(async assignment =>{
     //console.log(assignment.submissions.missing)
   //  console.log(assignment.submissions)
+  console.log(assignment)
 if(assignment.submissions.missing ||assignment.submissions.missing && assignment.submissions.late || assignment.submissions.missing && assignment.submissions.late && assignment.submissions.needs_grading || assignment.submissions.submitted){
   await assignments.push({"course":assignment.context_name, "title":assignment.plannable.title, "points":assignment.plannable.points_possible})
 

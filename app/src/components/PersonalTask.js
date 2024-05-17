@@ -32,11 +32,31 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
 
   const [Category, setCategory] = useState([])
   const [swipeOpen, setSwipe] = useState(false)
+  const [isComingUp, setComingUp] = useState(false)
+
+
+  async function isWithin24Hours(dateStr) {
+
+    let inputDate = new Date(dateStr);
+    let currentDate = new Date();
+    let timeDifference = inputDate.getTime() - currentDate.getTime();
+    let twentyFourHours = 24 * 60 * 60 * 1000;
+
+
+    // Check if the time difference is less than or equal to 24 hours
+    if (timeDifference <= twentyFourHours) {
+      console.log(timeDifference)
+      setComingUp(true);
+    } else {
+      setComingUp(false);
+    }
+}
+
 
 useEffect( () => {
  // console.log(" task.time" + task.time)
  // console.log(" task.date" + task.date)
-
+console.log(task.date)
   async function fetchData() {
         let data = await getAllCategories()
         data.forEach(category => {
@@ -44,6 +64,8 @@ useEffect( () => {
             setCategory(category)
           }
         })
+        await isWithin24Hours(task.date)
+        console.log(isComingUp)
 
   }
   fetchData()
@@ -80,8 +102,9 @@ const onSwipeClose = () =>{
   return (
     <Swipeable renderRightActions ={rightSwipeActions} onSwipeableWillOpen={onSwipeOpen} onSwipeableWillClose={onSwipeClose}>
 
+
   {!swipeOpen &&
-      <View style={[styles.taskDiv,{backgroundColor:Category.color, borderColor:styleImage[Category.color], borderWidth:'1'}]}>
+      <View style={[styles.taskDiv,{backgroundColor:Category.color, borderWidth:'1'}, isComingUp ? {borderColor:'red'} : {borderColor:styleImage[Category.color]}]}>
         <View style={styles.Image}>{IconManager[Category.image]}</View>
         <View style={styles.Info}>
           <Text numberOfLines={1} adjustsFontSizeToFit style={{fontSize:16, marginTop:5, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>

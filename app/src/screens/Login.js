@@ -62,6 +62,9 @@ export default function ({ navigation }) {
         source={require('../../assets/Simplicity.jpg')}
       />
           </View>
+  
+
+      
           <View
             style={{
               flex: 3,
@@ -105,10 +108,11 @@ export default function ({ navigation }) {
               }}
               disabled={loading}
             />
-
+            <Text size="sm">Sign Up</Text>
        
     
        
+          
           </View>
         </ScrollView>
       </Layout>
