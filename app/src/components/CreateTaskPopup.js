@@ -16,6 +16,7 @@ import ImageButton from './utils/Buttons/ImageButton'
 import SaveBtn from './SaveBtn';
 import { StringCheck } from './utils/Validators/InputValidators';
 import ErrorModal from './utils/ErrorModal';
+import notifee, { TimestampTrigger, TriggerType } from '@notifee/react-native';
 
 
 export default function TaskPopup({backToNormal}) {
@@ -38,6 +39,7 @@ export default function TaskPopup({backToNormal}) {
             let data = await getAllCategories()
             console.log(data)
             setCategories(data.slice())
+            onCreateTriggerNotification()
       }
       fetchData()
       }, []);
@@ -89,6 +91,30 @@ const checkForValidFields = async () =>{
     }   
 }
 
+
+async function onCreateTriggerNotification() {
+  const date = new Date(Date.now());
+  date.setHours(12);
+  date.setMinutes(45);
+
+  // Create a time-based trigger
+  const trigger = {
+    type: TriggerType.TIMESTAMP,
+    timestamp: date.getTime(), // fire at 11:10am (10 minutes before meeting)
+  };
+
+  // Create a trigger notification
+  await notifee.createTriggerNotification(
+    {
+      title: 'Meeting with Jane',
+      body: 'Today at 11:20am',
+      android: {
+        channelId: 'your-channel-id',
+      },
+    },
+    trigger,
+  );
+}
 
 
 
