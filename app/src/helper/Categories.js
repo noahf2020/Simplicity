@@ -53,7 +53,11 @@ export async function addCategory(categoryName, image, color){
     const newCats = [{ id: uuidv4(),  "name":categoryName, "color":color,  "image":image,}];
     await AsyncStorage.setItem('categories', JSON.stringify(newCats));
   }
+}
 
-
-
+export async function deleteCategory(id){
+    const storedTasks = await AsyncStorage.getItem('categories');
+    let tasks = JSON.parse(storedTasks)
+    const newTasks = tasks.filter(task => task.id !== id);
+    await AsyncStorage.setItem('categories', JSON.stringify(newTasks));
 }

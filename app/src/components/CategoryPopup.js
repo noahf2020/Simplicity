@@ -4,7 +4,8 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Course from './Course';
 import ImageButton from './utils/Buttons/ImageButton'
 import { getAllCategories } from '../helper/Categories';
-
+import Category from './Category';
+import { AntDesign, FontAwesome5, Ionicons,Feather   } from '@expo/vector-icons'; 
 
 export default function CategoryPopup({backToNormal}) {
     const [categories, setcategories ] = useState([])
@@ -34,7 +35,7 @@ export default function CategoryPopup({backToNormal}) {
       
                  {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={categories} showsVerticalScrollIndicator={false}  renderItem={({item}) =>  
                  
-                    <Text>{item.name}</Text> 
+                 <Category cat={item}/>
                   
                   
                   }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
@@ -66,7 +67,12 @@ const Styles = StyleSheet.create({
     elevation: 24,
 
   },
-
+  PopupContainer:{
+    height:'100%',
+    width:360,
+    borderRadius:10,
+ 
+},
   container: {
     flex: 1,
     backgroundColor: '#ffff',
