@@ -3,10 +3,10 @@ import React,{useState, useEffect} from 'react';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
 
-import ImageButton from './utils/Buttons/ImageButton'
+import ImageButton from '../utils/Buttons/ImageButton'
 import DropDownPicker from 'react-native-dropdown-picker';
-import { getCreateCategories, addCategory} from '../helper/Categories';
-import SaveBtn from './SaveBtn';
+import { getCreateCategories, addCategory} from '../../helper/Categories';
+import SaveBtn from '../SaveBtn';
 
 export default function CreateCategoryPopup({backToNormal}) {
     const fling = Gesture.Fling();

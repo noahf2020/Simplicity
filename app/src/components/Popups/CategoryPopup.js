@@ -1,12 +1,12 @@
 import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar,ActivityIndicator, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import React,{useState, useEffect} from 'react';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import Course from './Course';
-import ImageButton from './utils/Buttons/ImageButton'
-import { getAllCategories } from '../helper/Categories';
-import Category from './Category';
+import Course from '../Course';
+import ImageButton from '../utils/Buttons/ImageButton'
+import { getAllCategories } from '../../helper/Categories';
+import Category from '../Category';
 import { AntDesign, FontAwesome5, Ionicons,Feather   } from '@expo/vector-icons'; 
-import {deleteCategory} from '../helper/Categories'
+import {deleteCategory} from '../../helper/Categories'
 export default function CategoryPopup({ backToNormal}) {
     const [categories, setcategories ] = useState([])
     const [isLoading, setLoading] = useState(false)
@@ -24,7 +24,7 @@ export default function CategoryPopup({ backToNormal}) {
               let data = await getAllCategories()
            //   console.log("Data Frin Coursews: " + data)
               setcategories(data.slice())
-              console.log(data)
+             // console.log(data)
 
               setLoading(false)
         }

@@ -8,7 +8,6 @@ import ChoiceSelectorCanvas from '../components/ChoiceSelectorCanvas';
 import PageHeader  from '../components/utils/PageHeader'
 import ImageButton from '../components/utils/Buttons/ImageButton'
 import Courses from '../components/Courses';
-import Assignments from '../components/Assignments';
 
 import { GestureHandlerRootView, GestureDetector, Gesture, Directions} from 'react-native-gesture-handler';
 import {
@@ -18,7 +17,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import { getAssignments } from '../helper/Canvas/Classes';
 import { checkApiKey } from '../helper/Settings';
-
+import CanvasList from '../components/Lists/CanvasList';
 
 export default function Canvas() {
   const [isPlusBtnShown, setPlusBtn] = useState(true)
@@ -51,7 +50,7 @@ fetchData()
 
   const handleCloseModalPress = ()  =>{
     if (bottomSheetModalRef.current) {
-      console.log("Force Close")
+      //console.log("Force Close")
       bottomSheetModalRef.current.close();
      // setPlusBtn(true)
 
@@ -110,14 +109,8 @@ fetchData()
                 </>
                 
                 }
-          <FlatList data={assignments} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) =>  <Assignments assignment={item} /> }
-                            onRefresh={()=>{setRefresh(true)}}
-                            refreshing={refresh}
-                            keyExtractor={item => item.id}
-                            style ={styles.NewJAwn}
-                        /> 
 
+                  <CanvasList assignments={assignments} setRefresh={setRefresh} refresh={refresh} />
          <BottomSheetModalProvider>
                       <View style={styles.contentContainer}>
                                 <BottomSheetModal ref={bottomSheetModalRef} index={0} snapPoints={snapPoints} onChange={handleSheetChanges} onDismiss={handleModalDismiss} style={styles.contentContainer}>

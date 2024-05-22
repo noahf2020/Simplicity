@@ -8,11 +8,11 @@ import {
 
 
 import PageHeader  from '../components/utils/PageHeader'
-import PersonalTask from '../components/PersonalTask';
+import PersonalTask from '../components/Lists/Divs/PersonalTask';
 import ImageButton from '../components/utils/Buttons/ImageButton'
 import ChoiceSelector from '../components/ChoiceSelector';
-import TaskPopup from '../components/CreateTaskPopup';
-import CreateCategoryPopup from '../components/CreateCategoryPopup';
+import TaskPopup from '../components/Popups/CreateTaskPopup';
+import CreateCategoryPopup from '../components/Popups/CreateCategoryPopup';
 
 import { NativeViewGestureHandler } from 'react-native-gesture-handler';
 
@@ -27,8 +27,9 @@ import Animated, {
   withCallback,
 
 } from 'react-native-reanimated';
-import CategoryPopup from '../components/CategoryPopup';
+import CategoryPopup from '../components/Popups/CategoryPopup';
 import {deleteCategory} from '../helper/Categories'
+import PersonalTaskList from '../components/Lists/PersonalTaskList';
 
 export default function Personal() {
 
@@ -185,15 +186,9 @@ export default function Personal() {
                 <CategoryPopup  backToNormal={backToNormal} />
                 </>
                 }
-                  <FlatList data={tasks} showsVerticalScrollIndicator={false}
-                            renderItem={({item}) =>  
-                                  <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>
+                 <PersonalTaskList tasks={tasks} click={click}deleteAction={deleteAction}completeAction={completeAction}/>
 
-                                                              }
-                            keyExtractor={item => item.id}
-                            style ={styles.NewJAwn}
-                        /> 
-                             <BottomSheetModalProvider>
+                    <BottomSheetModalProvider>
                       <View style={styles.contentContainer}>
                                      <BottomSheetModal
                                            ref={bottomSheetModalRef}

@@ -97,7 +97,7 @@ export async function getAllTasks(){
     try {
         const storedTasks = await AsyncStorage.getItem('tasks');
         if (storedTasks !== null) {
-          console.log(JSON.parse(storedTasks))
+        //  console.log(JSON.parse(storedTasks))
           return JSON.parse(storedTasks);
         }
       } catch (error) {
@@ -107,7 +107,7 @@ export async function getAllTasks(){
 
 export async function addTask(TaskTitleValue, selectedCategory, value, cvalue, NotesValue, isEnabled){
       const storedTasks = await AsyncStorage.getItem('tasks');
-      console.log('TaskTitleValue'+TaskTitleValue)
+     // console.log('TaskTitleValue'+TaskTitleValue)
       if(storedTasks){
         let tasks = JSON.parse(storedTasks)
         const newTasks = [...tasks, { id: uuidv4(),  "title":TaskTitleValue, "category":selectedCategory,  "date":value, "time":cvalue,"notes":NotesValue,"notifications":isEnabled,"favorite":false }];

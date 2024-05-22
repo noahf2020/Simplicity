@@ -4,8 +4,8 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { AntDesign, FontAwesome5, Ionicons,Feather   } from '@expo/vector-icons'; 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import { getAllCategories } from '../helper/Categories';
-import ImageButton from '../components/utils/Buttons/ImageButton'
+import { getAllCategories } from '../../../helper/Categories';
+import ImageButton from '../../utils/Buttons/ImageButton'
 import { Badge } from '@rneui/themed';
 
 
@@ -56,7 +56,7 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
 useEffect( () => {
  // console.log(" task.time" + task.time)
  // console.log(" task.date" + task.date)
-console.log(task.date)
+//console.log(task.date)
   async function fetchData() {
         let data = await getAllCategories()
         data.forEach(category => {

@@ -19,7 +19,7 @@ async function getUpcoming(){
     let todaysDate = "2024-03-10"
     let school = "scienceleadership.instructure.com"
     let request =  await axios({ method: 'get', url: `https://${school}/api/v1/planner/items?start_date=${todaysDate}`, headers:{'Authorization': `Bearer ${myToken}`} })
-   console.log(request.data)
+   //console.log(request.data)
     
 
 }

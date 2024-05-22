@@ -2,13 +2,14 @@ import {SafeAreaView,View,FlatList,StyleSheet, Text,StatusBar,ActivityIndicator,
 import React,{useState, useEffect} from 'react';
 
 export default function Assignments({assignment}) {
-   
+  const formattedDateTime = new Date(assignment.date).toLocaleString('en-US', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:true, timeZone:'UTC'}).replace(/\/|,|:| /g,',').split(',');
+
   return (
         <View style={[styles.taskDiv,{backgroundColor:'#EDEDED', borderWidth:'thick', borderWidth:'1'}]}>
         <View style={styles.Info}>
           <Text numberOfLines={1} adjustsFontSizeToFit style={{ marginTop:5,  alignSelf:'center', fontWeight:'bold', }}>{assignment.course}</Text>
           <Text numberOfLines={1} style={{fontSize:16, marginTop:5, alignSelf:'center'}}>{assignment.title}</Text>
-          <Text numberOfLines={1} style={{fontSize:16, alignSelf:'center'}}>{assignment.points?assignment.points: "0" } Points</Text>
+          <Text numberOfLines={1} style={{fontSize:16, alignSelf:'center'}}>{assignment.points?assignment.points: "0" } Points | Due: {`${formattedDateTime[0]}/${formattedDateTime[1]} @ ${formattedDateTime[3]}:${formattedDateTime[4]}`}</Text>
     
           </View>
        

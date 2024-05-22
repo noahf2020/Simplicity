@@ -7,15 +7,15 @@ import { Feather } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SelectList } from 'react-native-dropdown-select-list'
 
-import { getAllCategories } from '../helper/Categories';
-import { addTask } from '../helper/Tasks';
+import { getAllCategories } from '../../helper/Categories';
+import { addTask } from '../../helper/Tasks';
 
-import EnableNoti from './utils/Buttons/EnableNoti';
-import Category from './utils/Category';
-import ImageButton from './utils/Buttons/ImageButton'
-import SaveBtn from './SaveBtn';
-import { StringCheck } from './utils/Validators/InputValidators';
-import ErrorModal from './utils/ErrorModal';
+import EnableNoti from '../utils/Buttons/EnableNoti';
+import Category from '../utils/Category';
+import ImageButton from '../utils/Buttons/ImageButton'
+import SaveBtn from '../SaveBtn';
+import { StringCheck } from '../utils/Validators/InputValidators';
+import ErrorModal from '../utils/ErrorModal';
 
 
 export default function TaskPopup({backToNormal}) {
@@ -36,7 +36,7 @@ export default function TaskPopup({backToNormal}) {
  useEffect( () => {
       async function fetchData() {
             let data = await getAllCategories()
-            console.log(data)
+          //  console.log(data)
             setCategories(data.slice())
           
       }
