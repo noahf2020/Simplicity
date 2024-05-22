@@ -65,8 +65,6 @@ console.log(task.date)
           }
         })
         await isWithin24Hours(task.date)
-        console.log(isComingUp)
-
   }
   fetchData()
   }, []);

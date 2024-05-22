@@ -28,7 +28,7 @@ import Animated, {
 
 } from 'react-native-reanimated';
 import CategoryPopup from '../components/CategoryPopup';
-
+import {deleteCategory} from '../helper/Categories'
 
 export default function Personal() {
 
@@ -74,6 +74,8 @@ export default function Personal() {
     await setBtnClick(BTnClick+1)
 
   }
+
+
 
   const completeAction = async (task) => {
     await completeTask(task)
@@ -149,6 +151,8 @@ export default function Personal() {
       ? 'Add Task'
       : isCreateCategory
       ? 'Add Category'
+      :isViewCats
+      ?'Categories'
       : 'Personal Tasks'}/>
               </View  >
 
@@ -178,7 +182,7 @@ export default function Personal() {
                 }
                 {isViewCats && 
                 <>
-                <CategoryPopup backToNormal={backToNormal} />
+                <CategoryPopup  backToNormal={backToNormal} />
                 </>
                 }
                   <FlatList data={tasks} showsVerticalScrollIndicator={false}

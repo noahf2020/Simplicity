@@ -4,8 +4,8 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { AntDesign, FontAwesome5, Ionicons,Feather   } from '@expo/vector-icons'; 
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import ImageButton from './utils/Buttons/ImageButton'
-import {deleteCategory} from '../helper/Categories'
-export default function Category({cat}) {
+
+export default function Category({deleteCate,cat}) {
     const [swipeOpen, setSwipe] = useState(false);
 
 
@@ -40,7 +40,7 @@ const onSwipeOpen = () =>{
         return (
           <View style={{ backgroundColor:"white", alignItems:'center', justifyContent:'center', flexDirection:'row', height:75, marginTop:8, width:"40%", borderRadius: 15, marginLeft:10  }}>
               <View style={{width:'90%', backgroundColor:"#FF7F7F", height:75, justifyContent:'center', borderRadius:15}}>
-              <ImageButton onPress={() => deleteCategory(cat.id)}  source="delete"  size={22} color={"#403572"}/> 
+              <ImageButton onPress={() => deleteCate(cat.id)}  source="delete"  size={22} color={"#403572"}/> 
               </View>
         
           </View>

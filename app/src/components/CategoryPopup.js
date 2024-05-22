@@ -6,11 +6,17 @@ import ImageButton from './utils/Buttons/ImageButton'
 import { getAllCategories } from '../helper/Categories';
 import Category from './Category';
 import { AntDesign, FontAwesome5, Ionicons,Feather   } from '@expo/vector-icons'; 
-
-export default function CategoryPopup({backToNormal}) {
+import {deleteCategory} from '../helper/Categories'
+export default function CategoryPopup({ backToNormal}) {
     const [categories, setcategories ] = useState([])
     const [isLoading, setLoading] = useState(false)
+    const [BTnClick, setBtnClick] = useState(1)
 
+    const deleteCat = async (id) => {
+      await deleteCategory(id)
+      await setBtnClick(BTnClick+1)
+  
+    }
     useEffect( () => {
         setLoading(true)
         async function fetchData() {
@@ -24,7 +30,7 @@ export default function CategoryPopup({backToNormal}) {
         }
         
         fetchData()
-        },[]);
+        },[BTnClick]);
   return (
     <KeyboardAvoidingView style={Styles.PopupContainer}  keyboardVerticalOffset={200} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -35,7 +41,7 @@ export default function CategoryPopup({backToNormal}) {
       
                  {isLoading ? <ActivityIndicator size="small"  /> :  <FlatList data={categories} showsVerticalScrollIndicator={false}  renderItem={({item}) =>  
                  
-                 <Category cat={item}/>
+                 <Category deleteCate={deleteCat} cat={item}/>
                   
                   
                   }  keyExtractor={item => item.id}  style ={Styles.flatList} />   }
