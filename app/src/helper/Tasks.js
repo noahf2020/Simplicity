@@ -6,7 +6,7 @@ import 'react-native-get-random-values';
 
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
-
+import {schedulePushNotification} from './Not'
 let tasksNotUsedAnymore = [
     {
         "id":"40fbdb8c-8d41-4f87-8xc6a-f37760353b2c",
@@ -97,7 +97,6 @@ export async function getAllTasks(){
     try {
         const storedTasks = await AsyncStorage.getItem('tasks');
         if (storedTasks !== null) {
-        //  console.log(JSON.parse(storedTasks))
           return JSON.parse(storedTasks);
         }
       } catch (error) {
@@ -112,9 +111,29 @@ export async function addTask(TaskTitleValue, selectedCategory, value, cvalue, N
         let tasks = JSON.parse(storedTasks)
         const newTasks = [...tasks, { id: uuidv4(),  "title":TaskTitleValue, "category":selectedCategory,  "date":value, "time":cvalue,"notes":NotesValue,"notifications":isEnabled,"favorite":false }];
         await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+
+     
+     
+        if(isEnabled){
+          let seconds = Math.floor((new Date(value.toISOString().split("T")[0]+ "T"+ cvalue.toISOString().split("T")[1]).getTime() - new Date().getTime()) / 1000);
+          if(seconds <=0){
+            console.log("OverDueNoti")
+          }else{
+            schedulePushNotification(seconds,TaskTitleValue,NotesValue)
+          }
+     
+        }
       }else{
         const newTasks = [{ id: uuidv4(),  "title":TaskTitleValue, "category":selectedCategory,  "date":value, "time":cvalue,"notes":NotesValue,"notifications":isEnabled,"favorite":false }];
         await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+        if(isEnabled){
+          let seconds = Math.floor((new Date(value.toISOString().split("T")[0]+ "T"+ cvalue.toISOString().split("T")[1]).getTime() - new Date().getTime()) / 1000);
+          if(seconds <=0){
+            console.log("OverDueNoti")
+          }else{
+            schedulePushNotification(seconds)
+          }
+        }
       }
 }
 

@@ -36,7 +36,7 @@ export default function Category({category, setIsAlraedySelected, isAlreadySelec
 
                 if(!isAlreadySelected){
                   setPressed(!isPressed) 
-                  console.log("Selected Catrogy: " + category.name)
+                //  console.log("Selected Catrogy: " + category.name)
                   setCategory(category.name)
                   
                 }else if(isPressed == true){
@@ -44,7 +44,7 @@ export default function Category({category, setIsAlraedySelected, isAlreadySelec
                   setIsAlraedySelected(false)
                   setCategory("")
                 }else{
-                  console.log("Category Already Selected")
+                  //("Category Already Selected")
 
                 }
                 

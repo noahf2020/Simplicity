@@ -4,7 +4,7 @@ var CryptoJS = require("crypto-js");
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export  function secureConnection(){
-    console.log(getAuth())
+    //console.log(getAuth())
     const dataToEncrypt = 'sensitiveData';
     const secretKey = 'yourSecretKey';
     const encryptedData = CryptoJS.AES.encrypt(dataToEncrypt, secretKey).toString();

@@ -71,7 +71,7 @@ function addKeyAndValue( array) {
 const checkForValidFields = async () =>{
   
     if(StringCheck(TaskTitleValue, 3) && selectedCategory && date && time){
-      await addTask(TaskTitleValue, selectedCategory,date, new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), NotesValue, isEnabled);
+      await addTask(TaskTitleValue, selectedCategory,date, time, NotesValue, isEnabled);
       await backToNormal()
     }else{
       await setErrorMessage("Invalid [title] Input(s)")

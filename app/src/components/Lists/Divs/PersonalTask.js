@@ -12,6 +12,16 @@ import { Badge } from '@rneui/themed';
 
 
 export default function PersonalTask({task,markAsFavorite, deleteB, completeTask}) {
+//   const formattedTime = new Date(`${task.date.split("T")[0]}T${new Date(`1970-01-01T${task.time}`).toISOString().split('T')[1]}`).toISOString();
+  
+ //console.log(task.date.split("T")[0]+ "T") 
+//console.log(Math.floor((new Date('2024-05-29T01:30:00Z').getTime() - new Date().getTime()) / 1000));
+
+
+
+//console.log(task.date.split("T")[0]+ "T"+ task.time.split("T")[1])
+
+
   const rightSwipeActions = () => {
     return (
       <View style={{ backgroundColor:"white", alignItems:'center', justifyContent:'center', flexDirection:'row', height:75, marginTop:8, width:"40%", borderRadius: 15, marginLeft:10  }}>
@@ -45,7 +55,7 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
 
     // Check if the time difference is less than or equal to 24 hours
     if (timeDifference <= twentyFourHours) {
-      console.log(timeDifference)
+    //  console.log(timeDifference)
       setComingUp(true);
     } else {
       setComingUp(false);
@@ -107,7 +117,7 @@ const onSwipeClose = () =>{
         <View style={styles.Info}>
           <Text numberOfLines={1} adjustsFontSizeToFit style={{fontSize:16, marginTop:5, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
           <Text numberOfLines={1} style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
-          <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit' }) + " @ " + task.time}</Text>
+          <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit' }) + " @ " + new Date(task.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
         </View>
 
         {task.favorite && 
