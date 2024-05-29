@@ -128,13 +128,6 @@ export default function Personal() {
     }
 
 
-    const longPressGesture = Gesture.LongPress().onEnd((e, success) => {
-      if (success) {
-        console.log(`Long pressed for ${e.duration} ms!`);
-      }
-    });
-
-
 
     return (
 
@@ -206,11 +199,7 @@ export default function Personal() {
 
                                            </BottomSheetModalProvider>
 
-               {/* {isBlurred &&
-                        <>
-                                <BlurView intensity={4} tint="light" style={styles.absolute} />
-                       </>
-                        } */}
+
      </SafeAreaView>
               {isPlusBtnShown &&
                   <SafeAreaView  style={styles.containerg}>

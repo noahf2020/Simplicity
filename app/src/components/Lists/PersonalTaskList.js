@@ -3,8 +3,11 @@ import React,{useState, useEffect, useRef, useMemo, useCallback} from 'react';
 
 import PersonalTask from './Divs/PersonalTask';
 export default function PersonalTaskList({tasks,click,deleteAction,completeAction}) {
+    let combinedList = [ ...tasks]
+    combinedList.sort((a) => new Date(a.date));
+
   return (
-    <FlatList data={tasks} showsVerticalScrollIndicator={false}
+    <FlatList data={combinedList} showsVerticalScrollIndicator={false}
     renderItem={({item}) =>  
           <PersonalTask task={item} markAsFavorite={click} deleteB={deleteAction} completeTask={completeAction}/>
   }

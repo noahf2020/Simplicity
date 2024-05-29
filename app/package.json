@@ -43,7 +43,10 @@
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
     "react-native-ui-datepicker": "^1.0.10",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "expo-notifications": "~0.20.1",
+    "expo-constants": "~14.4.2",
+    "expo-device": "~5.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
