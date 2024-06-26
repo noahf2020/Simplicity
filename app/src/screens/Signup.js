@@ -8,7 +8,7 @@ import {
   StatusBar
  
 } from "react-native";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signUp, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   Layout,
   Text,
@@ -17,18 +17,22 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+import { useToast } from "react-native-toast-notifications";
+
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
+  const toast = useToast();
+
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function login() {
+    let id = toast.show("Loading...");
     setLoading(true);
-    
-    await signInWithEmailAndPassword(auth, email, password).catch(function (
+    await createUserWithEmailAndPassword(auth, email, password).catch(function (
       error
     ) {
       // Handle Errors here.
@@ -36,7 +40,9 @@ export default function ({ navigation }) {
       var errorMessage = error.message;
       // ...
       setLoading(false);
-      alert(errorMessage);
+      toast.update(id, "Error Creating Account", {type: "danger"});
+
+
     });
   }
 
@@ -99,7 +105,7 @@ export default function ({ navigation }) {
             />
               <TextInput
               containerStyle={{ marginTop: 15, height:50 }}
-              placeholder="Enter your password"
+              placeholder="Retype your password"
               value={password}
               autoCapitalize="none"
               autoCompleteType="off"

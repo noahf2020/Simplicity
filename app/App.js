@@ -1,13 +1,20 @@
 import React,{useState,useRef,useEffect} from "react";
 import AppNavigator from "./src/provider/Navigator";
 import { AuthProvider } from "./src/provider/AuthProvider";
+import { LaunchProvider } from "./src/provider/LaunchProvider";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { LogBox } from "react-native";
 import * as Device from 'expo-device';
 import {SafeAreaView,View,FlatList,StyleSheet, Text, Pressable, TextInput,  KeyboardAvoidingView,   TouchableWithoutFeedback, Keyboard, Platform , Button} from 'react-native';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import onBoarding from "./src/screens/OnBoarding";
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import { ToastProvider } from 'react-native-toast-notifications'
 
+const Stack = createStackNavigator();
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -116,11 +123,17 @@ export default function App() {
     ]);
   }, []);
 
+
+
   return (
-    
+      <ToastProvider>
+      <LaunchProvider>
       <AuthProvider>
-        <AppNavigator />
+        <AppNavigator>
+        </AppNavigator>
       </AuthProvider>
+      </LaunchProvider>
+      </ToastProvider>
 
   );
 }

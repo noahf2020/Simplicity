@@ -17,8 +17,12 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+import { useToast } from "react-native-toast-notifications";
+
 
 export default function ({ navigation }) {
+  const toast = useToast();
+
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
   const [email, setEmail] = useState("");
@@ -26,6 +30,7 @@ export default function ({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   async function login() {
+    let id = toast.show("Loading...");
     setLoading(true);
     
     await signInWithEmailAndPassword(auth, email, password).catch(function (
@@ -36,7 +41,8 @@ export default function ({ navigation }) {
       var errorMessage = error.message;
       // ...
       setLoading(false);
-      alert(errorMessage);
+      toast.update(id, "Error Signing in", {type: "danger"});
+
     });
   }
 

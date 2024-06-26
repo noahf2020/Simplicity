@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {MenuBTN} from '../components/MenuBTN'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import {createStackNavigator} from '@react-navigation/stack';
 
 import { Image, Button,Text } from "react-native";
 import TabBarIcon from '../components/utils/TabBarIcon'
@@ -22,8 +23,10 @@ import Login from "../screens/Login";
 import Signup from "../screens/Signup";
 
 import { AuthContext } from "../provider/AuthProvider";
+import { LaunchContext } from '../provider/LaunchProvider';
 import Personal from "../screens/Personal";
 import ImageButton from "../components/utils/Buttons/ImageButton";
+import OnBoarding from '../screens/OnBoarding';
 
 // Better put your these secret keys in .env file
 
@@ -66,6 +69,21 @@ const Auth = () => {
 };
 
 const MainStack = createNativeStackNavigator();
+const slideStack = createNativeStackNavigator()
+
+const Slides = () =>{
+  //  <Stack.Navigator screenOptions={{headerShown: false}}>
+  return(
+    <slideStack.Navigator screenOptions={{headerShown: false}}>
+        <slideStack.Screen
+          name="OnboardingScreen"
+          component={OnBoarding}
+        />
+
+    </slideStack.Navigator>
+
+  )
+}
 
 const Main = () => {
 
@@ -137,7 +155,7 @@ const MainTabs = () => {
         component={Home}
         options={{   
             tabBarIcon: ({ focused }) => (
-               <TabBarIcon icon="md-home-outline" focused={focused}/>
+               <TabBarIcon icon="home-outline" focused={focused}/>
           ),}}
           />
 
@@ -187,13 +205,15 @@ const MainTabs = () => {
 export default () => {
   const auth = useContext(AuthContext);
   const user = auth.user;
+  const jawn = useContext(LaunchContext)
+  const isAppFirstLaunched = jawn.isAppFirstLaunched;
+console.log(isAppFirstLaunched)
+
   return (
-    <NavigationContainer
-    onReady={() => {
-    
-    }}>
-      {user == false && <Auth />}
-      {user == true && <Main />}
+    <NavigationContainer>
+      {isAppFirstLaunched &&  <Slides/> }
+      {user == false && isAppFirstLaunched == false && <Auth />}
+      {user == true && isAppFirstLaunched == false && <Main />}
   
     </NavigationContainer>
   );

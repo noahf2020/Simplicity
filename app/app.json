@@ -29,11 +29,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "320ab6b4-78ff-4097-a6bf-f7e42a5ef231"
-      }
-    },
+   
     "owner": "noahc0001"
   }
 }
+
+
