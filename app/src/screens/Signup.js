@@ -97,8 +97,18 @@ export default function ({ navigation }) {
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />
+              <TextInput
+              containerStyle={{ marginTop: 15, height:50 }}
+              placeholder="Enter your password"
+              value={password}
+              autoCapitalize="none"
+              autoCompleteType="off"
+              autoCorrect={false}
+              secureTextEntry={true}
+              onChangeText={(text) => setPassword(text)}
+            />
             <Button
-              text={loading ? "Loading" : "Sign In"}
+              text={loading ? "Loading" : "Create Account"}
               onPress={() => {
                 login();
               }}
@@ -108,7 +118,7 @@ export default function ({ navigation }) {
               }}
               disabled={loading}
             />
-        <View
+                 <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -116,35 +126,14 @@ export default function ({ navigation }) {
                 justifyContent: "center",
               }}
             >
-             
-              <TouchableOpacity
+                  <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("Signup");
+                  navigation.navigate("Login");
                 }}
               >
-              <Text size="md">Don't have an account?</Text>  
+              <Text size="md">Already Have An Account?</Text>  
               </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 10,
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("ForgetPassword");
-                }}
-              >
-                <Text size="md" fontWeight="bold">
-                  Forget password
-                </Text>
-              </TouchableOpacity>
-            </View>
-       
-    
+              </View>
        
           
           </View>

@@ -19,6 +19,7 @@ import Canvas from "../screens/Canvas";
 import Settings from "../screens/Settings";
 // Auth screens
 import Login from "../screens/Login";
+import Signup from "../screens/Signup";
 
 import { AuthContext } from "../provider/AuthProvider";
 import Personal from "../screens/Personal";
@@ -58,6 +59,8 @@ const Auth = () => {
       }}
     >
       <AuthStack.Screen name="Login" component={Login} />
+      <AuthStack.Screen name="Signup" component={Signup} />
+
     </AuthStack.Navigator>
   );
 };

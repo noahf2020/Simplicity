@@ -43,7 +43,7 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
   const [Category, setCategory] = useState([])
   const [swipeOpen, setSwipe] = useState(false)
   const [isComingUp, setComingUp] = useState(false)
-
+  const [isOverDue, setisOverDue] = useState(true)
 
   async function isWithin24Hours(dateStr) {
 
@@ -55,8 +55,13 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
 
     // Check if the time difference is less than or equal to 24 hours
     if (timeDifference <= twentyFourHours) {
-    //  console.log(timeDifference)
-      setComingUp(true);
+      console.log(timeDifference)
+      if(timeDifference <= 0){
+        setisOverDue(true)
+      }else{
+        setComingUp(true);
+      }
+   
     } else {
       setComingUp(false);
     }
@@ -112,13 +117,21 @@ const onSwipeClose = () =>{
 
 
   {!swipeOpen &&
-      <View style={[styles.taskDiv,{backgroundColor:Category.color, borderWidth:'1'}, isComingUp ? {borderColor:'red'} : {borderColor:styleImage[Category.color]}]}>
+      <View style={[styles.taskDiv,{backgroundColor:Category.color, borderWidth:'1'}, isComingUp ? {borderColor:'#d04a61'} : {borderColor:styleImage[Category.color]}]}>
+       
         <View style={styles.Image}>{IconManager[Category.image]}</View>
+          {isOverDue &&
+          <View style={{paddingRight:10, alignItems:'center',maxWidth:'25%'}}>
+            <Text style={{color:'red', fontWeight:'bold'}}>OVERDUE</Text>
+          </View>
+          }
         <View style={styles.Info}>
           <Text numberOfLines={1} adjustsFontSizeToFit style={{fontSize:16, marginTop:5, fontWeight:'bold', color:StylebigText[Category.color]}}>{task.title}</Text>
           <Text numberOfLines={1} style={{fontSize:13, color:StylebigText[Category.color]}}>{task.notes}</Text>
           <Text style={{fontSize:13, color:StylebigText[Category.color]}}>{new Date(task.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit' }) + " @ " + new Date(task.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+         
         </View>
+ 
 
         {task.favorite && 
         <>
@@ -184,8 +197,6 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       width:"85%",
       height:60,
-   
-
     }
 })
 
