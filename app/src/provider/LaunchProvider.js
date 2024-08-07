@@ -18,7 +18,7 @@ const LaunchProvider = (props) => {
         } else {
           setIsAppFirstLaunched(false);
         }
-        AsyncStorage.removeItem('isAppFirstLaunched');
+    //    AsyncStorage.removeItem('isAppFirstLaunched');
       }
      await checkData()
       // 

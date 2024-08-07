@@ -20,8 +20,13 @@ export default function Settings() {
 
     useEffect(async ()=>{
       async function getData(){
-        let data = await getCanvasApi()
-        setApiKey(data)
+        try{
+          let data = await getCanvasApi()
+          setApiKey(data)
+        }catch(e){
+
+        }
+     
       }
    
       getData()
@@ -70,13 +75,13 @@ export default function Settings() {
     },
     Bigcontiner:{
       backgroundColor:"#F6F6F6",
-      height:"85%",
+      height:"55%",
       width:"100%",
       borderRadius:30,
       alignItems:"center"
     },
     Input:{
-      height:'8%',
+      height:'15%',
       width:'70%',
       backgroundColor:'#fff',
       borderColor: '#E0E0E0',
@@ -91,7 +96,7 @@ export default function Settings() {
       borderRadius: 10,
        alignSelf:"center",
       marginTop:"10%",
-      height:"10%",
+      height:"12%",
       width:"70%",
       alignItems:"center",
      justifyContent:"center"
@@ -101,7 +106,7 @@ export default function Settings() {
       borderRadius: 10,
        alignSelf:"center",
       marginTop:"10%",
-      height:"7%",
+      height:"15%",
       width:"60%",
       alignItems:"center",
      justifyContent:"center"

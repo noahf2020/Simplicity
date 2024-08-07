@@ -27,6 +27,7 @@ import { LaunchContext } from '../provider/LaunchProvider';
 import Personal from "../screens/Personal";
 import ImageButton from "../components/utils/Buttons/ImageButton";
 import OnBoarding from '../screens/OnBoarding';
+import Calander from '../screens/Calander';
 
 // Better put your these secret keys in .env file
 
@@ -185,6 +186,15 @@ const MainTabs = () => {
         options={{   
             tabBarIcon: ({ focused }) => (
                <TabBarIcon icon="school-outline" focused={focused}/>
+          ),}}
+      />
+      <Tabs.Screen
+        name="Calendar"
+        component={Calander}
+        //list-alt
+        options={{   
+            tabBarIcon: ({ focused }) => (
+               <TabBarIcon icon="calendar" focused={focused}/>
           ),}}
       />
        <Tabs.Screen
