@@ -9,7 +9,7 @@ export async function getClasses(){
     let classes = []
   let myToken = await getCanvasApi();
     //let myToken = '2073~cE5mcOGbroEkXzvt7Q55rVQL117g5WhoqITdT0JRNMFWritmRdideBDSIndNRtBw'
-    let school = "scienceleadership.instructure.com"
+    let school = "westpoint.instructure.com"
 
     // let request =  await axios({ method: 'get', url: `https://${school}/api/v1/dashboard/dashboard_cards`, headers:{'Authorization': `Bearer ${myToken}`} })      
     // let data = request.data   
@@ -32,7 +32,8 @@ export async function getClasses(){
 
 export async function getAssignments(){
   let myToken = await getCanvasApi();
-  let school = "scienceleadership.instructure.com"
+  let school = "westpoint.instructure.com"
+//15453~JUVrzRz24DVyhaXM2VfQNwYGXWZnZG94aL76fG9YzB8UtJneRJwZCnTXY2CyDLyX
 
   let assignments = []
   let request =  await axios({ method: 'get', url: `https://${school}/api/v1/planner/items?start_date=${new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&end_date=${new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&per_page=1000`, headers:{'Authorization': `Bearer ${myToken}`} })      
