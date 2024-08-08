@@ -51,12 +51,14 @@ const onpressCaT2 = () => {
 const Styles = StyleSheet.create({ 
     PopupContainer:{
         height:"100%",
-        width:350,
+        width:'100%',
         borderRadius:10,
+        alignItems:'center'
+  
     },
     AddTaskBTN:{
         height:"18%",
-        width:"100%",
+        width:"90%",
         backgroundColor:'#A0BBFF',
         borderRadius:10,
         justifyContent:'center',
@@ -66,7 +68,7 @@ const Styles = StyleSheet.create({
     },
     AddCategory:{
         height:"18%",
-        width:"100%",
+        width:"90%",
         backgroundColor:'#FFDAA3',
         borderRadius:10,
         justifyContent:'center',
@@ -76,7 +78,7 @@ const Styles = StyleSheet.create({
     },
     ViewCat:{
         height:"18%",
-        width:"100%",
+        width:"90%",
         backgroundColor:'#A2AAAD',
         borderRadius:10,
         justifyContent:'center',
@@ -87,7 +89,7 @@ const Styles = StyleSheet.create({
     TXTContainer:{
         color:'white',
         fontWeight:'700',
-        fontSize: 16
+        fontSize: '15%'
 
     },
     pressed: {

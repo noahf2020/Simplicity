@@ -165,12 +165,8 @@ export default function Personal() {
                 {isCreateCategory && 
                 <>
         
-                          {/* <GestureDetector gesture={flingGesture}> */}
-                              <Animated.View style={animatedStyle} >
-                                        <CreateCategoryPopup backToNormal={backToNormal}/>
-                              </Animated.View>
-                         {/* </GestureDetector> */}
-                  
+                 <CreateCategoryPopup backToNormal={backToNormal}/>
+  
                 </>
                 
                 }
@@ -189,7 +185,7 @@ export default function Personal() {
                                            snapPoints={snapPoints}
                                            onChange={handleSheetChanges}
                                            onDismiss={handleModalDismiss}
-                                           style={styles.contentContainer}
+                                          
                                          >
                                          <View >
                                           <ChoiceSelector handleModalDismiss={handleCloseModalPress} setViewCats={setViewCats} setCreateTaskPopup={setCreateTaskPopup} setCreateCategory={setCreateCategory}/>
@@ -251,7 +247,7 @@ export default function Personal() {
        backgroundColor: 'white',
     },
     HeaderBarSmall:{
-      height:35
+      height:'6%'
     },
     NewJAwn:{
         backgroundColor:'white',

@@ -121,7 +121,7 @@ const checkForValidFields = async () =>{
                                />      
                          </View>
 
-                    <View style={{width:"70%", alignSelf:'center', maxHeight:'23%',overflow:'scroll'}}>
+                    <View style={{width:"70%", alignSelf:'center', maxHeight:'45%',overflow:'scroll'}}>
                     <SelectList 
                                   setSelected={(val) => setCategory(val)} 
                                   data={modifiedArray} 
@@ -199,7 +199,7 @@ const checkForValidFields = async () =>{
   const Styles = StyleSheet.create({ 
     PopupContainer:{
         height:'100%',
-        width:360,
+        width:'90%',
         backgroundColor:'#F6F6F6',
         borderRadius:10,
      
@@ -216,12 +216,12 @@ const checkForValidFields = async () =>{
       flex:1
     },
     TaskTitle:{
-      height:60,
+      height:'10%',
       alignItems: 'center',
     },
     Input:{
-      height:50,
-      width:330,
+      height:'65%',
+      width:'90%',
       backgroundColor:'#fff',
       borderColor: '#E0E0E0',
       borderWidth:1,
@@ -230,7 +230,7 @@ const checkForValidFields = async () =>{
       fontSize: 16
     },
     Categories:{
-      height:50,
+      height:'0%',
       marginTop:4,
       marginBottom:4,
       flex:.1,
@@ -250,7 +250,7 @@ const checkForValidFields = async () =>{
     
     },
     InputDate:{
-      width:150,
+      width:'50%',
       backgroundColor:'#fff',
       borderColor: '#E0E0E0',
       borderWidth:1,
@@ -267,13 +267,13 @@ const checkForValidFields = async () =>{
       justifyContent:'space-around'
     },
     Press:{
-      width:150,
+      width:'40%',
       backgroundColor:'#fff',
       borderColor: '#E0E0E0',
       borderWidth:1,
       borderRadius:6,
       fontSize: 16,
-      height:50,
+      height:'80%',
       flexDirection: "row",
      
       alignItems: "center",
@@ -310,7 +310,7 @@ const checkForValidFields = async () =>{
     },
     NotesInput:{
       height: 130,
-      width:330,
+      width:'90%',
       backgroundColor:'#fff',
       borderColor: '#E0E0E0',
       borderWidth:1,
@@ -321,7 +321,7 @@ const checkForValidFields = async () =>{
     },
     noti:{
 
-      height:50,
+      height:'50',
 
       alignItems:'center',
       justifyContent:'center'

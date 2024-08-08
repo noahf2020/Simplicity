@@ -61,10 +61,11 @@ export default function ({ navigation }) {
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "#F6F6F6",
+      
             }}
           >
           <Image
-        style={{height:100,width:'50%', paddingTop:"10%"}}
+        style={{height:'55%',width:'55%', paddingTop:"30%"}}
         source={require('../../assets/Simplicity.jpg')}
       />
           </View>
@@ -82,7 +83,7 @@ export default function ({ navigation }) {
          
            
             <TextInput
-              containerStyle={{ marginTop: 15, height:50 }}
+              containerStyle={{ marginTop: 15, height:'10%' }}
               placeholder="Enter your email"
               value={email}
               autoCapitalize="none"
@@ -94,7 +95,7 @@ export default function ({ navigation }) {
 
       
             <TextInput
-              containerStyle={{ marginTop: 15, height:50 }}
+              containerStyle={{ marginTop: 15, height:'10%' }}
               placeholder="Enter your password"
               value={password}
               autoCapitalize="none"
@@ -110,7 +111,7 @@ export default function ({ navigation }) {
               }}
               style={{
                 marginTop: 20,
-                height:50,
+                height:'10%',
               }}
               disabled={loading}
             />

@@ -59,7 +59,6 @@ const checkForValidFields = async () => {
                         <View style={Styles.dataFields}>
                         
                         <View style={Styles.TaskTitle}>
-                                      <Text style={{ fontWeight: 700,  fontSize: 14, color:'#1B1B1D'  }}>Category Title</Text>
 
                                        <TextInput style={Styles.Input}
                                         containerStyle={{ marginTop: 15 }}
@@ -150,11 +149,11 @@ const Styles = StyleSheet.create({
 
     },
     PopupContainer:{
-        height:'100%',
-        width:'100%',
-        marginBottom:"10%",
-        backgroundColor:'#F6F6F6',
-        borderRadius:10,
+      height:'100%',
+      width:'90%',
+      backgroundColor:'#F6F6F6',
+      borderRadius:10,
+      alignItems:'center'
      
     },
     Nav:{
