@@ -1,10 +1,7 @@
 import { collection, doc, setDoc, getDocs, deleteDoc} from "firebase/firestore"; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAuth,  } from "firebase/auth";
-
-
 import 'react-native-get-random-values';
-
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
 import {schedulePushNotification} from './Not'
@@ -59,15 +56,15 @@ export async function addTask(TaskTitleValue, selectedCategory, value, cvalue, N
 
      
      
-  //       if(isEnabled){
-  //         let seconds = Math.floor((new Date(value.toISOString().split("T")[0]+ "T"+ cvalue.toISOString().split("T")[1]).getTime() - new Date().getTime()) / 1000);
-  //         if(seconds <=0){
-  //           console.log("OverDueNoti")
-  //         }else{
-  //           schedulePushNotification(seconds,TaskTitleValue,NotesValue)
-  //         }
+        if(isEnabled){
+          let seconds = Math.floor((new Date(value.toISOString().split("T")[0]+ "T"+ cvalue.toISOString().split("T")[1]).getTime() - new Date().getTime()) / 1000);
+          if(seconds <=0){
+            console.log("OverDueNoti")
+          }else{
+            schedulePushNotification(seconds,TaskTitleValue,NotesValue)
+          }
      
-  //       }
+   }
   //     }else{
   //       const newTasks = [{ id: uuidv4(),  "title":TaskTitleValue, "category":selectedCategory,  "date":value, "time":cvalue,"notes":NotesValue,"notifications":isEnabled,"favorite":false }];
   //       await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));

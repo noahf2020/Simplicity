@@ -77,8 +77,11 @@ export async function addCategory(categoryName, image, color){
 }
 
 export async function deleteCategory(id){
-    const storedTasks = await AsyncStorage.getItem('categories');
-    let tasks = JSON.parse(storedTasks)
-    const newTasks = tasks.filter(task => task.id !== id);
-    await AsyncStorage.setItem('categories', JSON.stringify(newTasks));
-}
+    // const storedTasks = await AsyncStorage.getItem('categories');
+    // let tasks = JSON.parse(storedTasks)
+    // const newTasks = tasks.filter(task => task.id !== id);
+    // await AsyncStorage.setItem('categories', JSON.stringify(newTasks));
+    let data = await getAuth()
+    deleteDoc(doc(db, data.currentUser.uid + 'cat', id));
+    console.log('done')
+  }
