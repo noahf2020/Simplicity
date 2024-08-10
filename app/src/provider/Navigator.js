@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useRef, useContext } from 'react';
 
 import { initializeApp, getApps } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -29,24 +31,24 @@ import ImageButton from "../components/utils/Buttons/ImageButton";
 import OnBoarding from '../screens/OnBoarding';
 import Calander from '../screens/Calander';
 
+import {app} from './FireBaseConfig'
 // Better put your these secret keys in .env file
 
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDacwAZiVyqYQXELSLg1JSXwZ59JTmJ8bk",
-  authDomain: "test-f5b33.firebaseapp.com",
-  databaseURL: "https://test-f5b33-default-rtdb.firebaseio.com",
-  projectId: "test-f5b33",
-  storageBucket: "test-f5b33.appspot.com",
-  messagingSenderId: "1046513344002",
-  appId: "1:1046513344002:web:8800e5ac3b972acf32911b",
-  measurementId: "G-JPLT50LW01"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDacwAZiVyqYQXELSLg1JSXwZ59JTmJ8bk",
+//   authDomain: "test-f5b33.firebaseapp.com",
+//   databaseURL: "https://test-f5b33-default-rtdb.firebaseio.com",
+//   projectId: "test-f5b33",
+//   storageBucket: "test-f5b33.appspot.com",
+//   messagingSenderId: "1046513344002",
+//   appId: "1:1046513344002:web:8800e5ac3b972acf32911b",
+//   measurementId: "G-JPLT50LW01"
+// };
 
 
 if (getApps().length === 0) {
- const app = initializeApp(firebaseConfig);
 
  const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),

@@ -68,7 +68,7 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
 }
 
 
-useEffect( () => {
+useEffect(() => {
  // console.log(" task.time" + task.time)
  // console.log(" task.date" + task.date)
 //console.log(task.date)
@@ -80,8 +80,12 @@ useEffect( () => {
           }
         })
         await isWithin24Hours(task.date)
+
   }
-  fetchData()
+  
+   fetchData()
+ 
+
   }, []);
 
 
