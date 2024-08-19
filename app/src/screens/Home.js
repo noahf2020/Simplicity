@@ -44,7 +44,7 @@ export default function Home() {
     }
     
     fetchData()
-    }, []);
+    }, [refresh]);
 
     const renderItem = ({ item }) => {
       if (item.category) {
@@ -86,6 +86,8 @@ export default function Home() {
                     data={combinedList}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={renderItem}
+                    onRefresh={()=>{setRefresh(true)}}
+                    refreshing={refresh}
                     style ={styles.NewJAwn}
                   />
 
@@ -120,7 +122,7 @@ export default function Home() {
       backgroundColor:'white',
       width:'90%',
       borderRadius: 15,
-      maxHeight:'87%',
+      maxHeight:'84%',
       overflow:'scroll'
       
   },
