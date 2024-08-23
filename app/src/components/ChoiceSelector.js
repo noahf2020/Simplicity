@@ -63,7 +63,7 @@ const Styles = StyleSheet.create({
         borderRadius:10,
         justifyContent:'center',
         alignItems:'center',
-        marginTop:"3%"
+       
         
     },
     AddCategory:{

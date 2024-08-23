@@ -35,11 +35,17 @@ export default function Home() {
 
   useEffect( () => {
     async function fetchData() {
-          let data = await getAllTasks()
-          setTasks(data.slice())
-          let data3 = await getAssignments()
-          setAssignments(data3.slice())
-          setRefresh(false)
+      try{
+        let data = await getAllTasks()
+        setTasks(data.slice())
+        let data3 = await getAssignments()
+        setAssignments(data3.slice())
+        setRefresh(false)
+      }catch(e){
+        setRefresh(false)
+
+      }
+        
        
     }
     

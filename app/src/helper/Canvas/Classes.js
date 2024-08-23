@@ -8,7 +8,6 @@ import { getCanvasApi } from '../Settings';
 export async function getClasses(){
     let classes = []
   let myToken = await getCanvasApi();
-    //let myToken = '2073~cE5mcOGbroEkXzvt7Q55rVQL117g5WhoqITdT0JRNMFWritmRdideBDSIndNRtBw'
     let school = "westpoint.instructure.com"
 
     // let request =  await axios({ method: 'get', url: `https://${school}/api/v1/dashboard/dashboard_cards`, headers:{'Authorization': `Bearer ${myToken}`} })      
