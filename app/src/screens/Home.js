@@ -50,7 +50,7 @@ export default function Home() {
     }
     
     fetchData()
-    }, [refresh]);
+    }, [refresh,BTnClick]);
 
     const renderItem = ({ item }) => {
       if (item.category) {
@@ -61,7 +61,8 @@ export default function Home() {
     };
 
     const click = async (id) =>{
-      await  markAsFavorite(id)
+       await  markAsFavorite(id)
+       console.log('ddddd')
        await setBtnClick(BTnClick+1)
      }
      const deleteAction = async (id) => {

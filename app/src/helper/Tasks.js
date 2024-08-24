@@ -1,4 +1,4 @@
-import { collection, doc, setDoc, getDocs, deleteDoc} from "firebase/firestore"; 
+import { collection, doc, setDoc, getDocs, deleteDoc, updateDoc} from "firebase/firestore"; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAuth,  } from "firebase/auth";
 import 'react-native-get-random-values';
@@ -80,18 +80,25 @@ export async function addTask(TaskTitleValue, selectedCategory, value, cvalue, N
 }
 
 export async function markAsFavorite(taskId){
-    const storedTasks = await AsyncStorage.getItem('tasks');
-    let tasks = JSON.parse(storedTasks)
-        const updatedTasks = tasks.map((task) => 
-           task.id == taskId ? { ...task, favorite: true } : task
-        );
-        const favoritedTask = updatedTasks.find((task) => task.id === taskId && task.favorite);
-        if (favoritedTask) {
-          updatedTasks.splice(updatedTasks.indexOf(favoritedTask), 1);
-          updatedTasks.unshift(favoritedTask);
-        }
-        await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
-  };
+  let data = await getAuth()
+
+
+  await updateDoc(doc(db, data.currentUser.uid + 'task', taskId), {
+    favorite: true
+});
+console.log('done')
+    // const storedTasks = await AsyncStorage.getItem('tasks');
+    // let tasks = JSON.parse(storedTasks)
+    //     const updatedTasks = tasks.map((task) => 
+    //        task.id == taskId ? { ...task, favorite: true } : task
+    //     );
+    //     const favoritedTask = updatedTasks.find((task) => task.id === taskId && task.favorite);
+    //     if (favoritedTask) {
+    //       updatedTasks.splice(updatedTasks.indexOf(favoritedTask), 1);
+    //       updatedTasks.unshift(favoritedTask);
+    //     }
+    //     await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
+};
 
 
   export async function deleteTasks(taskId){
