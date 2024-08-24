@@ -43,7 +43,7 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
   const [Category, setCategory] = useState([])
   const [swipeOpen, setSwipe] = useState(false)
   const [isComingUp, setComingUp] = useState(false)
-  const [isOverDue, setisOverDue] = useState(true)
+  const [isOverDue, setisOverDue] = useState(false)
 
   async function isWithin24Hours(dateStr) {
 
@@ -58,12 +58,15 @@ export default function PersonalTask({task,markAsFavorite, deleteB, completeTask
       console.log(timeDifference)
       if(timeDifference <= 0){
         setisOverDue(true)
+        console.log("overDue")
       }else{
         setComingUp(true);
+        console.log('coming up')
       }
    
     } else {
       setComingUp(false);
+      console.log('not coming up')
     }
 }
 

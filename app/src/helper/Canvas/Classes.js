@@ -45,7 +45,7 @@ export async function getAssignments(){
   const fiveDaysFromNow = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000);
   
 if(assignment.submissions.missing ||assignment.submissions.missing && assignment.submissions.late || assignment.submissions.missing && assignment.submissions.late && assignment.submissions.needs_grading || assignment.submissions.submitted == false && assignment.submissions.graded == false && targetDate >= now && targetDate <= fiveDaysFromNow ){
-  console.log(assignment)
+  //.console.log(assignment)
   await assignments.push({"course":assignment.context_name, "title":assignment.plannable.title, "points":assignment.plannable.points_possible, "date":assignment.plannable.due_at})
 
 }
